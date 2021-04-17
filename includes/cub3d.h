@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/18 01:09:31 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/18 01:18:47 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int				cub_set_shade(double distance, int color);
 int				cub_set_opposite(int trgb);
 int				cub_set_argb(int a, int r, int g, int b);
 
-t_bool			cub_parse_resolution(char *line, int *indln, t_ *pov);
+t_bool			cub_parse_resolution(char *line, int *indln, t_game *game);
 
 t_bool			cub_free_player(t_player **player);
 t_bool			cub_malloc_player(t_player **player);
