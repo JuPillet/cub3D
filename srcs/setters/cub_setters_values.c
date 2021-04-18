@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_setters_values.c                              :+:      :+:    :+:   */
+/*   cub_setters_values.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:50:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/17 14:25:29 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/18 14:18:21 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
-#include "miniRT.h"
+#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 t_bool		mini_set_int(char *line, int *indln, int *value)
 {
