@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:50:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/18 14:18:21 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/20 14:12:57 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ t_bool	mini_set_double(char *line, int *indln, double *value)
 	return (TRUE);
 }
 
-void	mini_set_mlx(t_pov *pov)
+void	mini_set_mlx(t_game *game)
 {
-	pov->screen->mlx = mlx_init();
-	pov->screen->mlx_screen = mlx_new_window(pov->screen->mlx,
-	*(pov->screen->resolution->x), *(pov->screen->resolution->y), "LOUIS XIV");
-	pov->screen->pic_screen->img = mlx_new_image(pov->screen->mlx,
-	*(pov->screen->resolution->x), *(pov->screen->resolution->y));
-	pov->screen->pic_screen->addr = mlx_get_data_addr(
-			pov->screen->pic_screen->img,
-			pov->screen->pic_screen->bits_per_pixel,
-			pov->screen->pic_screen->line_length,
-			pov->screen->pic_screen->endian);
+	game->screen->mlx = mlx_init();
+	game->screen->mlx_screen = mlx_new_window(game->screen->mlx,
+	*(game->screen->resolution->x), *(game->screen->resolution->y), "LOUIS XIV");
+	game->screen->pic_screen = mlx_new_image(game->screen->mlx,
+	*(game->screen->resolution->x), *(game->screen->resolution->y));
+	game->screen->pic_screen->addr = mlx_get_data_addr(
+			game->screen->pic_screen->img,
+			game->screen->pic_screen->bits_per_pixel,
+			game->screen->pic_screen->line_length,
+			game->screen->pic_screen->endian);
 }

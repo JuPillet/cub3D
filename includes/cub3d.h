@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/18 01:18:47 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/20 14:12:47 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef	struct	s_screen
 	t_resolution	*resolution;
 	void			*mlx;
 	void			*mlx_screen;
-	t_img_data		*pic_;
+	t_img_data		*pic_screen;
 }				t_screen;
 
 typedef struct	s_game	t_game;
