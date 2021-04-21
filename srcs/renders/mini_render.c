@@ -6,15 +6,15 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:47:33 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/16 22:26:27 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/21 17:54:33 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
-#include "miniRT.h"
+#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 
-t_bool	mini_render(t_pov *pov)
+t_bool	cub_render(t_pov *pov)
 {
 	printf("ok\n");
 	return(TRUE);

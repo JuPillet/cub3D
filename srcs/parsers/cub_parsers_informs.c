@@ -6,12 +6,17 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 21:40:40 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/20 14:13:58 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/21 22:46:10 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
+
+t_bool	cub_parse_map(t_parser parser, t_game *game)
+{
+	close(parser.fd);
+}
 
 t_bool	cub_parse_resolution(char *line, int *indln, t_game *game)
 {
@@ -30,10 +35,5 @@ resolution lines, you must need only one", line));
 	while (line[*indln])
 		if (!ft_isspace(line[(*indln)++]))
 			return (ft_error("incorrect resolution line format", line));
-	if (*(resolution->width) < 256	|| *(resolution->height) < 144)
-		return (ft_error("resolution format to small, cubmum format :\n\
-- width : 256\n- height 144", line));
-	cub_set_screen(pov->screen);
-	*(resolution->is) = TRUE;
-	return (TRUE);
+	return(cub_set_resolution(line, game->screen));
 }

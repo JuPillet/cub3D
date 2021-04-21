@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/20 14:12:47 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/21 23:19:34 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ typedef struct	s_horizon
 	t_color	*color;
 }				t_horizon;
 
+typedef struct	s_player
+{
+	t_bool		*is;
+	double		*position_x;
+	double		*position_y;
+	double		*orientation;
+}				t_player;
+
 typedef struct	s_level
 {
 	t_texture	*no;
@@ -62,17 +70,10 @@ typedef struct	s_level
 	t_texture	*ea;
 	t_texture	*sp;
 	t_horizon	*flour;
-	t_horizon 	*ceiling;
+	t_horizon	*ceiling;
 	t_player	*player;
 	char		**map;
 }				t_level;
-
-typedef struct	s_player
-{
-	double		*position_x;
-	double		*position_y;
-	double		*orientation;
-}				t_player;
 
 typedef struct	s_resolution
 {
@@ -111,6 +112,7 @@ struct	s_game
 typedef struct	s_parser
 {
 	int				fd;
+	int				fd_map;
 	char			*line;
 	int				eof;
 }				t_parser;

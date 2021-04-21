@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_freellers_game.c                              :+:      :+:    :+:   */
+/*   cub_freellers_game.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 22:53:33 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/18 00:20:17 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/21 17:54:33 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	mini_free_functions_pointer(t_pt_fnct **pt_function)
+t_bool	cub_free_functions_pointer(t_pt_fnct **pt_function)
 {
 	if (!(*pt_function))
 		return (FALSE);
@@ -22,7 +22,7 @@ t_bool	mini_free_functions_pointer(t_pt_fnct **pt_function)
 	return (TRUE);
 }
 
-t_bool	mini_free_fonctions_hash_array(t_hash_array **hash_array)
+t_bool	cub_free_fonctions_hash_array(t_hash_array **hash_array)
 {
 	int indha;
 
@@ -33,7 +33,7 @@ t_bool	mini_free_fonctions_hash_array(t_hash_array **hash_array)
 	{
 		ft_free_char(&((*hash_array)[indha].keylen));
 		ft_free_char(&((*hash_array)[indha].key));
-		mini_free_functions_pointer(
+		cub_free_functions_pointer(
 			&((*hash_array)[indha].pt_fonction));
 		indha++;
 	}
@@ -42,13 +42,13 @@ t_bool	mini_free_fonctions_hash_array(t_hash_array **hash_array)
 	return (TRUE);
 }
 
-t_bool	mini_free_game(t_game **game)
+t_bool	cub_free_game(t_game **game)
 {
 	if (!(*game))
 		return (FALSE);
-	mini_free_fonctions_hash_array(&((*game)->hash_array));
-	mini_free_screen(&((*game)->screen));
-	mini_free_level(&((*game)->level));
+	cub_free_fonctions_hash_array(&((*game)->hash_array));
+	cub_free_screen(&((*game)->screen));
+	cub_free_level(&((*game)->level));
 	free(*game);
 	*game = 0;
 	return (TRUE);

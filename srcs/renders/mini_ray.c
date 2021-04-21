@@ -6,12 +6,12 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/19 11:55:09 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/16 23:04:49 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/21 10:43:23 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
-#include "miniRT.h"
+#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
 double	normalize_cube(t_coord coord)
 {

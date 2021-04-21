@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mini_setters_color.c                               :+:      :+:    :+:   */
+/*   cub_setters_color.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 19:10:31 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/15 14:53:30 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/21 17:54:33 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/miniRT.h"
-#include "miniRT.h"
+#include "../../includes/cub3d.h"
+#include "cub3d.h"
 
-int		mini_set_argb(int a, int r, int g, int b)
+int		cub_set_argb(int a, int r, int g, int b)
 {
 	return(a << 24 | r << 16 | g << 8 | b);
 }
 
-int		mini_set_opposite(int argb)
+int		cub_set_opposite(int argb)
 {
 	int a;
 	int r;
@@ -35,7 +35,7 @@ int		mini_set_opposite(int argb)
 	return (a | r | g | b);
 }
 
-int		mini_set_shade(double distance, int color)
+int		cub_set_shade(double distance, int color)
 {
 	int a;
 	int r;
@@ -49,10 +49,10 @@ int		mini_set_shade(double distance, int color)
 	r = r - (r * distance);
 	g = g - (g * distance);
 	b = b - (b * distance);
-	return (mini_set_argb(a, r, g, b));
+	return (cub_set_argb(a, r, g, b));
 }
 
-void	mini_set_my_mlx_pixel(t_img_data *data, int x, int y, int color)
+void	cub_set_my_mlx_pixel(t_img_data *data, int x, int y, int color)
 {
 	char	*dst;
 
