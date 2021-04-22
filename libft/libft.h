@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 16:33:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/16 14:35:20 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/22 10:53:28 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ typedef enum	e_bool
 	FALSE,
 	TRUE
 }				t_bool;
+
+typedef	enum	e_ribool
+{
+	FALSE,
+	MAYBE,
+	TRUE
+}				t_ribool;
 
 typedef struct s_list
 {

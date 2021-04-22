@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 21:40:40 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/21 22:46:10 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/22 10:01:17 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,30 @@
 t_bool	cub_parse_map(t_parser parser, t_game *game)
 {
 	close(parser.fd);
+}
+
+t_bool	cub_parse_color(char *line, int *indln, t_color *color)
+{
+	if (!cub_set_int(line, indln, color->r))
+		return (FALSE);
+	if (line[(*indln)++] != ',')
+		return (FALSE);
+	if (!ft_isdigit(line[*indln]))
+		return (FALSE);
+	if (!cub_set_int(line, indln, color->g))
+		return (FALSE);
+	if (line[(*indln)++] != ',')
+		return (FALSE);
+	if (!ft_isdigit(line[*indln]))
+		return (FALSE);
+	if (!cub_set_int(line, indln, color->b))
+		return (FALSE);
+	if (*(color->r) < 0 || *(color->r) > 255 || *(color->g) < 0
+		|| *(color->g) > 255 || *(color->b) < 0 || *(color->b) > 255)
+		return (FALSE);
+	*(color->argb) = cub_set_argb(*(color->a), *(color->r),
+		*(color->g), *(color->b));
+	return(TRUE);
 }
 
 t_bool	cub_parse_resolution(char *line, int *indln, t_game *game)

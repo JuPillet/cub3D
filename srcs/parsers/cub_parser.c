@@ -6,14 +6,14 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:47:56 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/21 23:29:53 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/22 13:48:55 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_check_parser(int eof, t_bool check, t_game *game)
+t_bool	cub_check_parser(t_game *game)
 {
 	t_resolution *resolution;
 	t_texture	*no;
@@ -33,8 +33,8 @@ t_bool	cub_check_parser(int eof, t_bool check, t_game *game)
 	flour = game->level->flour;
 	ceiling = game->level->ceiling;
 	player = game->level->player;
-	if (eof == 1 && check == TRUE && (!(*(resolution->is)) || !(*(no->is))
-		|| !(*(so->is)) || !(*(we->is)) || !(*(ea->is))))
+	if (*(resolution->is) && *(no->is) && *(so->is) && *(we->is) && *(ea->is)
+		&& *(flour->is) && *(ceiling->is) && *(player->is))
 		return(FALSE);
 	return (TRUE);
 }
@@ -67,20 +67,21 @@ t_bool	cub_dispatcher(const char *file, char *line, t_game *game)
 t_bool	cub_parser(const char *file, t_game *game)
 {
 	t_parser	parser;
-	t_bool		check;
+	t_bool		loop;
+	
 	parser.fd = open(file, O_RDONLY);
 	parser.fd_map = open(file, O_RDONLY);
 	if (parser.fd > 2 && parser.fd_map > 2 && parser.fd_map != parser.fd)
 	{
 		game->screen->mlx = mlx_init();
 		parser.eof = 1;
-		check = TRUE;
-		while(cub_check_parser(parser.eof, check, game))
+		loop = TRUE;
+		while (loop)
 		{
 			parser.eof = get_next_line(parser.fd, &(parser.line));
-			check = ft_gnl_status(parser.eof, parser.line, parser.fd, file);
-			if (check)
-				check = cub_dispatcher(file, parser.line, game);
+			loop = ft_gnl_status(parser.eof, parser.line, parser.fd, file);
+			if (loop)
+				loop = cub_dispatcher(file, parser.line, game);
 			if (parser.line > 0)
 				free(parser.line);
 			parser.line = 0;
