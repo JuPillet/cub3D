@@ -6,17 +6,12 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 21:40:40 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/22 10:01:17 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/23 21:42:42 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
-
-t_bool	cub_parse_map(t_parser parser, t_game *game)
-{
-	close(parser.fd);
-}
 
 t_bool	cub_parse_color(char *line, int *indln, t_color *color)
 {

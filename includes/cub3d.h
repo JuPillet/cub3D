@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/21 23:19:34 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/23 17:48:04 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,10 @@ typedef struct	s_parser
 {
 	int				fd;
 	int				fd_map;
+	t_bool			*checked_map;
 	char			*line;
+	char			*line_map;
+	int				indln;
 	int				eof;
 }				t_parser;
 

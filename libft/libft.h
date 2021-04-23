@@ -6,32 +6,31 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 16:33:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/22 10:53:28 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/23 18:37:52 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # define BUFFER_SIZE 32
-
 # include <stdlib.h>
 # include <unistd.h>
 # include <sys/stat.h>
 # include <fcntl.h>
-#include <stdio.h>
+# include <stdio.h>
+
+typedef	enum	t_ribool
+{
+	FALSE = 0,
+	MAYBE = 2,
+	TRUE = 1
+}				t_ribool;
 
 typedef enum	e_bool
 {
 	FALSE,
 	TRUE
 }				t_bool;
-
-typedef	enum	e_ribool
-{
-	FALSE,
-	MAYBE,
-	TRUE
-}				t_ribool;
 
 typedef struct s_list
 {

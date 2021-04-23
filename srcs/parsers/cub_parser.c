@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:47:56 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/22 13:48:55 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/23 23:12:25 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,30 @@ t_bool	cub_check_parser(t_game *game)
 	return (TRUE);
 }
 
-t_bool	cub_dispatcher(const char *file, char *line, t_game *game)
+t_bool	cub_dispatcher(const char *file, t_parser *parser, t_game *game)
 {
-	int				indln;
 	int				indpf;
 	t_pt_fnct		fnct;
+	char			*line;
+	int				indln;
 
-	indln = 0;
+	line = parser->line;
+	indln = parser->indln;
 	while (line[indln] == ' ' || line[indln] == '\t')
 		indln++;
 	if (!(line[indln]))
 		return (TRUE);
 	indpf = -1;
+	if (cub_check_map(line, indln))
+		return (FALSE);
 	while (++indpf < 13)
-	{
+	{		
 		if (!ft_strncmp(game->hash_array[indpf].key,
-			(line + indln), *(game->hash_array[indpf].keylen)))
+			(parser->line + parser->indln), *(game->hash_array[indpf].keylen)))
 		{
 			fnct = *(game->hash_array[indpf].pt_fonction);
-			indln = *(game->hash_array[indpf].keylen);
-			return(fnct(line, &indln, game));
+			parser->indln = *(game->hash_array[indpf].keylen);
+			return(fnct(parser->line, &(parser->indln), game));
 		}
 	}
 	return (ft_error("corrupted file or unknown element line", file));
@@ -71,20 +75,22 @@ t_bool	cub_parser(const char *file, t_game *game)
 	
 	parser.fd = open(file, O_RDONLY);
 	parser.fd_map = open(file, O_RDONLY);
+	parser.checked_map = FALSE;
 	if (parser.fd > 2 && parser.fd_map > 2 && parser.fd_map != parser.fd)
 	{
 		game->screen->mlx = mlx_init();
 		parser.eof = 1;
 		loop = TRUE;
-		while (loop)
+		while (parser.eof == 1 && loop == TRUE)
 		{
-			parser.eof = get_next_line(parser.fd, &(parser.line));
-			loop = ft_gnl_status(parser.eof, parser.line, parser.fd, file);
-			if (loop)
-				loop = cub_dispatcher(file, parser.line, game);
 			if (parser.line > 0)
 				free(parser.line);
 			parser.line = 0;
+			parser.eof = get_next_line(parser.fd, &(parser.line));
+			parser.eof = get_next_line(parser.fd_map, &(parser.line_map));
+			loop = ft_gnl_status(parser.eof, parser.line, parser.fd, file);
+			if (loop)
+				loop = cub_dispatcher(file, parser.line, game);			
 		}
 	}
 	else
