@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 23:24:25 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/21 13:20:09 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:03:58 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ t_bool	cub_malloc_level(t_level **level)
 		(*level)->we = 0;
 		(*level)->ea = 0;
 		(*level)->sp = 0;
-		(*level)->flour = 0;
+		(*level)->floor = 0;
 		(*level)->ceiling = 0;
 		(*level)->player = 0;
 		(*level)->map = 0;
@@ -95,7 +95,7 @@ t_bool	cub_malloc_level(t_level **level)
 			&& cub_malloc_texture(&((*level)->we))
 			&& cub_malloc_texture(&((*level)->ea))
 			&& cub_malloc_texture(&((*level)->sp))
-			&& cub_malloc_horizon(&((*level)->flour))
+			&& cub_malloc_horizon(&((*level)->floor))
 			&& cub_malloc_horizon(&((*level)->ceiling))
 			&& cub_malloc_player(&((*level)->player)))
 			return (TRUE);

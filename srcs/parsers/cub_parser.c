@@ -6,43 +6,25 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:47:56 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/23 23:12:25 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/24 20:40:37 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_check_parser(t_game *game)
+static t_bool	cub_dispacher_fnct(t_parser *parser, int indpf, t_game *game)
 {
-	t_resolution *resolution;
-	t_texture	*no;
-	t_texture	*so;
-	t_texture	*we;
-	t_texture	*ea;
-	t_texture	*sp;
-	t_horizon	*flour;
-	t_horizon	*ceiling;
-	t_player	*player;
-	
-	resolution = game->screen->resolution;
-	no = game->level->no;
-	so = game->level->so;
-	we = game->level->we;
-	ea = game->level->ea;
-	flour = game->level->flour;
-	ceiling = game->level->ceiling;
-	player = game->level->player;
-	if (*(resolution->is) && *(no->is) && *(so->is) && *(we->is) && *(ea->is)
-		&& *(flour->is) && *(ceiling->is) && *(player->is))
-		return(FALSE);
-	return (TRUE);
+	t_pt_fnct	fnct;
+
+	fnct = *(game->hash_array[indpf].pt_fonction);
+	parser->indln = *(game->hash_array[indpf].keylen);
+	return (fnct(parser->line, &(parser->indln), game));
 }
 
-t_bool	cub_dispatcher(const char *file, t_parser *parser, t_game *game)
+static t_bool	cub_dispatcher(const char *file, t_parser *parser, t_game *game)
 {
 	int				indpf;
-	t_pt_fnct		fnct;
 	char			*line;
 	int				indln;
 
@@ -56,27 +38,28 @@ t_bool	cub_dispatcher(const char *file, t_parser *parser, t_game *game)
 	if (cub_check_map(line, indln))
 		return (FALSE);
 	while (++indpf < 13)
-	{		
 		if (!ft_strncmp(game->hash_array[indpf].key,
-			(parser->line + parser->indln), *(game->hash_array[indpf].keylen)))
-		{
-			fnct = *(game->hash_array[indpf].pt_fonction);
-			parser->indln = *(game->hash_array[indpf].keylen);
-			return(fnct(parser->line, &(parser->indln), game));
-		}
-	}
+				(parser->line + parser->indln),
+				*(game->hash_array[indpf].keylen)))
+			return (cub_dispacher_fnct(parser, indpf, game));
 	return (ft_error("corrupted file or unknown element line", file));
+}
+
+static void	cub_parser_init(const char *file, t_parser *parser)
+{
+	parser->fd = open(file, O_RDONLY);
+	parser->fd_map = open(file, O_RDONLY);
+	parser->checked_map = FALSE;
 }
 
 t_bool	cub_parser(const char *file, t_game *game)
 {
 	t_parser	parser;
 	t_bool		loop;
-	
-	parser.fd = open(file, O_RDONLY);
-	parser.fd_map = open(file, O_RDONLY);
-	parser.checked_map = FALSE;
-	if (parser.fd > 2 && parser.fd_map > 2 && parser.fd_map != parser.fd)
+
+	cub_parser_init(file, &parser);
+	if (parser.fd > 2 && parser.fd_map > parser.fd
+		&& parser.fd_map != parser.fd)
 	{
 		game->screen->mlx = mlx_init();
 		parser.eof = 1;
@@ -90,12 +73,12 @@ t_bool	cub_parser(const char *file, t_game *game)
 			parser.eof = get_next_line(parser.fd_map, &(parser.line_map));
 			loop = ft_gnl_status(parser.eof, parser.line, parser.fd, file);
 			if (loop)
-				loop = cub_dispatcher(file, parser.line, game);			
+				loop = cub_dispatcher(file, parser.line, game);
 		}
 	}
 	else
-		return(ft_error("the program failed to open", file));
-	return (cub_parse_map(parser, game));
+		return (ft_error("the program failed to open", file));
+	return (cub_parse_map_line(&parser, game));
 }
 
 t_bool	cub_norm_file(const char *file, t_game *game)

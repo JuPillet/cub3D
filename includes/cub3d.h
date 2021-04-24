@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/23 17:48:04 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/24 15:03:44 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct	s_level
 	t_texture	*we;
 	t_texture	*ea;
 	t_texture	*sp;
-	t_horizon	*flour;
+	t_horizon	*floor;
 	t_horizon	*ceiling;
 	t_player	*player;
 	char		**map;
