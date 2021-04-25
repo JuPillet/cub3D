@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 12:19:37 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/21 10:46:26 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/25 13:59:48 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int ac, char **av)
 	if (ac > 2)
 		return (ft_error("too much arguments", 0));
 	game = 0;
-	if (cub_malloc_game(&game))
+	if (!cub_malloc_game(&game))
 	{
 		if (ac == 2)
 			check = cub_norm_file((const char *)av[1], game);
@@ -31,7 +31,7 @@ int	main(int ac, char **av)
 			check = cub_coin(game);
 	}
 	else
-		ft_error("insufficient memory to initiate cubRT", 0);
+		ft_error("insufficient memory to initiate cub3D", 0);
 	cub_free_pov(&game);
 	return (0);
 }

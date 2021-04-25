@@ -6,12 +6,17 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 15:53:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/24 21:13:20 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/25 12:07:42 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
+
+t_bool	cub_check_after_map()
+{
+	while ()
+}
 
 static t_bool	cub_check_map_line_outdoor(char *line, int *indln)
 {

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/23 21:40:54 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/24 23:22:34 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/25 14:28:39 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,11 @@ t_bool	cub_parser_map_line(t_parser *parser, t_game *game)
 		while (parser->line[parser->indln] == ' '
 			|| parser->line[parser->indln] == '\t')
 			(parser->indln)++;
-		if (parser->line[parser->indln])
-		{
-			if (!cub_check_map(&malloc_line, parser));
-				return (FALSE);
-		}
-		else
+		if (!parser->line[parser->indln])
 			loop = FALSE;
+		else if (!cub_check_map(&malloc_line, parser));
+			return (FALSE);
 	}
+	if (!cub_malloc_map_line(malloc_line, game->level->map))
+		return (FALSE);
 }
