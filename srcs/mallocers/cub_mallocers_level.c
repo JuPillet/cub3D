@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 23:24:25 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/24 15:03:58 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/26 18:27:22 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ t_bool	cub_malloc_horizon(t_horizon **horizon)
 t_bool	cub_malloc_level(t_level **level)
 {
 	*level = (t_level *)malloc(sizeof(t_level));
-	if (*level)
+	if (!(*level))
 	{
 		(*level)->no = 0;
 		(*level)->so = 0;
@@ -89,7 +89,7 @@ t_bool	cub_malloc_level(t_level **level)
 		(*level)->floor = 0;
 		(*level)->ceiling = 0;
 		(*level)->player = 0;
-		(*level)->map = 0;
+		(*level)->area = 0;
 		if (cub_malloc_texture(&((*level)->no))
 			&& cub_malloc_texture(&((*level)->so))
 			&& cub_malloc_texture(&((*level)->we))
@@ -97,7 +97,8 @@ t_bool	cub_malloc_level(t_level **level)
 			&& cub_malloc_texture(&((*level)->sp))
 			&& cub_malloc_horizon(&((*level)->floor))
 			&& cub_malloc_horizon(&((*level)->ceiling))
-			&& cub_malloc_player(&((*level)->player)))
+			&& cub_malloc_player(&((*level)->player))
+			&& cub_malloc_area(&((*level)->area)))
 			return (TRUE);
 	}
 	return (FALSE);

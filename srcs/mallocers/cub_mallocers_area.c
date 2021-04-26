@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_mallocers_map.c                                :+:      :+:    :+:   */
+/*   cub_mallocers_area.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 17:26:04 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/25 14:29:13 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/26 22:43:37 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_malloc_map_column(char *line, int indln, int column, char *linemap)
+t_bool	cub_malloc_map_columns(char *line, int indln, int column, char *linemap)
 {
 	int	tabulation;
 
@@ -29,20 +29,29 @@ t_bool	cub_malloc_map_column(char *line, int indln, int column, char *linemap)
 			column++;
 	}
 	if (!ft_malloc_char(column + 1, &linemap))
-		return (ft_error("program didn't find memory to load", 0));
+		return (cub_free_fd("program didn't find memory to load", 0));
 	cub_set_map_column(line, linemap);
 	return (TRUE);
 }
 
-t_bool	cub_malloc_map_line(int malloc_line, char **map)
+t_bool	cub_malloc_map_lines(t_parser *parser, t_game *game, int malloc_lines)
 {
 	if (!cub_check_after_map(parser))
-		return (ft_error("the setting file has non white space \
-line after his declaration", 0));
-	if (!(malloc_line > 4))
-		return (ft_error("invalid map, unexisted map or height too small, \
-minimal height 3 line", 0));
-	if (!ft_malloc_char(malloc_line, &map))
-		return (ft_error("insufficient memory to initiate cub3D", 0));
-	return
+		return (cub_free_fd("the setting file has non white space \
+line after his declaration", parser));
+if (!ft_malloc_char(malloc_lines + 1, &(game->level->area->map)))
+		return (cub_free_fd("insufficient memory to initiate cub3D", 0));
+	if (!ft_malloc_int(malloc_lines + 1, &(game->level->area->lines_length)))
+		return (cub_free_fd("program didn't find memory to load", 0));
+	return (TRUE);
+}
+
+t_bool	cub_malloc_area(t_area **area)
+{
+	*area = (t_area *)malloc(sizeof(t_area));
+	if (*area)
+	{
+		(*area)->lines_length = 0;
+		(*area)->map = 0;
+	}
 }

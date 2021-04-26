@@ -6,14 +6,20 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:50:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/21 22:25:06 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/26 23:32:35 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool		cub_set_int(char *line, int *indln, int *value)
+void	cub_setter_parser(const char *file, t_parser *parser)
+{
+	parser->fd = open(file, O_RDONLY);
+	parser->fd_map = open(file, O_RDONLY);
+}
+
+t_bool	cub_set_int(char *line, int *indln, int *value)
 {
 	while (line[*indln] == ' ' && line[*indln] == '\t')
 		(*indln)++;

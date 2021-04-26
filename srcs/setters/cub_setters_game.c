@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:35:06 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/24 15:04:22 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/26 22:22:25 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,10 @@ t_bool	cub_check_player(char **map, t_player *player)
 
 	location_x = (int)((*(player->position_x) - 32) / 64);
 	location_y = (int)((*(player->position_y) - 32) / 64);
-	if (location_x == 0 || location_x > 33554430
-		|| location_y == 0 || location_y > 33554430)
-		return (FALSE);
-	if (map[location_y - 1][location_x] == ' '
-		|| map[location_y + 1][location_x] == ' '
-		|| map[location_y][location_x - 1] == ' '
-		|| map[location_y][location_x + 1] == ' ')
+	if (map[location_y - 1][location_x] != ' '
+		&& map[location_y + 1][location_x] != ' '
+		&& map[location_y][location_x - 1] != ' '
+		&& map[location_y][location_x + 1] != ' ')
 		return (FALSE);
 	return (TRUE);
 }
