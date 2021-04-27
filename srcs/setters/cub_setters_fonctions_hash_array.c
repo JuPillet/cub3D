@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:03:42 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/21 17:54:33 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/27 12:49:39 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,11 @@ void	cub_set_keylen_hash_array(t_hash_array *array)
 void	cub_set_pt_fonctions_hash_array(t_hash_array *array)
 {
 	*(array[0].pt_fonction) = &cub_parse_resolution;
-	*(array[1].pt_fonction) = &cub_parse_north;
-	*(array[2].pt_fonction) = &cub_parse_south;
-	*(array[3].pt_fonction) = &cub_parse_west;
-	*(array[4].pt_fonction) = &cub_parse_east;
-	*(array[5].pt_fonction) = &cub_parse_sprite;
-	*(array[6].pt_fonction) = &cub_parse_flour;
-	*(array[7].pt_fonction) = &cub_parse_ceiling;
+	*(array[1].pt_fonction) = &cub_parse_texture;
+	*(array[2].pt_fonction) = &cub_parse_texture;
+	*(array[3].pt_fonction) = &cub_parse_texture;
+	*(array[4].pt_fonction) = &cub_parse_texture;
+	*(array[5].pt_fonction) = &cub_parse_texture;
+	*(array[6].pt_fonction) = &cub_parse_color;
+	*(array[7].pt_fonction) = &cub_parse_color;
 }

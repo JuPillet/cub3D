@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_parsers_informs.c                              :+:      :+:    :+:   */
+/*   cub_parsers_screen.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 21:40:40 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/26 23:02:24 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/27 13:14:40 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_parse_color(char *line, int *indln, t_color *color)
+t_bool	cub_parser_texture(char *line, int *indln, t_texture *texture)
 {
+	while (ft_isspace(line[*indln]))
+		(*indln)++;
+	
+}
+
+t_bool	cub_parse_color(char *line, int *indln, t_horizon *horizon)
+{
+	t_color	*color;
+
+	color = horizon->color;
 	if (!cub_set_int(line, indln, color->r))
 		return (FALSE);
 	if (line[(*indln)++] != ',')

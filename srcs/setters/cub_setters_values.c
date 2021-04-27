@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:50:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/26 23:32:35 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:06:13 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	cub_setter_parser(const char *file, t_parser *parser)
 {
 	parser->fd = open(file, O_RDONLY);
 	parser->fd_map = open(file, O_RDONLY);
+	
 }
 
 t_bool	cub_set_int(char *line, int *indln, int *value)

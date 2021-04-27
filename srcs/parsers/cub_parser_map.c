@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 23:16:27 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/26 23:18:41 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/27 14:06:20 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ map", parser));
 			(parser->indln)++;
 		if (!parser->line[parser->indln])
 			loop = FALSE;
-		else if (!cub_check_map(&malloc_line, parser));
+		else if (!cub_check_map(&malloc_line, parser))
 			return (FALSE);
 	}
 	if (!cub_malloc_map_lines(malloc_line, game->level->area->map))
