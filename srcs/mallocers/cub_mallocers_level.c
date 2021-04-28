@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 23:24:25 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/27 20:14:45 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/28 22:17:42 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ t_bool	cub_malloc_color(t_color **color)
 
 t_bool	cub_malloc_horizon(t_horizon **horizon)
 {
-	*horizon = (t_color *)malloc(sizeof(t_color));
+	*horizon = (t_horizon *)malloc(sizeof(t_horizon));
 	if (*horizon)
 	{
 		(*horizon)->is = 0;
@@ -77,8 +77,7 @@ t_bool	cub_malloc_level(t_level **level)
 		(*level)->ceiling = 0;
 		(*level)->player = 0;
 		(*level)->area = 0;
-		if (cub_malloc_texture(&((*level)->no))
-			&& cub_malloc_horizon(&((*level)->floor))
+		if (cub_malloc_horizon(&((*level)->floor))
 			&& cub_malloc_horizon(&((*level)->ceiling))
 			&& cub_malloc_player(&((*level)->player))
 			&& cub_malloc_area(&((*level)->area)))

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:35:06 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/28 11:40:53 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/29 00:22:19 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ t_bool	cub_set_resolution(char *line, t_screen *screen)
 		return (ft_error("resolution format to small, minimum format :\n\
 - width : 1\n- height 1", line));
 	mlx_get_screen_size(screen->mlx, width, height);
-	if (*(screen->resolution->width) > width)
-		*(screen->resolution->width) = width;
-	if (*(screen->resolution->height) > height)
-		*(screen->resolution->height) = height;
+	if (*(screen->resolution->width) > *width)
+		*(screen->resolution->width) = *width;
+	if (*(screen->resolution->height) > *height)
+		*(screen->resolution->height) = *height;
 	*(screen->resolution->is) = TRUE;
 	return (TRUE);
 }

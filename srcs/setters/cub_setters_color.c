@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 19:10:31 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/27 20:03:32 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/28 23:53:25 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	cub_set_my_mlx_pixel(t_img_data *data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + (y * (*data->line_length)
-		+ x * ((*data->bits_per_pixel) / 8));
+	dst = data->addr + ((y * data->line_length)
+		+ (x * (data->bits_per_pixel / 8)));
 	*(unsigned int*)dst = color;
 }

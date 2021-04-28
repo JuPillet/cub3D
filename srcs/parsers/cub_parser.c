@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:47:56 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/28 11:45:06 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/29 00:09:44 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 /*
 ** WIP
 ** parse game
+** -
+** -
 */
 
 static t_bool	cub_dispacher_fnct(int indpf, t_parser *parser, t_game *game)
@@ -65,10 +67,10 @@ t_bool	cub_parser(const char *file, t_game *game)
 	{
 		if (!cub_get_setting_line(&parser, file))
 			return (FALSE);
-		loop = cub_dispatcher(file, parser.line, game);
+		loop = cub_dispatcher(file, &parser, game);
 	}
 	if (parser.eof = -1)
-		return (cub_free_fd("unknown element line", parser.line, parser));		
+		return (cub_free_fd("unknown element line", parser.line, &parser));		
 	return (cub_parse_map(&parser, game));
 }
 

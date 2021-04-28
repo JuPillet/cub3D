@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 12:19:37 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/25 13:59:48 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/28 21:41:55 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ int	main(int ac, char **av)
 			check = cub_norm_file((const char *)av[1], game);
 		else
 			check = cub_parser("setting/standard_map.cub", game);
-		if (check)
-			check = cub_coin(game);
+//		if (check)
+//			check = cub_coin(game);
 	}
 	else
 		ft_error("insufficient memory to initiate cub3D", 0);
-	cub_free_pov(&game);
+	cub_free_game(&game);
 	return (0);
 }

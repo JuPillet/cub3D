@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 22:53:33 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/21 21:52:43 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/28 22:14:44 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_bool	cub_malloc_functions_pointer(t_pt_fnct **pt_function)
 	return (TRUE);
 }
 
-void	cub_init_content_hash_array(t_hash_array **hash_array)
+void	cub_zero_init_hash_array(t_hash_array **hash_array)
 {
 	int indha;
 
@@ -43,7 +43,7 @@ t_bool	cub_malloc_fonctions_hash_array(t_hash_array **hash_array)
 	*hash_array = (t_hash_array *)malloc(13 * sizeof(t_hash_array));
 	if (!(*hash_array))
 		return (FALSE);
-	cub_malloc_fonctions_hash_array_zero_init(hash_array);
+	cub_zero_init_hash_array(hash_array);
 	indha = 0;
 	while (indha < 8)
 	{

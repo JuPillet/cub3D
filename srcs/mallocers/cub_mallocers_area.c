@@ -6,17 +6,21 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 17:26:04 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/26 22:43:37 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/28 22:10:24 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_malloc_map_columns(char *line, int indln, int column, char *linemap)
+t_bool	cub_malloc_map_columns(t_parser *parser, int column, char *linemap)
 {
-	int	tabulation;
+	int		tabulation;
+	char	*line;
+	int		indln;
 
+	line = parser->line;
+	indln = parser->indln;
 	while (line[indln])
 	{
 		if (line[indln] != ' ' && line[indln] != '\t' && line[indln] != '0'
@@ -29,7 +33,7 @@ t_bool	cub_malloc_map_columns(char *line, int indln, int column, char *linemap)
 			column++;
 	}
 	if (!ft_malloc_char(column + 1, &linemap))
-		return (cub_free_fd("program didn't find memory to load", 0));
+		return (cub_free_fd("program didn't find memory to load", 0, parser));
 	cub_set_map_column(line, linemap);
 	return (TRUE);
 }
@@ -38,11 +42,13 @@ t_bool	cub_malloc_map_lines(t_parser *parser, t_game *game, int malloc_lines)
 {
 	if (!cub_check_after_map(parser))
 		return (cub_free_fd("the setting file has non white space \
-line after his declaration", parser));
-if (!ft_malloc_char(malloc_lines + 1, &(game->level->area->map)))
-		return (cub_free_fd("insufficient memory to initiate cub3D", 0));
+line after his declaration", 0, parser));
+	game->level->area->map = (char **)malloc(
+		(malloc_lines + 1) * sizeof(char *));
+if (!(game->level->area->map))
+		return (cub_free_fd("insufficient memory to initiate cub3D", 0, parser));
 	if (!ft_malloc_int(malloc_lines + 1, &(game->level->area->lines_length)))
-		return (cub_free_fd("program didn't find memory to load", 0));
+		return (cub_free_fd("program didn't find memory to load", 0, parser));
 	return (TRUE);
 }
 

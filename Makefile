@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/04/28 13:33:37 by jpillet          ###   ########.fr        #
+#    Updated: 2021/04/28 21:01:13 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ HDMLX			=	mlx.h
 
 DIRLIBFT		=	./libft/
 
-DIRMLX			=	./minilibx_opengl/
+DIRMLX			=	./minilibx-linux/
 
 SRCSCMMN		=	$(addprefix ./srcs/common/, \
 						cub3d.c)
@@ -109,6 +109,7 @@ LIBLIN			=	-lX11 -lXext -lm -lpthread
 
 $(MLX)		:
 					make -C ${DIRMLX}
+					cp ${DIRMLX}${HDMLX} ${INCLUDES}
 
 ${LIBFT}		:
 					make -C ${DIRLIBFT}

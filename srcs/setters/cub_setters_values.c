@@ -6,14 +6,14 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:50:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/27 21:44:37 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/28 19:12:54 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-void	cub_setter_parser(const char *file, t_parser *parser)
+t_bool	cub_setter_parser(const char *file, t_parser *parser)
 {
 	parser->fd = open(file, O_RDONLY);
 	parser->fd_map = open(file, O_RDONLY);

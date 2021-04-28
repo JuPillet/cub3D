@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_parser_texture.c                               :+:      :+:    :+:   */
+/*   cub_parse_texture.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 18:23:01 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/28 11:44:20 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/28 23:39:05 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 ** parse NESWSP texture
 */
 
-t_bool	cub_parser_texture_north(t_parser *parser, t_game *game)
+t_bool	cub_parse_texture_north(t_parser *parser, t_game *game)
 {
 	int copy;
 	int path_len;
@@ -39,10 +39,10 @@ t_bool	cub_parser_texture_north(t_parser *parser, t_game *game)
 				0, parser));
 		while (parser->line[copy])
 			path[copy++] = parser->line[(parser->indln)++];
-	return (cub_set_texture(game, parser, path));
+	return (cub_set_texture(game, parser, path, game->level->no));
 }
 
-t_bool	cub_parser_texture_east(t_parser *parser, t_game *game)
+t_bool	cub_parse_texture_east(t_parser *parser, t_game *game)
 {
 	int copy;
 	int path_len;
@@ -58,15 +58,15 @@ t_bool	cub_parser_texture_east(t_parser *parser, t_game *game)
 	(parser->indln)--;
 	while (parser->line[++(parser->indln)])
 		path_len++;
-	if (!ft_malloc_char((path_len) + 1, path))
+	if (!ft_malloc_char((path_len) + 1, &path))
 		return (cub_free_fd("insufficient memory to initiate cub3D",
 				0, parser));
 		while (parser->line[copy])
 			path[copy++] = parser->line[(parser->indln)++];
-	return (cub_set_texture(game, parser, path));
+	return (cub_set_texture(game, parser, path, game->level->ea));
 }
 
-t_bool	cub_parser_texture_south(t_parser *parser, t_game *game)
+t_bool	cub_parse_texture_south(t_parser *parser, t_game *game)
 {
 	int copy;
 	int path_len;
@@ -87,10 +87,10 @@ t_bool	cub_parser_texture_south(t_parser *parser, t_game *game)
 				0, parser));
 		while (parser->line[copy])
 			path[copy++] = parser->line[(parser->indln)++];
-	return (cub_set_texture(game, parser, path));
+	return (cub_set_texture(game, parser, path, game->level->so));
 }
 
-t_bool	cub_parser_texture_west(t_parser *parser, t_game *game)
+t_bool	cub_parse_texture_west(t_parser *parser, t_game *game)
 {
 	int copy;
 	int path_len;
@@ -111,10 +111,10 @@ t_bool	cub_parser_texture_west(t_parser *parser, t_game *game)
 				0, parser));
 		while (parser->line[copy])
 			path[copy++] = parser->line[(parser->indln)++];
-	return (cub_set_texture(game, parser, path));
+	return (cub_set_texture(game, parser, path, game->level->we));
 }
 
-t_bool	cub_parser_texture_sprite(t_parser *parser, t_game *game)
+t_bool	cub_parse_texture_sprite(t_parser *parser, t_game *game)
 {
 	int copy;
 	int path_len;
@@ -135,5 +135,5 @@ need only one", 0, parser));
 				0, parser));
 		while (parser->line[copy])
 			path[copy++] = parser->line[(parser->indln)++];
-	return (cub_set_texture(game, parser, path));
+	return (cub_set_texture(game, parser, path, game->level->sp));
 }

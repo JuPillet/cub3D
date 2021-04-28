@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:03:42 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/27 12:49:39 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/29 00:29:04 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@
 void	cub_set_key_hash_array(t_hash_array *array)
 {
 	ft_strlcpy(array[0].key, "NO", *(array[1].keylen) + 1);
-	ft_strlcpy(array[1].key, "SO", *(array[4].keylen) + 1);
-	ft_strlcpy(array[2].key, "WE", *(array[4].keylen) + 1);
-	ft_strlcpy(array[3].key, "EA", *(array[2].keylen) + 1);
+	ft_strlcpy(array[1].key, "EA", *(array[4].keylen) + 1);
+	ft_strlcpy(array[2].key, "SO", *(array[4].keylen) + 1);
+	ft_strlcpy(array[3].key, "WE", *(array[2].keylen) + 1);
 	ft_strlcpy(array[4].key, "R", *(array[0].keylen) + 1);
 	ft_strlcpy(array[5].key, "S", *(array[0].keylen) + 1);
-	ft_strlcpy(array[6].key, "F", *(array[3].keylen) + 1);
-	ft_strlcpy(array[7].key, "C", *(array[5].keylen) + 1);
+	ft_strlcpy(array[6].key, "C", *(array[5].keylen) + 1);
+	ft_strlcpy(array[7].key, "F", *(array[3].keylen) + 1);
 }
 
 void	cub_set_keylen_hash_array(t_hash_array *array)
@@ -40,11 +40,11 @@ void	cub_set_keylen_hash_array(t_hash_array *array)
 void	cub_set_pt_fonctions_hash_array(t_hash_array *array)
 {
 	*(array[0].pt_fonction) = &cub_parse_resolution;
-	*(array[1].pt_fonction) = &cub_parse_texture;
-	*(array[2].pt_fonction) = &cub_parse_texture;
-	*(array[3].pt_fonction) = &cub_parse_texture;
-	*(array[4].pt_fonction) = &cub_parse_texture;
-	*(array[5].pt_fonction) = &cub_parse_texture;
-	*(array[6].pt_fonction) = &cub_parse_color;
-	*(array[7].pt_fonction) = &cub_parse_color;
+	*(array[1].pt_fonction) = &cub_parse_texture_north;
+	*(array[2].pt_fonction) = &cub_parse_texture_east;
+	*(array[3].pt_fonction) = &cub_parse_texture_south;
+	*(array[4].pt_fonction) = &cub_parse_texture_west;
+	*(array[5].pt_fonction) = &cub_parse_texture_sprite;
+	*(array[6].pt_fonction) = &cub_set_horizon;
+	*(array[7].pt_fonction) = &cub_set_horizon;
 }

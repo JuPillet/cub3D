@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 16:50:35 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/26 22:37:55 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/28 18:11:35 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ t_bool	cub_check_map(t_area *area)
 
 	map = area->map;
 	y = -1;
-
 	while (map[++y])
 	{
 		x = -1;

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/28 11:38:01 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/29 00:37:24 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,29 @@ t_bool	cub_set_texture(t_game *game, t_parser *parser,
 	return (TRUE);
 }
 
-t_bool	cub_set_horizon(char *line, int *indln, t_horizon *horizon)
+t_bool	cub_set_horizon(t_parser *parser, t_game *game)
 {
+	t_horizon *horizon;
+
+	if (parser->line[parser->indln] == 'F')
+		horizon = game->level->floor;
+	else
+		horizon = game->level->ceiling;
 	if (*(horizon->is))
 	{
-		if (line[*indln] == 'F')
+		if (parser->line[parser->indln] == 'F')
 			return (ft_error("the setting file has two or more declared \
 floor color , you must need only one", 0));
-			else
-		return (ft_error("the setting file has two or more declared \
+		else
+			return (ft_error("the setting file has two or more declared \
 ceiling color , you must need only one", 0));	
 	}
-	if (!cub_parse_color(line, indln, horizon->color))
+	if (!cub_parse_color(parser, horizon))
 	{
-		if (line[*indln] == 'F')
-			return (ft_error("the setting file has a invalid floor color", line));
+		if (parser->line[parser->indln] == 'F')
+			return (cub_free_fd("the setting file has a invalid floor color", 0, parser->line));
 		else
-			return (ft_error("the setting file has a invalid ceiling color", line));
+			return (cub_free_fd("the setting file has a invalid ceiling color", 0, parser->line));
 	}
 	*(horizon->is) = TRUE;
 	return (TRUE);
