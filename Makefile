@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/04/17 15:36:06 by jpillet          ###   ########.fr        #
+#    Updated: 2021/04/28 13:33:37 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,54 +28,44 @@ HDMLX			=	mlx.h
 
 DIRLIBFT		=	./libft/
 
-DIRMLX			=	./minilibx-linux/
+DIRMLX			=	./minilibx_opengl/
 
 SRCSCMMN		=	$(addprefix ./srcs/common/, \
-						miniRT.c)
+						cub3d.c)
 
-SRCSADDR		=	$(addprefix ./srcs/adders/, \
-						mini_adders_2ds_primitives.c \
-						mini_adders_3ds_primitives.c \
-						mini_adders_informs.c)
+SRCSCHCK		=	$(addprefix ./srcs/checkers, \
+					cub_checkers_map.c \
+					cub_checkers_map_validity.c \
+					cub_checkers_player.c)
 
 SRCSMLLC		=	$(addprefix ./srcs/mallocers/, \
-						mini_mallocers_2ds_primitives.c \
-						mini_mallocers_3ds_primitives.c \
-						mini_mallocers_ambients_scene.c \
-						mini_mallocers_leaves.c \
-						mini_mallocers_pov.c \
-						mini_mallocers_rays.c \
-						mini_mallocers_screen.c)
+					cub_mallocers_area.c \
+					cub_mallocers_game.c \
+					cub_mallocers_level.c \
+					cub_mallocers_screen.c)
 
 SRCSPRSR		=	$(addprefix ./srcs/parsers/, \
-						mini_parser.c \
-						mini_parsers_2ds_primitives.c \
-						mini_parsers_3ds_primitives.c \
-						mini_parsers_informs.c \
-						mini_parsers_leaves.c)
+					cub_parser.c \
+					cub_parser_map.c \
+					cub_parsers_screen.c \
+					cub_parser_texture.c)
 
 SRCSSTTR		=	$(addprefix ./srcs/setters/, \
-						mini_setters_2ds_promitives.c \
-						mini_setters_3ds_primitives.c \
-						mini_setters_color.c \
-						mini_setters_fonctions_hash_array.c \
-						mini_setters_screen.c \
-						mini_setters_values.c)
+					cub_setters_color.c \
+					cub_setters_fonctions_hash_array.c \
+					cub_setters_game.c \
+					cub_setters_level.c \
+					cub_setters_values.c)
 
 SRCSGTTR		=	$(addprefix ./srcs/getters/, \
-						mini_get_colors.c)
+					cub_getter_setting.c \
+					cub_getter_colors.c)
 
 SRCSFLLR		=	$(addprefix ./srcs/freellers/, \
-						mini_freellers_2ds_primitives.c \
-						mini_freellers_3ds_primitives.c \
-						mini_freellers_all_2ds_primitives.c \
-						mini_freellers_all_3ds_primitives.c \
-						mini_freellers_all_informs.c \
-						mini_freellers_ambients_scene.c \
-						mini_freellers_leaves.c \
-						mini_freellers_pov.c \
-						mini_freellers_rays.c \
-						mini_freellers_screen.c)
+					cub_freellers_area.c \
+					cub_freellers_game.c \
+					cub_freellers_level.c \
+					cub_freellers_screen.c)
 
 ##SRCSRNDR		=	$(addprefix ./srcs/render/, \
 ##						mini_ray.c \
@@ -119,13 +109,9 @@ LIBLIN			=	-lX11 -lXext -lm -lpthread
 
 $(MLX)		:
 					make -C ${DIRMLX}
-					mv ${DIRMLX}${MLX} ./
-					cp ${DIRMLX}${HDMLX} ${INCLUDES}
 
 ${LIBFT}		:
 					make -C ${DIRLIBFT}
-					mv ${DIRLIBFT}${LIBFT} ./
-					cp ${DIRLIBFT}${HDLFT} ${INCLUDES}
 
 $(NAME) 		:	${OBJSCMMN} ${OBJSADDR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSRNDR} ${LIBFT}
 					$(CC) $(CFLAGS) $(OBJSCMMN) $(OBJSADDR) $(OBJSMLLC) $(OBJSPRSR) $(OBJSSTTR) $(OBJSGTTR) $(OBJSFLLR) $(OBJSRNDR) ${LIBFT} $(LIBMAC) -o ${NAMELIN}
