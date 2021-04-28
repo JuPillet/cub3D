@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 23:40:10 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/26 23:53:11 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/27 20:02:10 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@ t_bool	cub_get_setting_line(t_parser *parser, const char *file)
 	parser->eof = get_next_line(parser->fd, &(parser->line));
 	if (!parser->eof)
 		return (cub_free_fd("the program failed to read the configuration file",
-		file, parser));
+				file, parser));
 	parser->eof = get_next_line(parser->fd_map, &(parser->line_map));
 	if (!parser->eof)
 		return (cub_free_fd("the program failed to read the configuration file",
-		file, parser));
+				file, parser));
 	return (ft_gnl_status(parser->eof, parser->line, parser->fd, file));
 }

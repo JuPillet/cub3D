@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/26 23:32:24 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/28 12:47:15 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,10 @@ typedef struct  s_img_data
 {
 	void		*img;
 	char		*addr;
-	int			*bits_per_pixel;
-	int			*line_length;
-	int			*endian;
+	int			bits_per_pixel;
+	int			line_length;
+	int			endian;
 }				t_img_data;
-
-typedef	struct	s_texture
-{
-	t_bool	*is;
-	char	*path;
-}				t_texture;
 
 typedef struct	s_horizon
 {
@@ -70,11 +64,11 @@ typedef struct	s_area
 
 typedef struct	s_level
 {
-	t_texture	*no;
-	t_texture	*so;
-	t_texture	*we;
-	t_texture	*ea;
-	t_texture	*sp;
+	void		*no;
+	void		*so;
+	void		*we;
+	void		*ea;
+	void		*sp;
 	t_horizon	*floor;
 	t_horizon	*ceiling;
 	t_player	*player;
@@ -100,7 +94,7 @@ typedef	struct	s_screen
 }				t_screen;
 
 typedef struct	s_game	t_game;
-typedef t_bool (*t_pt_fnct)(char *line, int *indln, t_game *game);
+typedef t_bool (*t_pt_fnct)(t_parser *parser, t_game *game);
 typedef struct	s_hash_array
 {
 	char		*keylen;
@@ -137,7 +131,7 @@ int				cub_set_shade(double distance, int color);
 int				cub_set_opposite(int trgb);
 int				cub_set_argb(int a, int r, int g, int b);
 
-t_bool			cub_parse_resolution(char *line, int *indln, t_game *game);
+t_bool			cub_parse_resolution(t_parser *parser, t_game *game);
 
 t_bool			cub_free_player(t_player **player);
 t_bool			cub_malloc_player(t_player **player);

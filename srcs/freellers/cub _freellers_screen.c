@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 01:02:00 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/21 17:54:33 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/28 12:47:53 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,14 @@ t_bool	cub_free_resolution(t_resolution **resolution)
 	return (TRUE);
 }
 
-t_bool	cub_free_screen(t_screen	**screen)
+t_bool	cub_free_screen(t_screen **screen)
 {
 	if (!(*screen))
 		return (FALSE);
 	cub_free_resolution(&((*screen)->resolution));
+	mlx_destroy_image((*screen)->mlx, (*screen)->pic_screen->img);
+	mlx_destroy_window((*screen)->mlx, (*screen)->mlx_screen);
+	mlx_destroy_display((*screen)->mlx);
 	free(*screen);
 	*screen = 0;
 	return(TRUE);

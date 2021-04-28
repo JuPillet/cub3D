@@ -6,14 +6,14 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 23:16:27 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/27 14:06:20 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/27 15:51:40 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-static t_bool	cub_parser_map(t_parser *parser, t_game *game)
+t_bool	cub_parser_map(t_parser *parser, t_game *game)
 {
 	int		malloc_line;
 	t_bool	loop;

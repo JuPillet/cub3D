@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 23:24:25 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/26 18:27:22 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/27 20:14:45 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,6 @@ t_bool	cub_malloc_color(t_color **color)
 	return (FALSE);
 }
 
-t_bool	cub_malloc_texture(t_texture **texture)
-{
-	*texture = (t_texture *)malloc(sizeof(t_texture));
-	if (*texture)
-	{
-		(*texture)->is = 0;
-		(*texture)->path = 0;
-		if (ft_malloc_t_bool(1, &((*texture)->is)))
-			return (TRUE);
-	}
-	return (FALSE);
-}
-
 t_bool	cub_malloc_horizon(t_horizon **horizon)
 {
 	*horizon = (t_color *)malloc(sizeof(t_color));
@@ -91,10 +78,6 @@ t_bool	cub_malloc_level(t_level **level)
 		(*level)->player = 0;
 		(*level)->area = 0;
 		if (cub_malloc_texture(&((*level)->no))
-			&& cub_malloc_texture(&((*level)->so))
-			&& cub_malloc_texture(&((*level)->we))
-			&& cub_malloc_texture(&((*level)->ea))
-			&& cub_malloc_texture(&((*level)->sp))
 			&& cub_malloc_horizon(&((*level)->floor))
 			&& cub_malloc_horizon(&((*level)->ceiling))
 			&& cub_malloc_player(&((*level)->player))

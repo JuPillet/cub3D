@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 19:10:31 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/22 10:31:15 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/27 20:03:32 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,26 +59,4 @@ void	cub_set_my_mlx_pixel(t_img_data *data, int x, int y, int color)
 	dst = data->addr + (y * (*data->line_length)
 		+ x * ((*data->bits_per_pixel) / 8));
 	*(unsigned int*)dst = color;
-}
-
-t_bool	cub_set_horizon(char *line, int *indln, t_horizon *horizon)
-{
-	if (*(horizon->is))
-	{
-		if (line[*indln] == 'F')
-			return (ft_error("the setting file has two or more declared \
-floor color , you must need only one", 0));
-			else
-		return (ft_error("the setting file has two or more declared \
-ceiling color , you must need only one", 0));	
-	}
-	if (!cub_parse_color(line, indln, horizon->color))
-	{
-		if (line[*indln] == 'F')
-			return (ft_error("the setting file has a invalid floor color", line));
-		else
-			return (ft_error("the setting file has a invalid ceiling color", line));
-	}
-	*(horizon->is) = TRUE;
-	return (TRUE);
 }

@@ -6,12 +6,16 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 22:53:33 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/21 17:54:33 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/28 12:55:02 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
+
+/*
+** AID
+*/
 
 t_bool	cub_free_functions_pointer(t_pt_fnct **pt_function)
 {

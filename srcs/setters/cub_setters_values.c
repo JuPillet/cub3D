@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:50:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/27 14:06:13 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/27 21:44:37 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,19 @@ void	cub_setter_parser(const char *file, t_parser *parser)
 {
 	parser->fd = open(file, O_RDONLY);
 	parser->fd_map = open(file, O_RDONLY);
-	
+	parser->line = 0;
+	parser->line_map = 0;
+	if (parser->fd != -1 && parser->fd_map != -1)
+		return (TRUE);
+	return (cub_free_fd("the program failed to open", file, parser));
 }
 
 t_bool	cub_set_int(char *line, int *indln, int *value)
 {
 	while (line[*indln] == ' ' && line[*indln] == '\t')
 		(*indln)++;
-	if (!ft_isdigit(line[*indln])
-		&& !(ft_issigned(line[*indln]) && ft_isdigit(line[(*indln) + 1])))
+	if (!ft_isdigit(line[*indln]) && !(ft_issigned(line[*indln])
+		&& ft_isdigit(line[(*indln) + 1])))
 		return(FALSE);
 	*value = ft_atoi((line + (*indln)));
 	if (ft_issigned(line[*indln]))

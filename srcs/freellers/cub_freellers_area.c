@@ -6,14 +6,14 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 00:48:57 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/26 23:37:45 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/27 17:02:18 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_free_fd(char *msg, const char *file, t_parser *parser)
+t_bool	cub_free_fd(char *msg, const char *msg2, t_parser *parser)
 {
 	if (parser->line)
 		free(parser->line);
@@ -23,7 +23,7 @@ t_bool	cub_free_fd(char *msg, const char *file, t_parser *parser)
 		close(parser->fd);
 	if (parser->fd_map > 2)
 		close(parser->fd_map);
-	return(ft_error(msg, file));
+	return(ft_error(msg, msg2));
 }
 
 t_bool	cub_free_area(char ***area)

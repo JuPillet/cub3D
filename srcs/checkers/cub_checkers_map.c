@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:43:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/26 17:27:13 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/27 21:05:34 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,9 @@ t_bool	cub_check_durring_map(int *malloc_line, t_parser *parser)
 
 t_bool	cub_check_before_map(t_game *game)
 {
-	if (*(game->screen->resolution->is) && *(game->level->no->is)
-		&& *(game->level->so->is) && *(game->level->we->is)
-		&& *(game->level->ea->is) && *(game->level->floor->is)
+	if (*(game->screen->resolution->is) && game->level->no
+		&& game->level->so && game->level->we
+		&& game->level->ea && game->level->floor
 		&& *(game->level->ceiling->is) && *(game->level->player->is))
 		return (FALSE);
 	return (TRUE);

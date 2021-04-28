@@ -6,17 +6,22 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 23:24:25 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/26 23:13:38 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/04/28 12:49:46 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
+/*
+** AID
+*/
+
 t_bool	cub_free_player(t_player **player)
 {
 	if (!(*player))
 		return (FALSE);
+	ft_free_t_bool(&((*player)->is));
 	ft_free_double(&((*player)->position_x));
 	ft_free_double(&((*player)->position_y));
 	ft_free_double(&((*player)->orientation));
@@ -40,18 +45,6 @@ t_bool	cub_free_color(t_color **color)
 	return (TRUE);
 }
 
-t_bool	cub_free_texture(t_texture **texture)
-{
-	
-	if (!(*texture))
-		return (FALSE);
-	ft_free_t_bool(&((*texture)->is));
-	ft_free_char(&((*texture)->path));
-	free(*texture);
-	*texture = 0;
-	return (TRUE);
-}
-
 t_bool	cub_free_horizon(t_horizon **horizon)
 {
 	if (!(*horizon))
@@ -63,16 +56,16 @@ t_bool	cub_free_horizon(t_horizon **horizon)
 	return (TRUE);
 }
 
-t_bool	cub_free_level(t_level **level)
+t_bool	cub_free_level(void *mlx, t_level **level)
 {
 	int	indmap;
 	if (!(*level))
 		return (FALSE);
-	cub_free_texture(&((*level)->no));
-	cub_free_texture(&((*level)->so));
-	cub_free_texture(&((*level)->we));
-	cub_free_texture(&((*level)->ea));
-	cub_free_texture(&((*level)->sp));
+	mlx_destroy_image(mlx ,(*level)->no);
+	mlx_destroy_image(mlx, (*level)->so);
+	mlx_destroy_image(mlx, (*level)->we);
+	mlx_destroy_image(mlx, (*level)->ea);
+	mlx_destroy_image(mlx, (*level)->sp);
 	cub_free_horizon(&((*level)->floor));
 	cub_free_horizon(&((*level)->ceiling));
 	cub_free_player(&((*level)->player));
