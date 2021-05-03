@@ -6,12 +6,12 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/29 00:38:28 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/03 17:28:52 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef cubRT_H
-# define cubRT_H
+#ifndef CUB3D_H
+# define CUB3D_H
 # define BUFFER_SIZE 32
 
 # include <stdlib.h>
@@ -161,7 +161,7 @@ t_bool			cub_check_start_map(char *line, int indln);
 t_bool			cub_check_player(char **map, t_player *player);
 
 t_bool			cub_free_fd(char *msg, const char *msg2, t_parser *parser);
-t_bool			cub_free_area(char ***area);
+t_bool			cub_free_area(t_area **area);
 
 t_bool			cub_free_functions_pointer(t_pt_fnct **pt_function);
 t_bool			cub_free_fonctions_hash_array(t_hash_array **hash_array);

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 01:02:00 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/28 17:32:56 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/03 17:19:10 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ t_bool	cub_free_resolution(t_resolution **resolution)
 		return (FALSE);
 	ft_malloc_t_bool(1, &((*resolution)->is));
 	ft_malloc_int(1, &((*resolution)->width));
-	ft_malloc_double(1, &((*resolution)->height));
+	ft_malloc_int(1, &((*resolution)->height));
 	ft_malloc_int(1, &((*resolution)->pixel_x));
-	ft_malloc_double(1, &((*resolution)->pixel_y));
+	ft_malloc_int(1, &((*resolution)->pixel_y));
 	ft_malloc_double(1, &((*resolution)->fov));
 	free(*resolution);
 	*resolution = 0;

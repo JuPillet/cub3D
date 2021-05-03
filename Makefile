@@ -6,17 +6,13 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/04/28 21:01:13 by jpillet          ###   ########.fr        #
+#    Updated: 2021/05/03 17:32:24 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME 			=	miniRT
+UNAME_S	 		:=	$(shell uname -s)
 
-NAMELIN			=	miniRTlin
-
-NAMEMPRSR		=	miniParseTestM
-
-NAMELPRSR		=	miniParseTestL
+NAME 			=	cub3D
 
 LIBFT			=	libft.a
 
@@ -33,7 +29,7 @@ DIRMLX			=	./minilibx-linux/
 SRCSCMMN		=	$(addprefix ./srcs/common/, \
 						cub3d.c)
 
-SRCSCHCK		=	$(addprefix ./srcs/checkers, \
+SRCSCHKR		=	$(addprefix ./srcs/checkers/, \
 					cub_checkers_map.c \
 					cub_checkers_map_validity.c \
 					cub_checkers_player.c)
@@ -82,6 +78,8 @@ INCLUDES		=	./includes/
 
 OBJSCMMN		=	${SRCSCMMN:.c=.o}
 
+OBJSCHKR		=	${SRCSCHKR:.c=.o}
+
 OBJSTEST		=	${SRCSTEST:.c=.o}
 
 OBJSADDR		=	${SRCSADDR:.c=.o}
@@ -98,35 +96,35 @@ OBJSFLLR		=	${SRCSFLLR:.c=.o}
 
 OBJSRNDR		=	${SRCSRNDR:.c=.o}
 
-LIBMAC			=	-lmlx -framework OpenGL -framework AppKit
-
-LIBLIN			=	-lX11 -lXext -lm -lpthread
+ifeq ($(UNAME_S),Darwin)
+	FLAGMLX		=	-lmlx -framework OpenGL -framework AppKit
+	OBJS		=	${LIBFT} ${OBJSCMMN} ${OBJSCHKR} ${OBJSADDR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSRNDR}
+	COMPILE		=	$(CC) $(CFLAGS) $(OBJSCMMN) $(OBJSCHKR) $(OBJSADDR) $(OBJSMLLC) $(OBJSPRSR) $(OBJSSTTR) $(OBJSGTTR) $(OBJSFLLR) $(OBJSRNDR) ${LIBFT} $(FLAGMLX) -o ${NAME}
+else
+	FLAGMLX		=	-lX11 -lXext -lm -lpthread
+	OBJS		=	${MLX} ${LIBFT} ${OBJSCMMN} ${OBJSCHKR} ${OBJSADDR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSRNDR}
+	COMPILE		=	$(CC) $(CFLAGS) $(OBJSCMMN) $(OBJSCHKR) $(OBJSADDR) $(OBJSMLLC) $(OBJSPRSR) $(OBJSSTTR) $(OBJSGTTR) $(OBJSFLLR) $(OBJSRNDR) ${LIBFT} ${MLX} $(FLAGMLX) -o ${NAME}
+endif
 
 .c.o			:
 					cp ${DIRLIBFT}${HDLFT} ${INCLUDES}
 					${CC} -I${INCLUDES} -c $< -o ${<:.c=.o}
 ##					${CC} ${CFLAGS} -I${INCLUDES} -c $< -o ${<:.c=.o}
 
-$(MLX)		:
+$(MLX)			:
 					make -C ${DIRMLX}
+					mv ${DIRMLX}${MLX} ./
 					cp ${DIRMLX}${HDMLX} ${INCLUDES}
 
 ${LIBFT}		:
 					make -C ${DIRLIBFT}
+					mv ${DIRLIBFT}${LIBFT} ./
+					cp ${DIRLIBFT}${HDLFT} ${INCLUDES}
 
-$(NAME) 		:	${OBJSCMMN} ${OBJSADDR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSRNDR} ${LIBFT}
-					$(CC) $(CFLAGS) $(OBJSCMMN) $(OBJSADDR) $(OBJSMLLC) $(OBJSPRSR) $(OBJSSTTR) $(OBJSGTTR) $(OBJSFLLR) $(OBJSRNDR) ${LIBFT} $(LIBMAC) -o ${NAMELIN}
-
-$(NAMELIN)		:	${MLX} ${OBJSCMMN} ${OBJSADDR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${LIBFT}
-					$(CC) $(CFLAGS) $(OBJSCMMN) $(OBJSADDR) $(OBJSMLLC) $(OBJSPRSR) $(OBJSSTTR) $(OBJSGTTR) $(OBJSFLLR) $(OBJSRNDR) ${LIBFT} ${MLX} $(LIBLIN) -o ${NAMELIN}
+$(NAME)			:	${OBJS}
+					${COMPILE}
 
 all				:	${NAME}
-
-alll			:	${NAMELIN}
-
-allmt			:	$(NAMEMPRSR)
-
-alllt			:	$(NAMELPRSR)
 
 clean			:
 					make clean -C ${DIRLIBFT}
@@ -140,7 +138,4 @@ fclean			:	clean
 							${LIBFT} ${DIRMLX}${MLX} ${MLX}
 
 re				:	fclean all
-
-rel				:	fclean alll
-
 .PHONY			:	all alll allmt alllt clean fclean re rel

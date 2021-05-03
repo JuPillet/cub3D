@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 23:24:25 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/28 12:49:46 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/01 14:46:20 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_bool	cub_free_level(void *mlx, t_level **level)
 	cub_free_horizon(&((*level)->floor));
 	cub_free_horizon(&((*level)->ceiling));
 	cub_free_player(&((*level)->player));
-	cub_free_map(&((*level)->area));
+	cub_free_area(&((*level)->area));
 	free(*level);
 	*level = 0;
 	return (TRUE);

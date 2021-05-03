@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/29 00:37:24 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/01 13:25:45 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,9 @@ ceiling color , you must need only one", 0));
 	if (!cub_parse_color(parser, horizon))
 	{
 		if (parser->line[parser->indln] == 'F')
-			return (cub_free_fd("the setting file has a invalid floor color", 0, parser->line));
+			return (cub_free_fd("the setting file has a invalid floor color", parser->line, parser));
 		else
-			return (cub_free_fd("the setting file has a invalid ceiling color", 0, parser->line));
+			return (cub_free_fd("the setting file has a invalid ceiling color", parser->line, parser));
 	}
 	*(horizon->is) = TRUE;
 	return (TRUE);

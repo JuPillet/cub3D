@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/20 19:18:43 by jpillet           #+#    #+#              #
-#    Updated: 2021/04/28 13:17:52 by jpillet          ###   ########.fr        #
+#    Updated: 2021/05/01 13:55:14 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,8 +80,7 @@ $(NAME)		:	${OBJS}
 				${ARRC} ${NAME} ${OBJS}
 
 all			:	${NAME}
-				mv ${NAME} ../
-				cp libft.h ../includes/
+
 clean		:
 				rm -f ${OBJS}
 

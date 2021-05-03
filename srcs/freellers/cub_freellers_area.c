@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/18 00:48:57 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/27 17:02:18 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/01 17:07:04 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,21 @@ t_bool	cub_free_fd(char *msg, const char *msg2, t_parser *parser)
 	return(ft_error(msg, msg2));
 }
 
-t_bool	cub_free_area(char ***area)
+t_bool	cub_free_area(t_area **area)
 {
 	int	indmap;
 
 	if (!(*area))
 		return (FALSE);
 	indmap = 0;
-	while ((*area)[indmap] != 0)
-		ft_free_char(&((*area)[indmap]));
-	free(*area);
+	while (((*area)->map)[indmap] != 0)
+	{
+		ft_free_char(&(((*area)->map)[indmap]));
+		((*area)->map[indmap]) = 0;
+	}
+	free((*area)->map);
+	(*area)->map = 0;
+	free((*area)->lines_length);
+	(*area)->lines_length = 0;
 	*area = 0;
 }
