@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_parser_map.c                                   :+:      :+:    :+:   */
+/*   cub_parse_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,7 @@
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_parser_map(t_parser *parser, t_game *game)
+t_bool	cub_parse_map(t_parser *parser, t_game *game)
 {
 	int		malloc_lines;
 	t_bool	loop;
