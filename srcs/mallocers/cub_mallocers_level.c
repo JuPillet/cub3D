@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 23:24:25 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/28 22:17:42 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/05 19:22:47 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ t_bool	cub_malloc_player(t_player **player)
 		(*player)->position_x = 0;
 		(*player)->position_y = 0;
 		(*player)->orientation = 0;
+		(*player)->is = 0;
 		if (ft_malloc_double(1, &((*player)->position_x))
 			&& ft_malloc_double(1, &((*player)->position_y))
-			&& ft_malloc_double(1, &((*player)->orientation)))
+			&& ft_malloc_double(1, &((*player)->orientation))
+			&& ft_malloc_t_bool(1, &((*player)->is)))
 			return (TRUE);
 	}
 	return (FALSE);
@@ -66,7 +68,7 @@ t_bool	cub_malloc_horizon(t_horizon **horizon)
 t_bool	cub_malloc_level(t_level **level)
 {
 	*level = (t_level *)malloc(sizeof(t_level));
-	if (!(*level))
+	if (*level)
 	{
 		(*level)->no = 0;
 		(*level)->so = 0;

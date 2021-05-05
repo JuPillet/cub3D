@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:03:42 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/29 00:29:04 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/05 19:31:31 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 void	cub_set_key_hash_array(t_hash_array *array)
 {
-	ft_strlcpy(array[0].key, "NO", *(array[1].keylen) + 1);
-	ft_strlcpy(array[1].key, "EA", *(array[4].keylen) + 1);
-	ft_strlcpy(array[2].key, "SO", *(array[4].keylen) + 1);
-	ft_strlcpy(array[3].key, "WE", *(array[2].keylen) + 1);
-	ft_strlcpy(array[4].key, "R", *(array[0].keylen) + 1);
-	ft_strlcpy(array[5].key, "S", *(array[0].keylen) + 1);
-	ft_strlcpy(array[6].key, "C", *(array[5].keylen) + 1);
-	ft_strlcpy(array[7].key, "F", *(array[3].keylen) + 1);
+	ft_strlcpy(array[0].key, "NO", *(array[0].keylen) + 1);
+	ft_strlcpy(array[1].key, "EA", *(array[1].keylen) + 1);
+	ft_strlcpy(array[2].key, "SO", *(array[2].keylen) + 1);
+	ft_strlcpy(array[3].key, "WE", *(array[3].keylen) + 1);
+	ft_strlcpy(array[4].key, "R", *(array[4].keylen) + 1);
+	ft_strlcpy(array[5].key, "S", *(array[5].keylen) + 1);
+	ft_strlcpy(array[6].key, "C", *(array[6].keylen) + 1);
+	ft_strlcpy(array[7].key, "F", *(array[7].keylen) + 1);
 }
 
 void	cub_set_keylen_hash_array(t_hash_array *array)

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:47:56 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/29 00:09:44 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/05 19:33:59 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 ** -
 */
 
-static t_bool	cub_dispacher_fnct(int indpf, t_parser *parser, t_game *game)
+t_bool	cub_dispacher_fnct(int indpf, t_parser *parser, t_game *game)
 {
 	t_pt_fnct	fnct;
 
@@ -29,7 +29,7 @@ static t_bool	cub_dispacher_fnct(int indpf, t_parser *parser, t_game *game)
 	return (fnct(parser, game));
 }
 
-static t_bool	cub_dispatcher(const char *file, t_parser *parser, t_game *game)
+t_bool	cub_dispatcher(const char *file, t_parser *parser, t_game *game)
 {
 	int				indpf;
 	char			*line;
@@ -44,7 +44,7 @@ static t_bool	cub_dispatcher(const char *file, t_parser *parser, t_game *game)
 	indpf = -1;
 	if (cub_check_start_map(line, indln))
 		return (FALSE);
-	while (++indpf < 13)
+	while (++indpf < 8)
 		if (!ft_strncmp(game->hash_array[indpf].key,
 				(parser->line + parser->indln),
 				*(game->hash_array[indpf].keylen)))

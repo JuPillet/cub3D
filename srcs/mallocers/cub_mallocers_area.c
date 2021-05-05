@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 17:26:04 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/28 22:10:24 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/05 19:42:56 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ if (!(game->level->area->map))
 t_bool	cub_malloc_area(t_area **area)
 {
 	*area = (t_area *)malloc(sizeof(t_area));
-	if (*area)
-	{
-		(*area)->lines_length = 0;
-		(*area)->map = 0;
-	}
+	if (!(*area))
+		return(ft_error("insufficient memory to initiate cub3D", 0));
+	(*area)->lines_length = 0;
+	(*area)->map = 0;
+	return (TRUE);
 }

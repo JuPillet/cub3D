@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/03 17:28:52 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/05 15:54:00 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,10 @@ t_bool			cub_set_int(char *line, int *indln, int *value);
 t_bool			cub_set_double(char *line, int *indln, double *value);
 void			cub_set_mlx(t_game *game);
 
-static t_bool	cub_check_out_map_validity(t_area *area, int y, int x);
-static t_bool	cub_check_wall_map_validity(t_area *area, int y, int x);
-static t_bool	cub_check_in_map_validity(t_area *area, int y, int x);
-t_bool			cub_check_map(t_area *area);
+static t_bool	cub_check_out_map(t_area *area, int y, int x);
+static t_bool	cub_check_wall_map(t_area *area, int y, int x);
+static t_bool	cub_check_in_map(t_level *level, int y, int x);
+t_bool			cub_check_map(t_level *level);
 
 t_bool			cub_check_after_map(t_parser *parser);
 t_bool			cub_check_durring_map(int *malloc_line, t_parser *parser);

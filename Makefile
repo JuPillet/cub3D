@@ -6,11 +6,9 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/05/03 17:32:24 by jpillet          ###   ########.fr        #
+#    Updated: 2021/05/05 16:11:43 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
-UNAME_S	 		:=	$(shell uname -s)
 
 NAME 			=	cub3D
 
@@ -96,20 +94,21 @@ OBJSFLLR		=	${SRCSFLLR:.c=.o}
 
 OBJSRNDR		=	${SRCSRNDR:.c=.o}
 
+UNAME_S	 		=	$(shell uname -s)
+
+FAGMLX			=	
 ifeq ($(UNAME_S),Darwin)
 	FLAGMLX		=	-lmlx -framework OpenGL -framework AppKit
-	OBJS		=	${LIBFT} ${OBJSCMMN} ${OBJSCHKR} ${OBJSADDR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSRNDR}
-	COMPILE		=	$(CC) $(CFLAGS) $(OBJSCMMN) $(OBJSCHKR) $(OBJSADDR) $(OBJSMLLC) $(OBJSPRSR) $(OBJSSTTR) $(OBJSGTTR) $(OBJSFLLR) $(OBJSRNDR) ${LIBFT} $(FLAGMLX) -o ${NAME}
 else
 	FLAGMLX		=	-lX11 -lXext -lm -lpthread
-	OBJS		=	${MLX} ${LIBFT} ${OBJSCMMN} ${OBJSCHKR} ${OBJSADDR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSRNDR}
-	COMPILE		=	$(CC) $(CFLAGS) $(OBJSCMMN) $(OBJSCHKR) $(OBJSADDR) $(OBJSMLLC) $(OBJSPRSR) $(OBJSSTTR) $(OBJSGTTR) $(OBJSFLLR) $(OBJSRNDR) ${LIBFT} ${MLX} $(FLAGMLX) -o ${NAME}
 endif
 
 .c.o			:
 					cp ${DIRLIBFT}${HDLFT} ${INCLUDES}
-					${CC} -I${INCLUDES} -c $< -o ${<:.c=.o}
+					${CC} -I${INCLUDES} -c -g $< -o ${<:.c=.o}
 ##					${CC} ${CFLAGS} -I${INCLUDES} -c $< -o ${<:.c=.o}
+
+all				:	${NAME}
 
 $(MLX)			:
 					make -C ${DIRMLX}
@@ -121,10 +120,8 @@ ${LIBFT}		:
 					mv ${DIRLIBFT}${LIBFT} ./
 					cp ${DIRLIBFT}${HDLFT} ${INCLUDES}
 
-$(NAME)			:	${OBJS}
-					${COMPILE}
-
-all				:	${NAME}
+$(NAME)			:	${LIBFT} ${MLX} ${OBJSCMMN} ${OBJSCHKR} ${OBJSADDR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSRNDR}
+					$(CC) $(CFLAGS) $(OBJSCMMN) $(OBJSCHKR) $(OBJSADDR) $(OBJSMLLC) $(OBJSPRSR) $(OBJSSTTR) $(OBJSGTTR) $(OBJSFLLR) $(OBJSRNDR) ${LIBFT} ${MLX} $(FLAGMLX) -o ${NAME}
 
 clean			:
 					make clean -C ${DIRLIBFT}
@@ -138,4 +135,5 @@ fclean			:	clean
 							${LIBFT} ${DIRMLX}${MLX} ${MLX}
 
 re				:	fclean all
-.PHONY			:	all alll allmt alllt clean fclean re rel
+
+.PHONY			:	all clean fclean re

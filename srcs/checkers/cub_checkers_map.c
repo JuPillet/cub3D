@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:43:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/27 21:05:34 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/04 16:06:11 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,26 +26,14 @@ t_bool	cub_check_after_map(t_parser *parser)
 	}
 }
 
-t_bool	cub_check_durring_map(int *malloc_line, t_parser *parser)
-{
-	if (cub_check_map_line(parser->line, parser->indln))
-	{
-		malloc_line++;
-		free(parser->line);
-		parser->eof = get_next_line(parser->fd, &(parser->line));
-		return (TRUE);
-	}
-	return (cub_free_fd("the setting file has an invalid map format", parser));
-}
-
 t_bool	cub_check_before_map(t_game *game)
 {
 	if (*(game->screen->resolution->is) && game->level->no
 		&& game->level->so && game->level->we
 		&& game->level->ea && game->level->floor
 		&& *(game->level->ceiling->is) && *(game->level->player->is))
-		return (FALSE);
-	return (TRUE);
+		return (TRUE);
+	return (FALSE);
 }
 
 t_bool	cub_check_start_map(char *line, int indln)
