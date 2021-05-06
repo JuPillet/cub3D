@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 12:19:37 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/05 23:55:12 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/06 12:58:14 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int ac, char **av)
 	game = 0;
 	if (cub_malloc_game(&game))
 	{
-		if (ac == 2)
+		if (ac >= 2)
 			check = cub_norm_file((const char *)av[1], game);
 		else
 			check = cub_parser("settings/standard_setting.cub", game);

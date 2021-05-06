@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:47:56 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/05 19:33:59 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/06 18:27:25 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_bool	cub_dispacher_fnct(int indpf, t_parser *parser, t_game *game)
 	t_pt_fnct	fnct;
 
 	fnct = *(game->hash_array[indpf].pt_fonction);
-	parser->indln = *(game->hash_array[indpf].keylen);
+	parser->indln += *(game->hash_array[indpf].keylen);
 	return (fnct(parser, game));
 }
 
@@ -33,20 +33,20 @@ t_bool	cub_dispatcher(const char *file, t_parser *parser, t_game *game)
 {
 	int				indpf;
 	char			*line;
-	int				indln;
+	int				*indln;
 
 	line = parser->line;
-	indln = parser->indln;
-	while (line[indln] == ' ' || line[indln] == '\t')
-		indln++;
-	if (!(line[indln]))
+	indln = &(parser->indln);
+	while (line[*indln] == ' ' || line[*indln] == '\t')
+		(*indln)++;
+	if (!(line[*indln]))
 		return (TRUE);
-	indpf = -1;
-	if (cub_check_start_map(line, indln))
+	if (cub_check_start_map(line, *indln))
 		return (FALSE);
+	indpf = -1;
 	while (++indpf < 8)
 		if (!ft_strncmp(game->hash_array[indpf].key,
-				(parser->line + parser->indln),
+				(parser->line + (*indln)),
 				*(game->hash_array[indpf].keylen)))
 			return (cub_dispacher_fnct(indpf, parser, game));
 	parser->eof = -1;

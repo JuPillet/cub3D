@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 15:03:42 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/05 19:31:31 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/06 18:32:16 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void	cub_set_keylen_hash_array(t_hash_array *array)
 
 void	cub_set_pt_fonctions_hash_array(t_hash_array *array)
 {
-	*(array[0].pt_fonction) = &cub_parse_resolution;
-	*(array[1].pt_fonction) = &cub_parse_texture_north;
-	*(array[2].pt_fonction) = &cub_parse_texture_east;
-	*(array[3].pt_fonction) = &cub_parse_texture_south;
-	*(array[4].pt_fonction) = &cub_parse_texture_west;
+	*(array[0].pt_fonction) = &cub_parse_texture_north;
+	*(array[1].pt_fonction) = &cub_parse_texture_east;
+	*(array[2].pt_fonction) = &cub_parse_texture_south;
+	*(array[3].pt_fonction) = &cub_parse_texture_west;
+	*(array[4].pt_fonction) = &cub_parse_resolution;
 	*(array[5].pt_fonction) = &cub_parse_texture_sprite;
 	*(array[6].pt_fonction) = &cub_set_horizon;
 	*(array[7].pt_fonction) = &cub_set_horizon;

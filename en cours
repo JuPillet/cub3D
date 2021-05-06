@@ -1,1 +1,1 @@
-revoir malloc pov
+debug - frame #0: 0x000055555555ca60 cub3D`cub_parse_resolution(parser=0x00007fffffffdd00, game=0x000055555556d2a0) at cub_parsers_screen.c:54

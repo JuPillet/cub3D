@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:50:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/05 15:39:39 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/06 19:52:31 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ t_bool	cub_setter_parser(const char *file, t_parser *parser)
 
 t_bool	cub_set_int(char *line, int *indln, int *value)
 {
-	while (line[*indln] == ' ' && line[*indln] == '\t')
+	while (line[*indln] == ' ' || line[*indln] == '\t')
 		(*indln)++;
-	if (!ft_isdigit(line[*indln]) && !(ft_issigned(line[*indln])
-		&& ft_isdigit(line[(*indln) + 1])))
+	if (!ft_isdigit(line[*indln])
+		&& (!ft_issigned(line[*indln]) || !ft_isdigit(line[(*indln) + 1])))
 		return(FALSE);
 	*value = ft_atoi((line + (*indln)));
 	if (ft_issigned(line[*indln]))
@@ -41,10 +41,10 @@ t_bool	cub_set_int(char *line, int *indln, int *value)
 
 t_bool	cub_set_double(char *line, int *indln, double *value)
 {
-	while (line[*indln] != ' ' && line[*indln] == '\t')
+	while (line[*indln] != ' ' || line[*indln] == '\t')
 		(*indln)++;
 	if (!ft_isdigit(line[*indln])
-		&& !(ft_issigned(line[*indln]) && ft_isdigit(line[(*indln) + 1])))
+		&& (!ft_issigned(line[*indln]) || !ft_isdigit(line[(*indln) + 1])))
 		return(FALSE);
 	*value = ft_atof((line + (*indln)));
 	if (ft_issigned(line[*indln]))
