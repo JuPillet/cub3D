@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/05/05 16:11:43 by jpillet          ###   ########.fr        #
+#    Updated: 2021/05/08 19:58:42 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,9 +40,9 @@ SRCSMLLC		=	$(addprefix ./srcs/mallocers/, \
 
 SRCSPRSR		=	$(addprefix ./srcs/parsers/, \
 					cub_parser.c \
-					cub_parser_map.c \
+					cub_parsers_map.c \
 					cub_parsers_screen.c \
-					cub_parser_texture.c)
+					cub_parsers_texture.c)
 
 SRCSSTTR		=	$(addprefix ./srcs/setters/, \
 					cub_setters_color.c \

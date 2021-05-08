@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:43:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/04 16:06:11 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/09 01:20:50 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_bool	cub_check_before_map(t_game *game)
 	if (*(game->screen->resolution->is) && game->level->no
 		&& game->level->so && game->level->we
 		&& game->level->ea && game->level->floor
-		&& *(game->level->ceiling->is) && *(game->level->player->is))
+		&& *(game->level->ceiling->is) && *(game->level->floor->is))
 		return (TRUE);
 	return (FALSE);
 }

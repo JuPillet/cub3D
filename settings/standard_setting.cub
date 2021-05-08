@@ -1,11 +1,11 @@
       				R	1920	1080
 
-NO	./settings/north
-SO	./settings/south
-WE	./settings/west
-EA	./settings/east
+NO	./settings/pics/eagle.xpm
+SO	./settings/pics/wood.xpm
+WE	./settings/pics/redbrick.xpm
+EA	./settings/pics/colorstone.xpm
 
-S	./settings/sprite
+S	./settings/pics/barrel.xpm
 
 F	243,114,32
 

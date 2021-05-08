@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/01 13:25:45 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/09 01:33:04 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ t_bool	cub_set_texture(t_game *game, t_parser *parser,
 	int height;
 
 	parser->indln = 0;
+	width = 64;
+	height = 64;
 	*texture = mlx_xpm_file_to_image(game->screen->mlx, path, &width, &height);
 	if (!(*texture))
 		return (cub_free_fd("program can't open texture",
@@ -82,7 +84,7 @@ t_bool	cub_set_horizon(t_parser *parser, t_game *game)
 {
 	t_horizon *horizon;
 
-	if (parser->line[parser->indln] == 'F')
+	if (parser->line[--(parser->indln)] == 'F')
 		horizon = game->level->floor;
 	else
 		horizon = game->level->ceiling;
@@ -95,6 +97,7 @@ floor color , you must need only one", 0));
 			return (ft_error("the setting file has two or more declared \
 ceiling color , you must need only one", 0));	
 	}
+	(parser->indln)++;
 	if (!cub_parse_color(parser, horizon))
 	{
 		if (parser->line[parser->indln] == 'F')

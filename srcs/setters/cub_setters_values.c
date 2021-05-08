@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:50:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/06 19:52:31 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/08 19:23:22 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_bool	cub_set_int(char *line, int *indln, int *value)
 	while (line[*indln] == ' ' || line[*indln] == '\t')
 		(*indln)++;
 	if (!ft_isdigit(line[*indln])
-		&& (!ft_issigned(line[*indln]) || !ft_isdigit(line[(*indln) + 1])))
+		&& !(ft_issigned(line[*indln]) && ft_isdigit(line[(*indln) + 1])))
 		return(FALSE);
 	*value = ft_atoi((line + (*indln)));
 	if (ft_issigned(line[*indln]))
