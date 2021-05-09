@@ -6,14 +6,14 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 16:50:35 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/04 16:25:47 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/09 02:01:56 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-static t_bool	cub_check_out_map(t_area *area, int y, int x)
+t_bool	cub_check_out_map(t_area *area, int y, int x)
 {
 	char	**map;
 	int		*lines_length;
@@ -30,7 +30,7 @@ static t_bool	cub_check_out_map(t_area *area, int y, int x)
 	return (TRUE);
 }
 
-static t_bool	cub_check_wall_map(t_area *area, int y, int x)
+t_bool	cub_check_wall_map(t_area *area, int y, int x)
 {
 	char	**map;
 	int		*lines_length;
@@ -53,7 +53,7 @@ static t_bool	cub_check_wall_map(t_area *area, int y, int x)
 	return (TRUE);
 }
 
-static t_bool	cub_check_in_map(t_level *level, int y, int x)
+t_bool	cub_check_in_map(t_level *level, int y, int x)
 {
 	char	**map;
 	int		*lines_length;

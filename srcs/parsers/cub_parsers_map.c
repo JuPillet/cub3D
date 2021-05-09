@@ -32,7 +32,7 @@ map", 0, parser));
 		if (!parser->line[parser->indln])
 			loop = FALSE;
 		else if (!cub_check_map(game->level))
-			return (FALSE);
+				return (FALSE);
 	}
 	if (!cub_malloc_map_lines(parser, game, malloc_lines))
 		return (FALSE);
