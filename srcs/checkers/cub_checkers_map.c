@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:43:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/09 01:20:50 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/09 18:55:11 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ t_bool	cub_check_after_map(t_parser *parser)
 		free(parser->line);
 		parser->eof = get_next_line(parser->fd, &(parser->line));
 	}
+	if (parser->eof == -1)
+		return (cub_free_fd("the setting file hasn't all prerequisite before \
+map", 0, parser));
+	return (TRUE);
 }
 
 t_bool	cub_check_before_map(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:35:06 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/05 15:54:15 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/09 19:33:26 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_bool	cub_set_resolution(char *line, t_screen *screen)
 	return (TRUE);
 }
 
-void	cub_set_map_column(char *line, char *linemap)
+void	cub_set_map_columns(char *line, char *linemap)
 {
 	int	indln;
 	int	column;

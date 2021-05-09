@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:47:56 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/09 00:49:26 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/09 16:54:30 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_bool	cub_parser(const char *file, t_game *game)
 	}
 	if (parser.eof == -1)
 		return (cub_free_fd("unknown element line", parser.line, &parser));		
-	return (cub_parse_map(&parser, game));
+	return (cub_parse_map(&parser, game, file));
 }
 
 t_bool	cub_norm_file(const char *file, t_game *game)
