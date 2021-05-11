@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 23:19:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/28 22:20:34 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/12 00:20:43 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,13 @@ t_bool	cub_malloc_screen(t_screen	**screen)
 {
 	*screen = (t_screen *)malloc(sizeof(t_screen));
 	if (*screen)
+	{
+		(*screen)->resolution = 0;
+		(*screen)->mlx = 0;
+		(*screen)->mlx_screen = 0;
+		(*screen)->pic_screen = 0;
 		if (cub_malloc_resolution(&((*screen)->resolution)))
 			return (TRUE);
+	}
 	return (FALSE);
 }

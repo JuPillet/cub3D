@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 23:24:25 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/01 14:46:20 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/11 15:34:54 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,16 @@ t_bool	cub_free_level(void *mlx, t_level **level)
 	int	indmap;
 	if (!(*level))
 		return (FALSE);
-	mlx_destroy_image(mlx ,(*level)->no);
-	mlx_destroy_image(mlx, (*level)->so);
-	mlx_destroy_image(mlx, (*level)->we);
-	mlx_destroy_image(mlx, (*level)->ea);
-	mlx_destroy_image(mlx, (*level)->sp);
+	if ((*level)->no)
+		mlx_destroy_image(mlx ,(*level)->no);
+	if ((*level)->so)
+		mlx_destroy_image(mlx, (*level)->so);
+	if ((*level)->we)
+		mlx_destroy_image(mlx, (*level)->we);
+	if ((*level)->ea)
+		mlx_destroy_image(mlx, (*level)->ea);
+	if ((*level)->sp)
+		mlx_destroy_image(mlx, (*level)->sp);
 	cub_free_horizon(&((*level)->floor));
 	cub_free_horizon(&((*level)->ceiling));
 	cub_free_player(&((*level)->player));

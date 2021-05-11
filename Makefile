@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/05/08 19:58:42 by jpillet          ###   ########.fr        #
+#    Updated: 2021/05/11 23:47:46 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,7 @@ SRCSCMMN		=	$(addprefix ./srcs/common/, \
 
 SRCSCHKR		=	$(addprefix ./srcs/checkers/, \
 					cub_checkers_map.c \
-					cub_checkers_map_validity.c \
-					cub_checkers_player.c)
+					cub_checkers_map_validity.c)
 
 SRCSMLLC		=	$(addprefix ./srcs/mallocers/, \
 					cub_mallocers_area.c \

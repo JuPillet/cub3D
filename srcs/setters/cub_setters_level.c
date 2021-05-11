@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/09 01:33:04 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/11 23:47:05 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ player location in the map, you must need only one", 0));
 	}
 	if (!(*(player->is)))
 		return (ft_error("the setting file has no declared \
-player location in the map", 0));
-	if (!cub_check_player(map, player));
-		return (ft_error("the setting file has a wrong declared \
 player location in the map", 0));
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:35:06 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/09 19:33:26 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/11 18:57:18 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_bool	cub_set_resolution(char *line, t_screen *screen)
 	return (TRUE);
 }
 
-void	cub_set_map_columns(char *line, char *linemap)
+void	cub_set_map_columns(char *line, char **line_map)
 {
 	int	indln;
 	int	column;
@@ -38,14 +38,15 @@ void	cub_set_map_columns(char *line, char *linemap)
 
 	indln = 0;
 	column = 0;
-	while (linemap[++indln])
+	while (line[indln])
 	{
 		tabulation = 4 - (column % 4);
 		if (line[indln] == '\t')
 			while (tabulation--)
-				linemap[column++] = ' ';
+				(*line_map)[column++] = ' ';
 		else
-			linemap[column++] = line[indln];
+			(*line_map)[column++] = line[indln];
+		indln++;
 	}
-	linemap[column] = '\0';
+	(*line_map)[column] = '\0';
 }

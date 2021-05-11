@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/09 22:17:10 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/11 23:48:08 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,7 +136,7 @@ void			cub_set_keylen_hash_array(t_hash_array *array);
 void			cub_set_pt_fonctions_hash_array(t_hash_array *array);
 
 t_bool			cub_set_resolution(char *line, t_screen *screen);
-void			cub_set_map_columns(char *line, char *linemap);
+void			cub_set_map_columns(char *line, char **line_map);
 
 t_bool			cub_set_player(int map_x, int map_y, char **map, t_player *player);
 t_bool			cub_search_player(char **map, t_player *player);
@@ -154,11 +154,9 @@ t_bool			cub_check_in_map(t_level *level, int y, int x);
 t_bool			cub_check_map(t_level *level);
 
 t_bool			cub_check_after_map(t_parser *parser);
-t_bool			cub_check_durring_map(int *malloc_line, t_parser *parser);
+t_bool			cub_check_end_map(t_parser *parser);
 t_bool			cub_check_before_map(t_game *game);
 t_bool			cub_check_start_map(char *line, int indln);
-
-t_bool			cub_check_player(char **map, t_player *player);
 
 t_bool			cub_free_fd(char *msg, const char *msg2, t_parser *parser);
 t_bool			cub_free_area(t_area **area);
@@ -175,10 +173,11 @@ t_bool			cub_free_level(void *mlx, t_level **level);
 t_bool			cub_free_resolution(t_resolution **resolution);
 t_bool			cub_free_screen(t_screen **screen);
 
+t_bool			cub_get_map_line(t_parser *parser, char **line, int fd, const char *file);
 t_bool			cub_get_setting_line(t_parser *parser, const char *file);
 
-t_bool			cub_malloc_map_columns(t_parser *parser, t_game *game);
-t_bool			cub_malloc_map_lines(t_parser *parser, t_game *game, int malloc_lines);
+t_bool			cub_malloc_map_columns(t_parser *parser, char **line_map, int *line_length);
+t_bool			cub_malloc_map_lines(t_parser *parser, t_game *game, int malloc_lines, const char *file);
 t_bool			cub_malloc_area(t_area **area);
 
 t_bool			cub_malloc_functions_pointer(t_pt_fnct **pt_function);

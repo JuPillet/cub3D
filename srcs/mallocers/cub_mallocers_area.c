@@ -6,62 +6,71 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 17:26:04 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/09 22:26:40 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/11 22:43:07 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_malloc_map_columns(t_parser *parser, t_game *game)
+t_bool	cub_malloc_map_columns(t_parser *parser, char **line_map, int *columns)
 {
 	int		tabulation;
 	char	*line;
 	int		indln;
-	int		columns;
 
-	line = parser->line;
+	line = parser->line_map;
 	indln = parser->indln;
-	columns = 0;
 	while (line[indln])
 	{
 		if (line[indln] != ' ' && line[indln] != '\t' && line[indln] != '0'
-			&& line[indln] != '1' && line[indln] != '2' && !line[indln] != 'N'
+			&& line[indln] != '1' && line[indln] != '2' && line[indln] != 'N'
 			&& line[indln] != 'S' && line[indln] != 'E' && line[indln] != 'W')
-			return (FALSE);
+			return (cub_free_fd("cub3D stopped working because invalid characte\
+r is in the map", line, parser));
 		if (line[indln++] == '\t')
-			columns += (4 - (columns % 4));  
+			(*columns) += (4 - (*columns) % 4);
 		else
-			columns++;
+			(*columns)++;
 	}
-	if (!ft_malloc_char(columns + 1, game))
+	if (!ft_malloc_char((*columns) + 1, line_map))
 		return (cub_free_fd("program didn't find memory to load", 0, parser));
-	cub_set_map_columns(line, linemap);
+	cub_set_map_columns(parser->line_map, line_map);
 	return (TRUE);
 }
 
-t_bool	cub_malloc_map_lines(t_parser *parser, t_game *game, int malloc_lines)
+t_bool	cub_malloc_map_lines(t_parser *parser, t_game *game,
+	int malloc_lines, const char *file)
 {
+	int		indclmn;
+	char	***map;
+	int		**lines_length;
+
 	if (!cub_check_after_map(parser))
 		return (cub_free_fd("the setting file has non white space \
 line after his declaration", 0, parser));
-	game->level->area->map = (char **)malloc(
-		(malloc_lines + 1) * sizeof(char *));
-	if (!(game->level->area->map))
-		return (cub_free_fd("insufficient memory to initiate cub3D", 0, parser));
-	if (!ft_malloc_int(malloc_lines + 1, &(game->level->area->lines_length)))
+	map = &(game->level->area->map);
+	lines_length = &(game->level->area->lines_length);
+	(*map) = (char **)malloc((malloc_lines + 1) * sizeof(char *));
+	if (!(map) || !ft_malloc_int(malloc_lines + 1, lines_length))
 		return (cub_free_fd("program didn't find memory to load", 0, parser));
-	close(parser->fd);
-	free(parser->line);
-	if (!cub_malloc_map_columns(parser, game))
-		return (FALSE);
+	indclmn = 0;
+	while (malloc_lines--)
+	{
+		if (cub_malloc_map_columns(parser, &((*map)[indclmn]), &(*lines_length)[indclmn])
+			&& cub_get_map_line(parser, &(parser->line_map), parser->fd_map, file) != -1)
+			indclmn++;
+		else
+			return (FALSE);
+	}
+	return (cub_check_map(game->level));
 }
 
 t_bool	cub_malloc_area(t_area **area)
 {
 	*area = (t_area *)malloc(sizeof(t_area));
 	if (!(*area))
-		return(ft_error("insufficient memory to initiate cub3D", 0));
+		return(ft_error("program didn't find memory to load", 0));
 	(*area)->lines_length = 0;
 	(*area)->map = 0;
 	return (TRUE);

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:50:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/08 19:23:22 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/11 17:34:30 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_bool	cub_setter_parser(const char *file, t_parser *parser)
 	parser->line_map = 0;
 	if (parser->fd != -1 && parser->fd_map != -1)
 		return (TRUE);
-	return (cub_free_fd("the program failed to open", file, parser));
+	return (cub_free_fd("cub3D failed to open", file, parser));
 }
 
 t_bool	cub_set_int(char *line, int *indln, int *value)

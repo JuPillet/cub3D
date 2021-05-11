@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:43:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/09 18:55:11 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/11 17:06:02 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,41 @@
 
 t_bool	cub_check_after_map(t_parser *parser)
 {
-	while (parser->eof == 1)
+	t_bool	loop;
+
+	loop = TRUE;
+	while (parser->eof != -1 && (parser->eof == 1 || loop))
 	{
-		parser->indln = -1;
-		while (parser->line[++(parser->indln)])
-			if (!ft_isspace(parser->line[parser->indln]))
+		while (parser->line[parser->indln])
+			if (!ft_isspace(parser->line[(parser->indln)++]))
 				return (FALSE);
-		free(parser->line);
-		parser->eof = get_next_line(parser->fd, &(parser->line));
+		if (parser->line)
+			free(parser->line);
+		parser->line = 0;
+		parser->indln = 0;
+		if (parser->eof)
+			parser->eof = get_next_line(parser->fd, &(parser->line));
+		else
+			loop = FALSE;
 	}
 	if (parser->eof == -1)
-		return (cub_free_fd("the setting file hasn't all prerequisite before \
-map", 0, parser));
+		return (cub_free_fd("cub3D failed to read the setting file after \
+		the map", 0, parser));
 	return (TRUE);
+}
+
+t_bool	cub_check_end_map(t_parser *parser)
+{
+	char *line_map;
+	int indline;
+	
+	line_map = parser->line_map;
+	indline = 0;
+	while (line_map[indline] == ' ' || line_map[indline] == '\t')
+		indline++;
+	if (!line_map[indline])
+		return (TRUE);
+	return (FALSE);
 }
 
 t_bool	cub_check_before_map(t_game *game)
