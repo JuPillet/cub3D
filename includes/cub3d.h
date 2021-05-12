@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/12 12:51:02 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/13 00:04:42 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ typedef struct	s_resolution
 typedef	struct	s_screen
 {
 	t_resolution	*resolution;
-	void			*mlx;
 	void			*mlx_screen;
 	t_img_data		*pic_screen;
 }				t_screen;
@@ -115,6 +114,7 @@ typedef struct	s_hash_array
 struct	s_game
 {
 	t_hash_array	*hash_array;
+	void			*mlx;
 	t_screen		*screen;
 	t_level			*level;
 	t_bool			*save;
@@ -132,11 +132,14 @@ int				cub_set_shade(double distance, int color);
 int				cub_set_opposite(int trgb);
 int				cub_set_argb(int a, int r, int g, int b);
 
+t_bool			cub_coin(t_game *game);
+
 void			cub_set_key_hash_array(t_hash_array *array);
 void			cub_set_keylen_hash_array(t_hash_array *array);
 void			cub_set_pt_fonctions_hash_array(t_hash_array *array);
 
-t_bool			cub_set_resolution(char *line, t_screen *screen);
+t_bool			cub_set_mlx(void **mlx);
+t_bool			cub_set_resolution(char *line, void *mlx, t_screen *screen);
 void			cub_set_map_columns(char *line, char **line_map);
 
 t_bool			cub_set_player(int map_x, int map_y, char **map, t_player *player);
@@ -144,10 +147,11 @@ t_bool			cub_search_player(char **map, t_player *player);
 t_bool			cub_set_texture(t_game *game, t_parser *parser, char *path, void **texture);
 t_bool			cub_set_horizon(t_parser *parser, t_game *game);
 
-t_bool			cub_setter_parser(const char *file, t_parser *parser);
+t_bool			cub_set_image_to_window(void *mlx, t_screen *screen);
+t_bool			cub_set_parser(const char *file, t_parser *parser);
 t_bool			cub_set_int(char *line, int *indln, int *value);
 t_bool			cub_set_double(char *line, int *indln, double *value);
-void			cub_set_mlx(t_game *game);
+void			cub_set_mlx_screen(t_game *game);
 
 t_bool			cub_check_out_map(t_area *area, int y, int x);
 t_bool			cub_check_wall_map(t_area *area, int y, int x);
@@ -159,9 +163,10 @@ t_bool			cub_check_end_map(t_parser *parser);
 t_bool			cub_check_before_map(t_game *game);
 t_bool			cub_check_start_map(char *line, int indln);
 
-t_bool			cub_free_fd(char *msg, const char *msg2, t_parser *parser);
+t_bool			cub_free_map(char **map);
 t_bool			cub_free_area(t_area **area);
 
+t_bool			cub_free_parser(char *msg, const char *msg2, t_parser *parser);
 t_bool			cub_free_functions_pointer(t_pt_fnct **pt_function);
 t_bool			cub_free_fonctions_hash_array(t_hash_array **hash_array);
 t_bool			cub_free_game(t_game **game);
@@ -171,8 +176,9 @@ t_bool			cub_free_color(t_color **color);
 t_bool			cub_free_horizon(t_horizon **horizon);
 t_bool			cub_free_level(void *mlx, t_level **level);
 
+t_bool			cub_free_pic_screen(void *mlx, t_img_data **pic_screen);
 t_bool			cub_free_resolution(t_resolution **resolution);
-t_bool			cub_free_screen(t_screen **screen);
+t_bool			cub_free_screen(void *mlx, t_screen **screen);
 
 t_bool			cub_get_map_line(t_parser *parser, char **line, int fd, const char *file);
 t_bool			cub_get_setting_line(t_parser *parser, const char *file);
@@ -191,6 +197,7 @@ t_bool			cub_malloc_color(t_color **color);
 t_bool			cub_malloc_horizon(t_horizon **horizon);
 t_bool			cub_malloc_level(t_level **level);
 
+t_bool			cub_malloc_pic_screen(t_img_data **pic_screen);
 t_bool			cub_malloc_resolution(t_resolution **resolution);
 t_bool			cub_malloc_screen(t_screen	**screen);
 
@@ -209,6 +216,10 @@ static t_bool	cub_dispatcher(const char *file, t_parser *parser, t_game *game);
 t_bool			cub_parser(const char *file, t_game *game);
 t_bool			cub_norm_file(const char *file, t_game *game);
 
+int				cub_key_push(int key_code, t_game *game);
+t_bool			cub_coin(t_game *game);
+
+t_bool			cub_is_save(int ac, char **av, t_bool *save);
 int				main(int ac, char **av);
 
 #endif

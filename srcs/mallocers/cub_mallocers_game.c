@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 22:53:33 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/12 12:53:02 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/12 22:29:14 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,16 @@ t_bool	cub_malloc_fonctions_hash_array(t_hash_array **hash_array)
 
 t_bool	cub_malloc_game(t_game **game)
 {
-	*game = (t_game *)malloc(sizeof(t_game));
+	(*game) = (t_game *)malloc(sizeof(t_game));
 	if (*game)
 	{
 		(*game)->hash_array = 0;
+		(*game)->mlx = 0;
 		(*game)->screen = 0;
 		(*game)->level = 0;
+		(*game)->save = 0;
 		if (cub_malloc_fonctions_hash_array(&((*game)->hash_array))
+			&& cub_set_mlx(&((*game)->mlx))
 			&& cub_malloc_screen(&((*game)->screen))
 			&& cub_malloc_level(&((*game)->level))
 			&& ft_malloc_t_bool(1, &((*game)->save)))

@@ -6,16 +6,12 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 23:24:25 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/11 15:34:54 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/12 14:04:26 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
-
-/*
-** AID
-*/
 
 t_bool	cub_free_player(t_player **player)
 {

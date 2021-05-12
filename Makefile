@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/05/12 12:16:41 by jpillet          ###   ########.fr        #
+#    Updated: 2021/05/12 20:46:47 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,10 +60,8 @@ SRCSFLLR		=	$(addprefix ./srcs/freellers/, \
 					cub_freellers_level.c \
 					cub_freellers_screen.c)
 
-##SRCSRNDR		=	$(addprefix ./srcs/render/, \
-##						mini_ray.c \
-##						mini_render.c \
-##						mini_vector.c)
+SRCSCOIN		=	$(addprefix ./srcs/coin/, \
+						cub_coin.c)
 
 CC				=	gcc
 
@@ -91,7 +89,7 @@ OBJSGTTR		=	${SRCSGTTR:.c=.o}
 
 OBJSFLLR		=	${SRCSFLLR:.c=.o}
 
-OBJSRNDR		=	${SRCSRNDR:.c=.o}
+OBJSCOIN		=	${SRCSCOIN:.c=.o}
 
 UNAME_S	 		=	$(shell uname -s)
 
@@ -119,8 +117,8 @@ ${LIBFT}		:
 					mv ${DIRLIBFT}${LIBFT} ./
 					cp ${DIRLIBFT}${HDLFT} ${INCLUDES}
 
-$(NAME)			:	${LIBFT} ${MLX} ${OBJSCMMN} ${OBJSCHKR} ${OBJSADDR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSRNDR}
-					$(CC) $(CFLAGS) $(OBJSCMMN) $(OBJSCHKR) $(OBJSADDR) $(OBJSMLLC) $(OBJSPRSR) $(OBJSSTTR) $(OBJSGTTR) $(OBJSFLLR) $(OBJSRNDR) ${LIBFT} ${MLX} $(FLAGMLX) -o ${NAME}
+$(NAME)			:	${LIBFT} ${MLX} ${OBJSCMMN} ${OBJSCHKR} ${OBJSADDR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSRNDR} ${OBJSCOIN}
+					$(CC) $(CFLAGS) $(OBJSCMMN) $(OBJSCHKR) $(OBJSADDR) $(OBJSMLLC) $(OBJSPRSR) $(OBJSSTTR) $(OBJSGTTR) $(OBJSFLLR) $(OBJSRNDR) ${OBJSCOIN} ${LIBFT} ${MLX} $(FLAGMLX) -o ${NAME}
 
 clean			:
 					make clean -C ${DIRLIBFT}

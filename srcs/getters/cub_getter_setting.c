@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 23:40:10 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/11 18:41:28 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/13 00:06:13 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_bool	cub_get_map_line(t_parser *parser, char **line, int fd, const char *file)
 	*line = 0;
 	parser->eof = get_next_line(fd, line);
 	if (parser->eof == -1)
-		return (cub_free_fd("the program failed to read the configuration file",
+		return (cub_free_parser("the program failed to read the configuration file",
 				file, parser));
 	parser->indln = 0;
 	return (ft_gnl_status(parser->eof, *line, parser->fd, file));
@@ -34,14 +34,19 @@ t_bool	cub_get_setting_line(t_parser *parser, const char *file)
 	if (parser->line_map > 0)
 		free(parser->line_map);
 	parser->line_map = 0;
-	parser->eof = get_next_line(parser->fd, &(parser->line));
-	if (parser->eof == -1)
-		return (cub_free_fd("the program failed to read the configuration file",
-				file, parser));
+	if (parser->fd > 0)
+	{
+		parser->eof = get_next_line(parser->fd, &(parser->line));
+		if (parser->eof == -1)
+			return (cub_free_parser("the program failed to read the configuration \
+file", file, parser));
+	}
 	parser->eof = get_next_line(parser->fd_map, &(parser->line_map));
 	if (!parser->eof == -1)
-		return (cub_free_fd("the program failed to read the configuration file",
-				file, parser));
+		return (cub_free_parser("the program failed to read the configuration \
+file", file, parser));
 	parser->indln = 0;
-	return (ft_gnl_status(parser->eof, parser->line, parser->fd, file));
+	if (parser->fd)
+		return (ft_gnl_status(parser->eof, parser->line, parser->fd, file));
+	return (ft_gnl_status(parser->eof, parser->line_map, parser->fd_map, file));
 }

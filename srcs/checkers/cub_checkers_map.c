@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:43:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/11 17:06:02 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/12 23:55:55 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ t_bool	cub_check_after_map(t_parser *parser)
 			loop = FALSE;
 	}
 	if (parser->eof == -1)
-		return (cub_free_fd("cub3D failed to read the setting file after \
+		return (cub_free_parser("cub3D failed to read the setting file after \
 		the map", 0, parser));
 	return (TRUE);
 }

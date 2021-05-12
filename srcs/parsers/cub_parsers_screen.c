@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 21:40:40 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/29 00:26:14 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/12 17:35:51 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,5 @@ resolution lines, you must need only one", parser->line));
 		if (!ft_isspace(parser->line[(parser->indln)++]))
 			return (ft_error("incorrect resolution line format",
 					parser->line));
-	return(cub_set_resolution(parser->line, game->screen));
+	return(cub_set_resolution(parser->line, game->mlx, game->screen));
 }

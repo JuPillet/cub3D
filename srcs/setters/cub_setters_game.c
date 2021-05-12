@@ -6,26 +6,34 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 19:35:06 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/11 18:57:18 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/12 23:05:46 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_set_resolution(char *line, t_screen *screen)
+t_bool	cub_set_mlx(void **mlx)
 {
-	int	*width;
-	int *height;
-	
+	(*mlx) = mlx_init();
+	if ((*mlx))
+		return (TRUE);
+	return (FALSE);
+}
+
+t_bool	cub_set_resolution(char *line, void *mlx, t_screen *screen)
+{
+	int	width;
+	int height;
+
 	if (*(screen->resolution->width) < 1 || *(screen->resolution->height) < 1)
 		return (ft_error("resolution format to small, minimum format :\n\
 - width : 1\n- height 1", line));
-	mlx_get_screen_size(screen->mlx, width, height);
-	if (*(screen->resolution->width) > *width)
-		*(screen->resolution->width) = *width;
-	if (*(screen->resolution->height) > *height)
-		*(screen->resolution->height) = *height;
+	mlx_get_screen_size(mlx, &width, &height);
+	if (*(screen->resolution->width) > width)
+		*(screen->resolution->width) = width;
+	if (*(screen->resolution->height) > height)
+		*(screen->resolution->height) = height;
 	*(screen->resolution->is) = TRUE;
 	return (TRUE);
 }

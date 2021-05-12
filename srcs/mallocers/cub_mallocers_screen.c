@@ -6,12 +6,25 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/17 23:19:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/12 00:20:43 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/12 18:08:42 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
+
+t_bool	cub_malloc_pic_screen(t_img_data **pic_screen)
+{
+	*pic_screen = (t_img_data *)malloc(sizeof(t_img_data));
+	if (!(*pic_screen))
+		return (FALSE);
+	(*pic_screen)->img = 0;
+	(*pic_screen)->addr = 0;
+	(*pic_screen)->bits_per_pixel = 0;
+	(*pic_screen)->line_length = 0;
+	(*pic_screen)->endian = 0;
+	return (TRUE);
+}
 
 t_bool	cub_malloc_resolution(t_resolution **resolution)
 {
@@ -41,10 +54,10 @@ t_bool	cub_malloc_screen(t_screen	**screen)
 	if (*screen)
 	{
 		(*screen)->resolution = 0;
-		(*screen)->mlx = 0;
 		(*screen)->mlx_screen = 0;
 		(*screen)->pic_screen = 0;
-		if (cub_malloc_resolution(&((*screen)->resolution)))
+		if (cub_malloc_resolution(&((*screen)->resolution))
+			&& cub_malloc_pic_screen(&((*screen)->pic_screen)))
 			return (TRUE);
 	}
 	return (FALSE);

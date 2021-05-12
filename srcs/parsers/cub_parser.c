@@ -6,19 +6,12 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:47:56 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/09 16:54:30 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/12 23:56:53 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
-
-/*
-** WIP
-** parse game
-** -
-** -
-*/
 
 t_bool	cub_dispacher_fnct(int indpf, t_parser *parser, t_game *game)
 {
@@ -58,19 +51,21 @@ t_bool	cub_parser(const char *file, t_game *game)
 	t_parser	parser;
 	t_bool		loop;
 
-	if (!cub_setter_parser(file, &parser))
+	if (!cub_set_parser(file, &parser))
 		return (FALSE);
-	game->screen->mlx = mlx_init();
 	parser.eof = 1;
 	loop = TRUE;
 	while (parser.eof == 1 && loop == TRUE)
 	{
 		if (!cub_get_setting_line(&parser, file))
+		{
+			cub_free_parser(0, 0, &parser);
 			return (FALSE);
+		}
 		loop = cub_dispatcher(file, &parser, game);
 	}
 	if (parser.eof == -1)
-		return (cub_free_fd("unknown element line", parser.line, &parser));		
+		return (cub_free_parser("unknown element line", parser.line, &parser));		
 	return (cub_parse_map(&parser, game, file));
 }
 

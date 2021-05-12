@@ -6,14 +6,21 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:50:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/11 17:34:30 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/13 00:00:48 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_setter_parser(const char *file, t_parser *parser)
+t_bool	cub_set_image_to_window(void *mlx, t_screen *screen)
+{
+	mlx_put_image_to_window(mlx, screen->mlx_screen,
+		screen->pic_screen->img, 0, 0);
+	return (TRUE);
+}
+
+t_bool	cub_set_parser(const char *file, t_parser *parser)
 {
 	parser->fd = open(file, O_RDONLY);
 	parser->fd_map = open(file, O_RDONLY);
@@ -21,7 +28,7 @@ t_bool	cub_setter_parser(const char *file, t_parser *parser)
 	parser->line_map = 0;
 	if (parser->fd != -1 && parser->fd_map != -1)
 		return (TRUE);
-	return (cub_free_fd("cub3D failed to open", file, parser));
+	return (cub_free_parser("cub3D failed to open", file, parser));
 }
 
 t_bool	cub_set_int(char *line, int *indln, int *value)
@@ -58,13 +65,13 @@ t_bool	cub_set_double(char *line, int *indln, double *value)
 	return (TRUE);
 }
 
-void	cub_set_mlx(t_game *game)
+void	cub_set_mlx_screen(t_game *game)
 {
-	game->screen->mlx_screen = mlx_new_window(game->screen->mlx,
-	*(game->screen->resolution->width), *(game->screen->resolution->width),
+	game->screen->mlx_screen = mlx_new_window(game->mlx,
+	*(game->screen->resolution->width), *(game->screen->resolution->height),
 		"LOUIS XIV");
-	game->screen->pic_screen = mlx_new_image(game->screen->mlx,
-	*(game->screen->resolution->height), *(game->screen->resolution->height));
+	game->screen->pic_screen->img = mlx_new_image(game->mlx,
+	*(game->screen->resolution->width), *(game->screen->resolution->height));
 	game->screen->pic_screen->addr = mlx_get_data_addr(
 			game->screen->pic_screen->img,
 			&(game->screen->pic_screen->bits_per_pixel),

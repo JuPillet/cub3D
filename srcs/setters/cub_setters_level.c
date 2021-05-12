@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/11 23:47:05 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/12 23:59:43 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,14 @@ t_bool	cub_set_texture(t_game *game, t_parser *parser,
 	parser->indln = 0;
 	width = 64;
 	height = 64;
-	*texture = mlx_xpm_file_to_image(game->screen->mlx, path, &width, &height);
+	*texture = mlx_xpm_file_to_image(game->mlx, path, &width, &height);
+	free(path);
+	path = 0;
 	if (!(*texture))
-		return (cub_free_fd("program can't open texture",
+		return (cub_free_parser("program can't open texture",
 				parser->line, parser));
 	if (width != 64 || height != 64)
-		return (cub_free_fd("wrong texture height or width must be 64 pixel",
+		return (cub_free_parser("wrong texture height or width must be 64 pixel",
 				parser->line, parser));
 	return (TRUE);
 }
@@ -98,9 +100,9 @@ ceiling color , you must need only one", 0));
 	if (!cub_parse_color(parser, horizon))
 	{
 		if (parser->line[parser->indln] == 'F')
-			return (cub_free_fd("the setting file has a invalid floor color", parser->line, parser));
+			return (cub_free_parser("the setting file has a invalid floor color", parser->line, parser));
 		else
-			return (cub_free_fd("the setting file has a invalid ceiling color", parser->line, parser));
+			return (cub_free_parser("the setting file has a invalid ceiling color", parser->line, parser));
 	}
 	*(horizon->is) = TRUE;
 	return (TRUE);

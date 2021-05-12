@@ -21,7 +21,7 @@ t_bool	cub_parse_map(t_parser *parser, t_game *game, const char *file)
 	malloc_lines = 1;
 	loop = TRUE;
 	if (!cub_check_before_map(game))
-		return (cub_free_fd("the setting file hasn't all prerequisite before \
+		return (cub_free_parser("the setting file hasn't all prerequisite before \
 map", 0, parser));
 	while (parser->eof != -1 && loop)
 	{
@@ -37,5 +37,6 @@ map", 0, parser));
 	}
 	if (!cub_malloc_map_lines(parser, game, malloc_lines, file))
 		return (FALSE);
-	return (cub_free_fd(0, 0, parser));
+	cub_free_parser(0, 0, parser);
+	return (TRUE);
 }

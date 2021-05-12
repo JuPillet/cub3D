@@ -1,44 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_freellers_area.c                               :+:      :+:    :+:   */
+/*   cub_coin.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 00:48:57 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/12 23:53:51 by jpillet          ###   ########.fr       */
+/*   Created: 2021/05/12 13:17:52 by jpillet           #+#    #+#             */
+/*   Updated: 2021/05/12 20:51:02 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_free_map(char **map)
+int	cub_key_push(int key_code, t_game *game)
 {
-	int	indmap;
-
-	indmap = 0;
-	if (!map)
-		return (FALSE);
-	while (map[indmap])
-	{
-		free(map[indmap]);
-		map[indmap] = 0;
-		indmap++;
-	}
-	free(map);
+	if (key_code == 0xff1b)
+		cub_free_game(&game);
 }
 
-t_bool	cub_free_area(t_area **area)
+t_bool	cub_coin(t_game *game)
 {
-
-	if (!(*area))
-		return (FALSE);
-	cub_free_map((*area)->map);
-	(*area)->map = 0;
-	free((*area)->lines_length);
-	(*area)->lines_length = 0;
-	free(*area);
-	*area = 0;
+	cub_set_mlx_screen(game);
+	cub_set_image_to_window(game->mlx, game->screen);
+	mlx_hook(game->screen->mlx_screen, 2, (1L<<0), &cub_key_push, game);
+	mlx_loop(game->mlx);
 	return (TRUE);
 }
