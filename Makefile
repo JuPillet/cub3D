@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/05/12 20:46:47 by jpillet          ###   ########.fr        #
+#    Updated: 2021/05/13 00:17:59 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -124,7 +124,7 @@ clean			:
 					make clean -C ${DIRLIBFT}
 					make clean -C ${DIRMLX}
 					rm -rf	${OBJSCMMN} ${OBJSTEST} ${OBJSADDR} ${OBJSMLLC} ${OBJSCHKR} \
-							${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSRNDR} 
+							${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSRNDR} ${OBJSCOIN}
 
 fclean			:	clean
 					make fclean -C ${DIRLIBFT}
