@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 16:06:42 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/26 19:42:56 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/12 12:52:58 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,6 @@ t_bool ft_malloc_t_bool(int size, t_bool **ptr)
 	if (!(*ptr))
 		return (FALSE);
 	while (size--)
-		(*ptr)[size] = 0;
+		(*ptr)[size] = FALSE;
 	return (TRUE);
 }

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 22:53:33 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/01 13:47:11 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/12 12:55:43 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_bool	cub_free_game(t_game **game)
 	cub_free_fonctions_hash_array(&((*game)->hash_array));
 	cub_free_level((*game)->screen->mlx, &((*game)->level));
 	cub_free_screen(&((*game)->screen));
+	ft_free_t_bool(&((*game)->save));
 	free(*game);
 	*game = 0;
 	return (TRUE);

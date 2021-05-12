@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/11 23:48:08 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/12 12:51:02 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ struct	s_game
 	t_hash_array	*hash_array;
 	t_screen		*screen;
 	t_level			*level;
+	t_bool			*save;
 };
 
 t_bool			cub_set_int(char *line, int *indln, int *value);
