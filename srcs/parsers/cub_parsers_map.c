@@ -15,28 +15,30 @@
 
 t_bool	cub_parse_map(t_parser *parser, t_game *game, const char *file)
 {
-	int		malloc_lines;
-	t_bool	loop;
+	static int		lines;
+	char			*line;
+	t_bool			check;
 
-	malloc_lines = 1;
-	loop = TRUE;
-	if (!cub_check_before_map(game))
-		return (cub_free_parser("the setting file hasn't all prerequisite before \
-map", 0, parser));
-	while (parser->eof != -1 && loop)
-	{
-		if (!cub_get_map_line(parser, &(parser->line), parser->fd, file))
-			return (FALSE);
-		while (parser->line[parser->indln] == ' '
-			|| parser->line[parser->indln] == '\t')
-			(parser->indln)++;
-		if (!parser->line[parser->indln])
-			loop = FALSE;
-		else
-			malloc_lines++;
-	}
-	if (!cub_malloc_map_lines(parser, game, malloc_lines, file))
-		return (FALSE);
-	cub_free_parser(0, 0, parser);
-	return (TRUE);
+	check = TRUE;
+	line = ft_strdup(parser->line);
+	lines++;
+	if (!line)
+		return(FALSE);
+	check = cub_get_setting_line(parser, file);
+	if (check && parser->eof == 1 && !(cub_check_end_map(line)))
+		check = cub_parse_map(parser, game, file);
+	else if (check)
+		check = cub_malloc_map_lines(game, lines);
+	if (check)
+		check = cub_malloc_map_columns(line,
+				&(game->level.area.map[lines]),
+				(game->level.area.lines_length + (--lines)));
+	if (line)
+		ft_free_char(&line);
+	if (check && lines == 0)
+		check = cub_check_after_map(parser, file);
+	if (!check)
+		while (game->level.area.map[lines])
+			ft_free_char(&(game->level.area.map[lines++]));
+	return (check);
 }

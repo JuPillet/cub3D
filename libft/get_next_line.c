@@ -6,20 +6,16 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:20:17 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/15 16:27:41 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/13 22:30:06 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_bool	ft_gnl_status(int eof, char *line, int fd, const char *file)
+t_bool	ft_gnl_status(int eof, const char *file)
 {
 	if (eof == -1)
 	{
-		printf("Error\n");
-		close(fd);
-		if (line)
-			free(line);
 		ft_error("program has failed to read in the file :\n", file);
 		return (FALSE);
 	}

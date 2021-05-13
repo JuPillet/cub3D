@@ -5,56 +5,96 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/17 19:35:06 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/12 23:05:46 by jpillet          ###   ########.fr       */
+/*   Created: 2021/05/13 19:29:22 by jpillet           #+#    #+#             */
+/*   Updated: 2021/05/14 00:49:27 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_set_mlx(void **mlx)
+void	cub_init_hash_array(t_hash_array *hash_array)
 {
-	(*mlx) = mlx_init();
-	if ((*mlx))
-		return (TRUE);
-	return (FALSE);
+	hash_array[0].key = "NO";
+	hash_array[1].key = "EA";
+	hash_array[2].key = "SO";
+	hash_array[3].key = "WE";
+	hash_array[4].key = "S";
+	hash_array[5].key = "R";
+	hash_array[6].key = "C";
+	hash_array[7].key = "F";
+	hash_array[0].keylen = 2;
+	hash_array[1].keylen = 2;
+	hash_array[2].keylen = 2;
+	hash_array[3].keylen = 2;
+	hash_array[4].keylen = 1;
+	hash_array[5].keylen = 1;
+	hash_array[6].keylen = 1;
+	hash_array[7].keylen = 1;
+	hash_array[0].pt_fonction = &cub_parse_texture_north;
+	hash_array[1].pt_fonction = &cub_parse_texture_east;
+	hash_array[2].pt_fonction = &cub_parse_texture_south;
+	hash_array[3].pt_fonction = &cub_parse_texture_west;
+	hash_array[4].pt_fonction = &cub_parse_texture_sprite;
+	hash_array[5].pt_fonction = &cub_parse_resolution;
+	hash_array[6].pt_fonction = &cub_set_horizon;
+	hash_array[7].pt_fonction = &cub_set_horizon;
 }
 
-t_bool	cub_set_resolution(char *line, void *mlx, t_screen *screen)
+t_bool	cub_malloc_hash_array(t_game *game)
 {
-	int	width;
-	int height;
+	int	indha;
+	int	keylen;
 
-	if (*(screen->resolution->width) < 1 || *(screen->resolution->height) < 1)
-		return (ft_error("resolution format to small, minimum format :\n\
-- width : 1\n- height 1", line));
-	mlx_get_screen_size(mlx, &width, &height);
-	if (*(screen->resolution->width) > width)
-		*(screen->resolution->width) = width;
-	if (*(screen->resolution->height) > height)
-		*(screen->resolution->height) = height;
-	*(screen->resolution->is) = TRUE;
+	game->hash_array = (t_hash_array *)malloc(8 * sizeof(t_hash_array));
+	if (!(game->hash_array))
+		return (FALSE);
+	cub_init_hash_array(game->hash_array);
 	return (TRUE);
 }
 
-void	cub_set_map_columns(char *line, char **line_map)
+t_bool	cub_init_color(t_color *color)
 {
-	int	indln;
-	int	column;
-	int	tabulation;
+	color->a = 0;
+	color->r = 0;
+	color->g = 0;
+	color->b = 0;
+	color->argb = 0;
+	return (TRUE);
+}
 
-	indln = 0;
-	column = 0;
-	while (line[indln])
-	{
-		tabulation = 4 - (column % 4);
-		if (line[indln] == '\t')
-			while (tabulation--)
-				(*line_map)[column++] = ' ';
-		else
-			(*line_map)[column++] = line[indln];
-		indln++;
-	}
-	(*line_map)[column] = '\0';
+t_bool	cub_init_level(t_game *game)
+{
+	game->level.no = 0;
+	game->level.so = 0;
+	game->level.we = 0;
+	game->level.ea = 0;
+	game->level.sp = 0;
+	game->level.floor.is = FALSE;
+	game->level.ceiling.is = FALSE;
+	cub_init_color(&(game->level.floor.color));
+	cub_init_color(&(game->level.ceiling.color));
+	game->level.area.map = 0;
+	game->level.area.lines_length = 0;
+	return (TRUE);
+}
+
+t_bool	cub_init_game(t_game *game)
+{
+	if (!(game))
+		return (FALSE);
+	game->hash_array = 0;
+	game->parser.fd = -1;
+	game->parser.line = 0;
+	game->parser.indln = 0;
+	game->parser.eof = 1;
+	game->screen.mlx_screen = 0;
+	game->screen.pic_screen.img = 0;
+	game->screen.pic_screen.addr = 0;
+	game->mlx = mlx_init();
+	cub_malloc_hash_array(game);
+	cub_init_level(game);
+	if (!(game->mlx) || !(game->hash_array))
+		return (ft_error("cub3D didn't find the memory to load", 0));
+	return (TRUE);
 }

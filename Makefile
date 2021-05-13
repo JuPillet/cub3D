@@ -6,15 +6,13 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/05/13 00:17:59 by jpillet          ###   ########.fr        #
+#    Updated: 2021/05/13 23:37:55 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 			=	cub3D
 
 LIBFT			=	libft.a
-
-MLX				=	libmlx.a
 
 HDLFT			=	libft.h
 
@@ -32,10 +30,7 @@ SRCSCHKR		=	$(addprefix ./srcs/checkers/, \
 					cub_checkers_map_validity.c)
 
 SRCSMLLC		=	$(addprefix ./srcs/mallocers/, \
-					cub_mallocers_area.c \
-					cub_mallocers_game.c \
-					cub_mallocers_level.c \
-					cub_mallocers_screen.c)
+					cub_mallocers_area.c)
 
 SRCSPRSR		=	$(addprefix ./srcs/parsers/, \
 					cub_parser.c \
@@ -45,20 +40,17 @@ SRCSPRSR		=	$(addprefix ./srcs/parsers/, \
 
 SRCSSTTR		=	$(addprefix ./srcs/setters/, \
 					cub_setters_color.c \
-					cub_setters_fonctions_hash_array.c \
 					cub_setters_game.c \
 					cub_setters_level.c \
+					cub_setters_mlx.c \
 					cub_setters_values.c)
 
 SRCSGTTR		=	$(addprefix ./srcs/getters/, \
-					cub_getter_setting.c \
-					cub_getter_colors.c)
+					cub_getters_color.c \
+					cub_getters_line.c)
 
 SRCSFLLR		=	$(addprefix ./srcs/freellers/, \
-					cub_freellers_area.c \
-					cub_freellers_game.c \
-					cub_freellers_level.c \
-					cub_freellers_screen.c)
+					cub_freellers_game.c)
 
 SRCSCOIN		=	$(addprefix ./srcs/coin/, \
 						cub_coin.c)
@@ -75,10 +67,6 @@ OBJSCMMN		=	${SRCSCMMN:.c=.o}
 
 OBJSCHKR		=	${SRCSCHKR:.c=.o}
 
-OBJSTEST		=	${SRCSTEST:.c=.o}
-
-OBJSADDR		=	${SRCSADDR:.c=.o}
-
 OBJSMLLC		=	${SRCSMLLC:.c=.o}
 
 OBJSPRSR		=	${SRCSPRSR:.c=.o}
@@ -93,10 +81,12 @@ OBJSCOIN		=	${SRCSCOIN:.c=.o}
 
 UNAME_S	 		=	$(shell uname -s)
 
-FAGMLX			=	
 ifeq ($(UNAME_S),Darwin)
+	MLX			=	libmlx.a
 	FLAGMLX		=	-lmlx -framework OpenGL -framework AppKit
+
 else
+	MLX			=	libmlx_Linux.a
 	FLAGMLX		=	-lX11 -lXext -lm -lpthread
 endif
 
@@ -117,14 +107,14 @@ ${LIBFT}		:
 					mv ${DIRLIBFT}${LIBFT} ./
 					cp ${DIRLIBFT}${HDLFT} ${INCLUDES}
 
-$(NAME)			:	${LIBFT} ${MLX} ${OBJSCMMN} ${OBJSCHKR} ${OBJSADDR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSRNDR} ${OBJSCOIN}
-					$(CC) $(CFLAGS) $(OBJSCMMN) $(OBJSCHKR) $(OBJSADDR) $(OBJSMLLC) $(OBJSPRSR) $(OBJSSTTR) $(OBJSGTTR) $(OBJSFLLR) $(OBJSRNDR) ${OBJSCOIN} ${LIBFT} ${MLX} $(FLAGMLX) -o ${NAME}
+$(NAME)			:	${LIBFT} ${MLX} ${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN}
+					$(CC) $(CFLAGS) $(OBJSCMMN) $(OBJSCHKR) $(OBJSMLLC) $(OBJSPRSR) $(OBJSSTTR) $(OBJSGTTR) $(OBJSFLLR) ${OBJSCOIN} ${LIBFT} ${MLX} $(FLAGMLX) -o ${NAME}
 
 clean			:
 					make clean -C ${DIRLIBFT}
 					make clean -C ${DIRMLX}
-					rm -rf	${OBJSCMMN} ${OBJSTEST} ${OBJSADDR} ${OBJSMLLC} ${OBJSCHKR} \
-							${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSRNDR} ${OBJSCOIN}
+					rm -rf	${OBJSCMMN} ${OBJSTEST} ${OBJSMLLC} ${OBJSCHKR} \
+							${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN}
 
 fclean			:	clean
 					make fclean -C ${DIRLIBFT}

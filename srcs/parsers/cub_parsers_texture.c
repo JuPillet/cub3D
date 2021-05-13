@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_parse_texture.c                               :+:      :+:    :+:   */
+/*   cub_parsers_texture.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/27 18:23:01 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/28 23:39:05 by jpillet          ###   ########.fr       */
+/*   Created: 2021/05/13 18:51:28 by jpillet           #+#    #+#             */
+/*   Updated: 2021/05/13 20:00:02 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,110 +15,101 @@
 
 t_bool	cub_parse_texture_north(t_parser *parser, t_game *game)
 {
-	int path_len;
-	char *path;
+	int		path_len;
+	char	*path;
 
-	if (game->level->no)
-		return (cub_free_parser("two or more north texture declared, need only one",
-				0, parser));
+	if (game->level.no)
+		return (ft_error("setting file need only one north texture", 0));
 	while (ft_isspace(parser->line[parser->indln]))
 		(parser->indln)++;
 	path_len = 0;
 	while (parser->line[(parser->indln) + path_len])
 		path_len++;
 	if (!ft_malloc_char(path_len + 1, &path))
-		return (cub_free_parser("insufficient memory to initiate cub3D",
-				0, parser));
+		return (ft_error("insufficient memory to initiate cub3D", 0));
 	path_len = 0;
 	while (parser->line[(parser->indln)])
 		path[path_len++] = parser->line[(parser->indln)++];
-	return (cub_set_texture(game, parser, path, &(game->level->no)));
+	return (cub_set_texture(game, parser, path, &(game->level.no)));
 }
 
 t_bool	cub_parse_texture_east(t_parser *parser, t_game *game)
 {
-	int path_len;
-	char *path;
+	int		path_len;
+	char	*path;
 
-	if (game->level->ea)
-		return (cub_free_parser("two or more east texture declared, need only one",
-				0, parser));
+	if (game->level.ea)
+		return (ft_error("setting file need only one east texture", 0));
 	while (ft_isspace(parser->line[parser->indln]))
 		(parser->indln)++;
 	path_len = 0;
 	while (parser->line[(parser->indln) + path_len])
 		path_len++;
 	if (!ft_malloc_char(path_len + 1, &path))
-		return (cub_free_parser("insufficient memory to initiate cub3D",
-				0, parser));
+		return (ft_error("insufficient memory to initiate cub3D", 0));
 	path_len = 0;
 	while (parser->line[(parser->indln)])
 		path[path_len++] = parser->line[(parser->indln)++];
-	return (cub_set_texture(game, parser, path, &(game->level->ea)));
+	return (cub_set_texture(game, parser, path, &(game->level.ea)));
 }
 
 t_bool	cub_parse_texture_south(t_parser *parser, t_game *game)
 {
-	int path_len;
-	char *path;
+	int		path_len;
+	char	*path;
 
-	if (game->level->so)
-		return (cub_free_parser("two or more south texture declared, need only one",
-				0, parser));
+	if (game->level.so)
+		return (ft_error("setting file need only one south texture", 0));
 	while (ft_isspace(parser->line[parser->indln]))
 		(parser->indln)++;
 	path_len = 0;
 	while (parser->line[(parser->indln) + path_len])
 		path_len++;
 	if (!ft_malloc_char(path_len + 1, &path))
-		return (cub_free_parser("insufficient memory to initiate cub3D",
-				0, parser));
+		return (ft_error("insufficient memory to initiate cub3D", 0));
 	path_len = 0;
 	while (parser->line[(parser->indln)])
 		path[path_len++] = parser->line[(parser->indln)++];
-	return (cub_set_texture(game, parser, path, &(game->level->so)));
+	return (cub_set_texture(game, parser, path, &(game->level.so)));
 }
 
 t_bool	cub_parse_texture_west(t_parser *parser, t_game *game)
 {
-	int path_len;
-	char *path;
+	int		path_len;
+	char	*path;
 
-	if (game->level->we)
-		return (cub_free_parser("two or more west texture declared, need only one",
-				0, parser));
+	if (game->level.we)
+		return (ft_error("setting file need only one west texture", 0));
 	while (ft_isspace(parser->line[parser->indln]))
 		(parser->indln)++;
 	path_len = 0;
 	while (parser->line[(parser->indln) + path_len])
 		path_len++;
 	if (!ft_malloc_char(path_len + 1, &path))
-		return (cub_free_parser("insufficient memory to initiate cub3D",
-				0, parser));
+		return (ft_error("insufficient memory to initiate cub3D", 0));
 	path_len = 0;
 	while (parser->line[(parser->indln)])
 		path[path_len++] = parser->line[(parser->indln)++];
-	return (cub_set_texture(game, parser, path, &(game->level->we)));
+	return (cub_set_texture(game, parser, path, &(game->level.we)));
 }
 
 t_bool	cub_parse_texture_sprite(t_parser *parser, t_game *game)
 {
-	int path_len;
-	char *path;
+	int		path_len;
+	char	*path;
 
-	if (game->level->sp)
-		return (cub_free_parser("two or more sprite texture declared, \
-need only one", 0, parser));
+	if (game->level.sp)
+		return (ft_error("setting file need only one sprite texture", 0));
 	while (ft_isspace(parser->line[parser->indln]))
 		(parser->indln)++;
 	path_len = 0;
 	while (parser->line[(parser->indln) + path_len])
 		path_len++;
 	if (!ft_malloc_char(path_len + 1, &path))
-		return (cub_free_parser("insufficient memory to initiate cub3D",
-				0, parser));
+		return (ft_error("insufficient memory to initiate cub3D",
+				0));
 	path_len = 0;
 	while (parser->line[(parser->indln)])
 		path[path_len++] = parser->line[(parser->indln)++];
-	return (cub_set_texture(game, parser, path, &(game->level->sp)));
+	return (cub_set_texture(game, parser, path, &(game->level.sp)));
 }

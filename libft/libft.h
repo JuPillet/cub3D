@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 16:33:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/28 21:36:59 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/13 22:30:51 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,7 @@ void			ft_lstclear(t_list **lst, void (*del)(void*));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), \
 				void (*del)(void *));
-t_bool			ft_gnl_status(int error, char *line, int fd,
-				const char *file);
+t_bool			ft_gnl_status(int error, const char *file);
 int				ft_gnl_return_value(t_buffer *buff);
 int				ft_gnl_line_maker \
 				(t_buffer *buff, ssize_t *linelen, char **line);

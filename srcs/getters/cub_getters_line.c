@@ -1,44 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_freellers_area.c                               :+:      :+:    :+:   */
+/*   cub_getters_line.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/18 00:48:57 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/12 23:53:51 by jpillet          ###   ########.fr       */
+/*   Created: 2021/05/13 19:52:19 by jpillet           #+#    #+#             */
+/*   Updated: 2021/05/14 00:22:08 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_free_map(char **map)
+t_bool	cub_get_setting_line(t_parser *parser, const char *file)
 {
-	int	indmap;
-
-	indmap = 0;
-	if (!map)
-		return (FALSE);
-	while (map[indmap])
-	{
-		free(map[indmap]);
-		map[indmap] = 0;
-		indmap++;
-	}
-	free(map);
-}
-
-t_bool	cub_free_area(t_area **area)
-{
-
-	if (!(*area))
-		return (FALSE);
-	cub_free_map((*area)->map);
-	(*area)->map = 0;
-	free((*area)->lines_length);
-	(*area)->lines_length = 0;
-	free(*area);
-	*area = 0;
-	return (TRUE);
+	if (parser->line)
+		free(parser->line);
+	parser->line = 0;
+	parser->eof = get_next_line(parser->fd, &(parser->line));
+	if (parser->eof == -1)
+		return (ft_error("the program failed to read the configuration file",
+				file));
+	return (ft_gnl_status(parser->eof, file));
 }

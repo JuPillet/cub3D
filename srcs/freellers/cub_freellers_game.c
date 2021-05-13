@@ -6,74 +6,83 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 22:53:33 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/12 23:58:42 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/14 00:51:54 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_free_parser(char *msg, const char *msg2, t_parser *parser)
+t_bool	cub_free_area(t_area area)
+{
+	int	indmap;
+
+	indmap = 0;
+	if (area.lines_length)
+		free (area.lines_length);
+	if (!area.map)
+		return (TRUE);
+	while (area.map[indmap])
+		free(area.map[indmap++]);
+	free(area.map);
+	return (TRUE);
+}
+
+t_bool	cub_free_parser(t_parser *parser)
 {
 	if (parser->line)
-		free(parser->line);
-	parser->line = 0;
-	if (parser->line_map)
-		free(parser->line_map);
-	parser->line_map = 0;
-	if (parser->fd > 2)
-		close(parser->fd);
-	parser->fd = 0;
-	if (parser->fd_map > 2)
-		close(parser->fd_map);
-	parser->fd_map = 0;
-	if (msg)
-		return(ft_error(msg, msg2));
-	return (FALSE);
-}
-
-
-t_bool	cub_free_functions_pointer(t_pt_fnct **pt_function)
-{
-	if (!(*pt_function))
-		return (FALSE);
-	free(*pt_function);
-	*pt_function = 0;
-	return (TRUE);
-}
-
-t_bool	cub_free_fonctions_hash_array(t_hash_array **hash_array)
-{
-	int indha;
-
-	if (!(*hash_array))
-		return (FALSE);
-	indha = 0;
-	while (indha < 8)
 	{
-		ft_free_char(&((*hash_array)[indha].keylen));
-		ft_free_char(&((*hash_array)[indha].key));
-		cub_free_functions_pointer(
-			&((*hash_array)[indha].pt_fonction));
-		indha++;
+		free(parser->line);
+		parser->line = 0;
 	}
-	free(*hash_array);
-	*hash_array = 0;
+	if (parser->fd > 2)
+	{
+		close(parser->fd);
+		parser->fd = 0;
+	}
 	return (TRUE);
 }
 
-t_bool	cub_free_game(t_game **game)
+t_bool	cub_free_sprite(void *mlx, void *img)
 {
-	if (!(*game))
+	if (!img)
 		return (FALSE);
-	cub_free_fonctions_hash_array(&((*game)->hash_array));
-	cub_free_level((*game)->mlx, &((*game)->level));
-	cub_free_screen((*game)->mlx, &((*game)->screen));
-	ft_free_t_bool(&((*game)->save));
-	if((*game)->mlx)
-		mlx_destroy_display((*game)->mlx);
-	free(*game);
-	*game = 0;
-	exit(0);
+	mlx_destroy_image(mlx, img);
 	return (TRUE);
+}
+
+t_bool	cub_free_screen(void *mlx, void *screen)
+{
+	if (screen)
+		mlx_destroy_image(mlx, screen);
+	return (TRUE);
+}
+
+t_bool	cub_free_hash_array(t_game *game)
+{
+	if (game->hash_array)
+		free(game->hash_array);
+	game->hash_array = 0;
+}
+
+t_bool	cub_free_game(t_game *game)
+{
+	if (!game)
+		return (FALSE);
+	cub_free_hash_array(game);
+	cub_free_parser(&(game->parser));
+	if (game->screen.pic_screen.img)
+		mlx_destroy_image(game->mlx, game->screen.pic_screen.img);
+	if (game->screen.mlx_screen)
+		mlx_destroy_window(game->mlx, game->screen.mlx_screen);
+	cub_free_sprite(game->mlx, game->level.no);
+	cub_free_sprite(game->mlx, game->level.ea);
+	cub_free_sprite(game->mlx, game->level.so);
+	cub_free_sprite(game->mlx, game->level.we);
+	cub_free_sprite(game->mlx, game->level.sp);
+	if (game->mlx)
+		mlx_destroy_display(game->mlx);
+	cub_free_area(game->level.area);
+	free(game);
+	return (FALSE);
 }

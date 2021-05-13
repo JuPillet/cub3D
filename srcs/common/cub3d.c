@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 12:19:37 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/12 22:29:16 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/14 00:52:45 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ t_bool	cub_is_save(int ac, char **av, t_bool *save)
 				&& av[1][5] != 'e' && av[1][5] != '\0' && av[2][0] == '-'
 				&& av[2][1] != '-' && av[2][2] == 's' && av[2][3] == 'a'
 				&& av[1][4] == 'v' && av[2][5] == 'e' && av[2][5] == '\0'))
-		{
-			*save = TRUE;
-			return(TRUE);
-		}
+	{
+		*save = TRUE;
+		return (TRUE);
+	}
 	return (FALSE);
 }
 
@@ -39,18 +39,24 @@ int	main(int ac, char **av)
 
 	if (ac > 3)
 		return (ft_error("too much arguments", 0));
-	check = cub_malloc_game(&game);
-	if (!cub_is_save(ac, av, game->save))
-			check = ft_error("\"--save\" must be last argument", 0);
+	game = 0;
+	game = (t_game *)malloc(sizeof(t_game));
+	if (!game)
+		return (0);
+	check = cub_init_game(game);
+	if (!cub_is_save(ac, av, &(game->save)))
+		check = ft_error("\"--save\" must be last argument", 0);
+	if (!check)
+		return (cub_free_game(game));
+	if (ac == 2 && !(game->save))
+		check = cub_norm_file((const char *)av[1], game);
+	else
+		check = cub_parser("settings/standard_setting.cub", game);
+	cub_free_parser(&(game->parser));
+	cub_free_hash_array(game);
 	if (check)
-	{
-		if (ac == 2 && !(*(game->save)))
-			check = cub_norm_file((const char *)av[1], game);
-		else
-			check = cub_parser("settings/standard_setting.cub", game);
-		if (check)
-			cub_coin(game);
-	}
-	cub_free_game(&game);
-	return (0);
+		cub_coin(game);
+	if (game)
+		free(game);
+	return (cub_free_game(game));
 }
