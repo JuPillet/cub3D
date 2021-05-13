@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 13:17:52 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/13 22:15:17 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/14 01:09:17 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	cub_key_push(int key_code, t_game *game)
 {
 	if (key_code == 0xff1b)
 	{
-		cub_free_game(game);
+		cub_free_game(&game);
 		exit(0);
 	}
 }

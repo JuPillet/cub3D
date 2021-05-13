@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/14 00:48:14 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/14 01:03:22 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,13 @@ struct	s_game
 	t_bool			save;
 };
 
+t_bool			cub_free_area(t_area area);
+t_bool			cub_free_parser(t_parser *parser);
+t_bool			cub_free_sprite(void *mlx, void *img);
+t_bool			cub_free_screen(void *mlx, void *screen);
+t_bool			cub_free_hash_array(t_game *game);
+t_bool			cub_free_game(t_game **game);
+
 t_bool			cub_set_int(char *line, int *indln, int *value);
 t_bool			cub_set_double(char *line, int *indln, double *value);
 
@@ -207,13 +214,6 @@ t_bool			cub_malloc_hash_array(t_game *game);
 t_bool			cub_init_color(t_color *color);
 t_bool			cub_init_level(t_game *game);
 t_bool			cub_init_game(t_game *game);
-
-t_bool			cub_free_area(t_area area);
-t_bool			cub_free_parser(t_parser *parser);
-t_bool			cub_free_sprite(void *mlx, void *img);
-t_bool			cub_free_screen(void *mlx, void *screen);
-t_bool			cub_free_hash_array(t_game *game);
-t_bool			cub_free_game(t_game *game);
 
 int				main(int ac, char **av);
 

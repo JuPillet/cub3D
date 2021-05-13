@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 12:19:37 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/14 00:52:45 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/14 01:04:20 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	main(int ac, char **av)
 
 	if (ac > 3)
 		return (ft_error("too much arguments", 0));
-	game = 0;
 	game = (t_game *)malloc(sizeof(t_game));
 	if (!game)
 		return (0);
@@ -47,7 +46,7 @@ int	main(int ac, char **av)
 	if (!cub_is_save(ac, av, &(game->save)))
 		check = ft_error("\"--save\" must be last argument", 0);
 	if (!check)
-		return (cub_free_game(game));
+		return (cub_free_game(&game));
 	if (ac == 2 && !(game->save))
 		check = cub_norm_file((const char *)av[1], game);
 	else
@@ -56,7 +55,5 @@ int	main(int ac, char **av)
 	cub_free_hash_array(game);
 	if (check)
 		cub_coin(game);
-	if (game)
-		free(game);
-	return (cub_free_game(game));
+	return (cub_free_game(&game));
 }
