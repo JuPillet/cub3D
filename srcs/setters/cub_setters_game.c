@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:29:22 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/14 00:49:27 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/15 14:45:22 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,10 @@ t_bool	cub_init_level(t_game *game)
 	game->level.sp = 0;
 	game->level.floor.is = FALSE;
 	game->level.ceiling.is = FALSE;
+	game->level.player.is = FALSE;
+	game->level.player.dir = 0;
+	game->level.player.pos_x = 0;
+	game->level.player.pos_y = 0;
 	cub_init_color(&(game->level.floor.color));
 	cub_init_color(&(game->level.ceiling.color));
 	game->level.area.map = 0;
@@ -91,6 +95,13 @@ t_bool	cub_init_game(t_game *game)
 	game->screen.mlx_screen = 0;
 	game->screen.pic_screen.img = 0;
 	game->screen.pic_screen.addr = 0;
+	game->screen.resolution.is = FALSE;
+	game->screen.resolution.width = 0;
+	game->screen.resolution.height = 0;
+	game->screen.resolution.width_mdl = 0;
+	game->screen.resolution.height_mdl = 0;
+	game->screen.resolution.plan_dist = 0;
+	game->screen.resolution.ray_offset = 0;
 	game->mlx = mlx_init();
 	cub_malloc_hash_array(game);
 	cub_init_level(game);

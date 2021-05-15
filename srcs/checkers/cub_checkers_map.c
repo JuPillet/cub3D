@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:43:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/14 00:28:06 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/14 16:40:48 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_bool	cub_check_after_map(t_parser *parser, const char *file)
 	{
 		loop = cub_get_setting_line(parser, file);
 		while (parser->line[parser->indln])
-			if (!ft_isspace(parser->line[(parser->indln)++]))
+			if (!ft_isspace(parser->line[parser->indln++]))
 				return (FALSE);
 	}
 	if (parser->eof == -1)

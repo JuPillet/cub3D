@@ -6,13 +6,15 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/14 01:03:22 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/15 15:16:44 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 # define BUFFER_SIZE 32
+# define SIDE 64
+# define FOV 60
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -33,6 +35,19 @@ typedef struct	s_color
 	int	argb;
 }				t_color;
 
+typedef struct	s_walls
+{
+	double	h_wall_x;
+	int		h_wall_y;
+	int		v_wall_x;
+	double	v_wall_y;
+	double	offset_x;
+	double	offset_y;
+	double	r_agl;
+	double	t_agl;
+	double	c_agl;
+}				t_walls;
+
 typedef struct  s_img_data
 {
 	void		*img;
@@ -51,9 +66,9 @@ typedef struct	s_horizon
 typedef struct	s_player
 {
 	t_bool		is;
-	double		position_x;
-	double		position_y;
-	double		orientation;
+	double		pos_x;
+	double		pos_y;
+	double		dir;
 }				t_player;
 
 typedef struct	s_area
@@ -80,9 +95,10 @@ typedef struct	s_resolution
 	t_bool		is;
 	int			width;
 	int			height;
-	int			pixel_x;
-	int			pixel_y;
-	double		fov;
+	int			width_mdl;
+	int			height_mdl;
+	double		ray_offset;
+	double		plan_dist;
 }				t_resolution;
 
 typedef	struct	s_screen
@@ -124,7 +140,7 @@ t_bool			cub_free_parser(t_parser *parser);
 t_bool			cub_free_sprite(void *mlx, void *img);
 t_bool			cub_free_screen(void *mlx, void *screen);
 t_bool			cub_free_hash_array(t_game *game);
-t_bool			cub_free_game(t_game **game);
+t_bool			cub_free_game(t_game *game);
 
 t_bool			cub_set_int(char *line, int *indln, int *value);
 t_bool			cub_set_double(char *line, int *indln, double *value);
@@ -133,11 +149,14 @@ int				get_a(int argb);
 int				get_r(int argb);
 int				get_g(int argb);
 int				get_b(int argb);
-void			cub_set_my_mlx_pixel(t_img_data *data, int x, int y, int color);
+void			cub_set_my_mlx_pixel(t_img_data data, int x, int y, int color);
 int				cub_set_shade(double distance, int color);
 int				cub_set_opposite(int trgb);
 int				cub_set_argb(int a, int r, int g, int b);
 
+int				cub_player_front_move(int key_code, t_game *game);
+int				cub_player_lateral_move(int key_code, t_game *game);
+int				cub_player_rotate_move(int key_code, t_game *game);
 int				cub_key_push(int key_code, t_game *game);
 t_bool			cub_coin(t_game *game);
 
@@ -147,7 +166,11 @@ void			cub_set_map_columns(char *line, char **line_map);
 
 t_bool			cub_set_texture(t_game *game, t_parser *parser, char *path, void **texture);
 
-t_bool			cub_set_image_to_window(void *mlx, t_screen *screen);
+void			cub_ceiling_floor(t_game *game, int x, int y, t_bool cf);
+void			cub_map_render(t_game *game);
+void			cub_render(t_game *game);
+
+int				cub_set_image_to_window(t_game *game);
 t_bool			cub_set_parser(const char *file, t_parser *parser);
 t_bool			cub_set_int(char *line, int *indln, int *value);
 t_bool			cub_set_double(char *line, int *indln, double *value);

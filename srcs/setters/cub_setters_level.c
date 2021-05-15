@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/13 21:00:32 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/15 14:45:07 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ t_bool	cub_set_player(int map_x, int map_y, char **map, t_player *player)
 			return (FALSE);
 		else
 		{
-			player->position_x = (map_x * 64) + 32;
-			player->position_y = (map_y * 64) + 32;
+			player->pos_x = (map_x * SIDE) + 32;
+			player->pos_y = (map_y * SIDE) + 32;
 			if (map[map_y][map_x] == 'N')
-				player->orientation = M_PI_2;
+				player->dir = 90;
 			else if (map[map_y][map_x] == 'E')
-				player->orientation = 0;
+				player->dir = 0;
 			else if (map[map_y][map_x] == 'S')
-				player->orientation = M_PI_2 * 3;
+				player->dir = 270;
 			else
-				player->orientation = M_PI;
+				player->dir = 180;
 			player->is = TRUE;
 		}
 	}
@@ -98,6 +98,10 @@ t_bool	cub_set_resolution(char *line, void *mlx, t_resolution *resolution)
 		resolution->width = width;
 	if (resolution->height > height)
 		resolution->height = height;
+	resolution->width_mdl = resolution->width / 2;
+	resolution->height_mdl = resolution->height / 2;
+	resolution->ray_offset = FOV / resolution->width;
+	resolution->plan_dist = 160 / tan((FOV / 2));
 	resolution->is = TRUE;
 	return (TRUE);
 }

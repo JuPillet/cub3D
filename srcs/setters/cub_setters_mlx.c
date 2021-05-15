@@ -6,19 +6,19 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:30:39 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/13 21:36:02 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/15 00:22:19 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-void	cub_set_my_mlx_pixel(t_img_data *data, int x, int y, int color)
+void	cub_set_my_mlx_pixel(t_img_data data, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = data->addr + ((y * data->line_length)
-			+ (x * (data->bits_per_pixel / 8)));
+	dst = data.addr + ((y * data.line_length)
+			+ (x * (data.bits_per_pixel / 8)));
 	*(unsigned int *)dst = color;
 }
 
@@ -33,16 +33,23 @@ t_bool	cub_set_texture(t_game *game, t_parser *parser,
 	free(path);
 	if (!(*texture))
 		return (ft_error("program can't open texture", parser->line));
-	if (width != 64 || height != 64)
+	if (width != SIDE || height != SIDE)
 		return (ft_error("wrong texture height or width must be 64 * 64 pixel",
 				parser->line));
 	return (TRUE);
 }
 
-t_bool	cub_set_image_to_window(void *mlx, t_screen *screen)
+int		cub_set_image_to_window(t_game *game)
 {
-	mlx_put_image_to_window(mlx, screen->mlx_screen,
-		screen->pic_screen.img, 0, 0);
+	void	*mlx;
+	void	*mlx_screen;
+	void	*img;
+
+	mlx = game->mlx;
+	mlx_screen = game->screen.mlx_screen;
+	img = game->screen.pic_screen.img;
+	cub_render(game);
+	mlx_put_image_to_window(mlx, mlx_screen, img, 0, 0);
 	return (TRUE);
 }
 
