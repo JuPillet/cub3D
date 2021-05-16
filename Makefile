@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/05/14 17:24:39 by jpillet          ###   ########.fr        #
+#    Updated: 2021/05/16 18:09:21 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,8 @@ SRCSPRSR		=	$(addprefix ./srcs/parsers/, \
 					cub_parsers_texture.c)
 
 SRCSRNDR		=	$(addprefix ./srcs/renders/, \
+					cub_renders_closest_wall.c \
+					cub_renders_dda.c \
 					cub_renders.c)
 					
 SRCSSTTR		=	$(addprefix ./srcs/setters/, \
@@ -120,8 +122,8 @@ $(NAME)			:	${LIBFT} ${MLX} ${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OB
 clean			:
 					make clean -C ${DIRLIBFT}
 					make clean -C ${DIRMLX}
-					rm -rf	${OBJSCMMN} ${OBJSTEST} ${OBJSMLLC} ${OBJSCHKR} \
-							${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN}
+					rm -rf	${OBJSCMMN} ${OBJSTEST} ${OBJSMLLC} ${OBJSCHKR} ${OBJSPRSR} \
+							${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR}
 
 fclean			:	clean
 					make fclean -C ${DIRLIBFT}

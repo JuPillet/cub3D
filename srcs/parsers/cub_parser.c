@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:47:56 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/15 19:27:21 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/16 22:43:18 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ t_bool	cub_parser(const char *file, t_game *game)
 		return (ft_error("unknown element line", game->parser.line));
 	if (!cub_check_before_map(game))
 		return (ft_error("setting file hasn't all prerequisite before map", 0));
-	if (!cub_parse_map(&(game->parser), game, file))
+	if (!cub_parse_map(&(game->parser), game, file, 0))
 		return (FALSE);
 	return (cub_check_map(&(game->level)));
 }

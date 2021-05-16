@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/16 02:44:47 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/16 22:42:01 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ typedef struct	s_walls
 	double	h_wall_y;
 	double	v_wall_x;
 	double	v_wall_y;
+	double	check_x;
+	double	check_y;
 	t_bool	h_wall;
 	t_bool	v_wall;
 }				t_walls;
@@ -75,6 +77,7 @@ typedef struct	s_area
 {
 	char 	**map;
 	int		*lines_length;
+	int		map_height;
 }				t_area;
 
 typedef struct	s_level
@@ -100,6 +103,7 @@ typedef struct	s_resolution
 	double		r_o_s;
 	double		plan_dist;
 	double		pi_2;
+	double		cos_demi_fov;
 }				t_resolution;
 
 typedef	struct	s_screen
@@ -167,10 +171,17 @@ void			cub_set_map_columns(char *line, char **line_map);
 
 t_bool			cub_set_texture(t_game *game, t_parser *parser, char *path, void **texture);
 
-void			cub_ceiling_floor(t_game *game, int x, int y, t_bool cf);
-void			cub_map_render(t_game *game);
+void			cub_render_closest_wall(t_game *game, t_walls walls, double pix_x);
+
+t_bool			cub_dda_check_map(t_area *area, int map_y, int map_x);
+t_bool			cub_dda_check_vrtcl_wall(t_area *area, t_walls *walls, int map_y, int map_x);
+t_bool			cub_dda_check_hrztl_wall(t_area *area, t_walls *walls, int map_y, int map_x);
 t_bool			cub_dda_hrztl(t_level *lvl, t_walls *walls);
 t_bool			cub_dda_vrtcl(t_level *lvl, t_walls *walls);
+
+void			cub_ceiling_floor(t_game *game, int x, int y, t_bool cf);
+void			cub_render_map(t_game *game);
+void			cub_render_dda(t_game *game, t_walls *walls);
 void			cub_render(t_game *game);
 
 int				cub_set_image_to_window(t_game *game);
@@ -188,26 +199,21 @@ t_bool			cub_check_in_map(t_level level, int y, int x);
 t_bool			cub_check_map(t_level *level);
 
 t_bool			cub_check_after_map(t_parser *parser, const char *file);
-
-void			cub_set_map_columns(char *line, char **line_map);
-t_bool			cub_malloc_map_columns(char *line, char **line_map, int *columns);
-t_bool			cub_malloc_map_lines(t_game *game, int malloc_lines);
-
 t_bool			cub_check_end_map(char *line);
 t_bool			cub_get_map_line(t_parser *parser, char **line, const char *file);
 t_bool			cub_loop_map(t_parser *parser, t_bool *loop, char **line);
-t_bool			cub_parse_map(t_parser *parser, t_game *game, const char *file);
 
+void			cub_set_map_columns(char *line, char **line_map);
 t_bool			cub_check_before_map(t_game *game);
 t_bool			cub_check_start_map(char *line, int indln);
 
 t_bool			cub_get_setting_line(t_parser *parser, const char *file);
 
 t_bool			cub_malloc_map_columns(char *line, char **line_map, int *columns);
-t_bool			cub_malloc_map_lines(t_game *game, int malloc_lines);
+t_bool			cub_malloc_map_lines(t_game *game, char **line, int malloc_lines);
 t_bool			cub_malloc_area(t_area **area);
 
-t_bool			cub_parse_map(t_parser *parser, t_game *game, const char *file);
+t_bool			cub_parse_map(t_parser *parser, t_game *game, const char *file, int lines);
 
 t_bool			cub_dispacher_fnct(int indpf, t_parser *parser, t_game *game);
 t_bool			cub_dispatcher(const char *file, t_parser *parser, t_game *game);

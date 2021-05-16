@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 17:26:04 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/14 00:00:49 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/16 23:01:13 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,12 @@ r is in the map", line));
 	return (TRUE);
 }
 
-t_bool	cub_malloc_map_lines(t_game *game, int lines)
+t_bool	cub_malloc_map_lines(t_game *game, char **line, int lines)
 {
+	ft_free_char(line);
 	game->level.area.map = (char **)malloc((lines + 1) * sizeof(char *));
 	game->level.area.lines_length = (int *)malloc((lines + 1) * sizeof(int));
+	game->level.area.map_height = lines;
 	if (!(game->level.area.map) || !(game->level.area.lines_length))
 		return (ft_error("program didn't find memory to load", 0));
 	while (lines)

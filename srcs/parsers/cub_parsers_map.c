@@ -13,31 +13,28 @@
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_parse_map(t_parser *parser, t_game *game, const char *file)
+t_bool	cub_parse_map(t_parser *parser, t_game *game, const char *file, int lines)
 {
-	static int		lines;
 	char			*line;
 	t_bool			check;
 
 	check = TRUE;
 	line = ft_strdup(parser->line);
-	lines++;
-	if (!line)
-		return (FALSE);
 	check = cub_get_setting_line(parser, file);
 	if (check && parser->eof == 1 && !(cub_check_end_map(line)))
-		check = cub_parse_map(parser, game, file);
+		check = cub_parse_map(parser, game, file, (lines + 1));
 	else if (check)
-		check = cub_malloc_map_lines(game, lines);
+		return(cub_malloc_map_lines(game, &line, lines));
 	if (check)
 		check = cub_malloc_map_columns(line,
 				&(game->level.area.map[lines]),
-				(game->level.area.lines_length + (--lines)));
-	ft_free_char(&line);
+				&(game->level.area.lines_length[lines]));
+	if (line)
+		ft_free_char(&line);
 	if (check && lines == 0)
 		check = cub_check_after_map(parser, file);
 	if (!check)
-		while (game->level.area.map[lines])
-			ft_free_char(&(game->level.area.map[lines++]));
+		while (game->level.area.map[++lines])
+			ft_free_char(&(game->level.area.map[lines]));
 	return (check);
 }
