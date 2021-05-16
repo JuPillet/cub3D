@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:29:22 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/15 14:45:22 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/15 18:01:44 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ t_bool	cub_init_game(t_game *game)
 	game->screen.resolution.width_mdl = 0;
 	game->screen.resolution.height_mdl = 0;
 	game->screen.resolution.plan_dist = 0;
-	game->screen.resolution.ray_offset = 0;
+	game->screen.resolution.r_o_s = 0;
 	game->mlx = mlx_init();
 	cub_malloc_hash_array(game);
 	cub_init_level(game);

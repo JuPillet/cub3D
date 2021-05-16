@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/15 15:16:44 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/16 02:44:47 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ typedef struct	s_color
 
 typedef struct	s_walls
 {
-	double	h_wall_x;
-	int		h_wall_y;
-	int		v_wall_x;
-	double	v_wall_y;
-	double	offset_x;
-	double	offset_y;
 	double	r_agl;
 	double	t_agl;
 	double	c_agl;
+	double	h_wall_x;
+	double	h_wall_y;
+	double	v_wall_x;
+	double	v_wall_y;
+	t_bool	h_wall;
+	t_bool	v_wall;
 }				t_walls;
 
 typedef struct  s_img_data
@@ -97,8 +97,9 @@ typedef struct	s_resolution
 	int			height;
 	int			width_mdl;
 	int			height_mdl;
-	double		ray_offset;
+	double		r_o_s;
 	double		plan_dist;
+	double		pi_2;
 }				t_resolution;
 
 typedef	struct	s_screen
@@ -168,6 +169,8 @@ t_bool			cub_set_texture(t_game *game, t_parser *parser, char *path, void **text
 
 void			cub_ceiling_floor(t_game *game, int x, int y, t_bool cf);
 void			cub_map_render(t_game *game);
+t_bool			cub_dda_hrztl(t_level *lvl, t_walls *walls);
+t_bool			cub_dda_vrtcl(t_level *lvl, t_walls *walls);
 void			cub_render(t_game *game);
 
 int				cub_set_image_to_window(t_game *game);
@@ -182,7 +185,7 @@ t_bool			cub_search_player(char **map, t_player *player);
 t_bool			cub_check_out_map(t_area area, int y, int x);
 t_bool			cub_check_wall_map(t_area area, int y, int x);
 t_bool			cub_check_in_map(t_level level, int y, int x);
-t_bool			cub_check_map(t_level level);
+t_bool			cub_check_map(t_level *level);
 
 t_bool			cub_check_after_map(t_parser *parser, const char *file);
 

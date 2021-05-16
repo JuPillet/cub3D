@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 16:50:35 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/13 20:02:08 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/15 19:26:30 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,22 +81,22 @@ ated", 0));
 	return (TRUE);
 }
 
-t_bool	cub_check_map(t_level level)
+t_bool	cub_check_map(t_level *level)
 {
 	int		x;
 	int		y;
 	char	**map;
 
-	map = level.area.map;
+	map = level->area.map;
 	y = -1;
 	while (map[++y])
 	{
 		x = -1;
 		while (map[y][++x])
-			if (!cub_check_out_map(level.area, y, x)
-				&& !cub_check_wall_map(level.area, y, x)
-				&& !cub_check_in_map(level, y, x))
+			if (!cub_check_out_map(level->area, y, x)
+				&& !cub_check_wall_map(level->area, y, x)
+				&& !cub_check_in_map(*level, y, x))
 				return (FALSE);
 	}
-	return (cub_search_player(map, &(level.player)));
+	return (cub_search_player(map, &(level->player)));
 }

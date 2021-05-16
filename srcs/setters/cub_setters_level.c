@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/15 14:45:07 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/15 21:24:32 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ t_bool	cub_set_player(int map_x, int map_y, char **map, t_player *player)
 			player->pos_x = (map_x * SIDE) + 32;
 			player->pos_y = (map_y * SIDE) + 32;
 			if (map[map_y][map_x] == 'N')
-				player->dir = 90;
+				player->dir = M_PI_2;
 			else if (map[map_y][map_x] == 'E')
 				player->dir = 0;
 			else if (map[map_y][map_x] == 'S')
-				player->dir = 270;
+				player->dir = 3 * M_PI_2;
 			else
-				player->dir = 180;
+				player->dir = M_PI;
 			player->is = TRUE;
 		}
 	}
@@ -100,8 +100,9 @@ t_bool	cub_set_resolution(char *line, void *mlx, t_resolution *resolution)
 		resolution->height = height;
 	resolution->width_mdl = resolution->width / 2;
 	resolution->height_mdl = resolution->height / 2;
-	resolution->ray_offset = FOV / resolution->width;
-	resolution->plan_dist = 160 / tan((FOV / 2));
+	resolution->r_o_s = (FOV * (M_PI / 180)) / resolution->width;
+	resolution->plan_dist = 160 / tan(((FOV / 2) * (M_PI / 180)));
+	resolution->pi_2 = M_PI * 2;
 	resolution->is = TRUE;
 	return (TRUE);
 }
