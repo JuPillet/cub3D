@@ -6,14 +6,14 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 17:26:04 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/16 23:01:13 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/17 04:25:43 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-void	cub_set_map_columns(char *line, char **line_map)
+t_bool	cub_set_map_columns(char *line, char **line_map)
 {
 	int	indln;
 	int	column;
@@ -32,6 +32,8 @@ void	cub_set_map_columns(char *line, char **line_map)
 		indln++;
 	}
 	(*line_map)[column] = '\0';
+	ft_free_char(&line);
+	return (TRUE);
 }
 
 t_bool	cub_malloc_map_columns(char *line, char **line_map, int *columns)
@@ -45,22 +47,20 @@ t_bool	cub_malloc_map_columns(char *line, char **line_map, int *columns)
 		if (line[indln] != ' ' && line[indln] != '\t' && line[indln] != '0'
 			&& line[indln] != '1' && line[indln] != '2' && line[indln] != 'N'
 			&& line[indln] != 'S' && line[indln] != 'E' && line[indln] != 'W')
-			return (ft_error("cub3D stopped working because invalid characte\
-r is in the map", line));
+			return (ft_freerror("invalid map character", line));
 		if (line[indln++] == '\t')
 			(*columns) += (4 - (*columns) % 4);
 		else
 			(*columns)++;
 	}
-	if (!ft_malloc_char((*columns) + 1, line_map))
-		return (ft_error("program didn't find memory to load", 0));
-	cub_set_map_columns(line, line_map);
-	return (TRUE);
+	if (ft_malloc_char((*columns) + 1, line_map))
+		return (cub_set_map_columns(line, line_map));
+	ft_free_char(&line);
+	return (ft_error("program didn't find memory to load", 0));
 }
 
-t_bool	cub_malloc_map_lines(t_game *game, char **line, int lines)
+t_bool	cub_malloc_map_lines(t_game *game, int lines)
 {
-	ft_free_char(line);
 	game->level.area.map = (char **)malloc((lines + 1) * sizeof(char *));
 	game->level.area.lines_length = (int *)malloc((lines + 1) * sizeof(int));
 	game->level.area.map_height = lines;
@@ -73,15 +73,5 @@ t_bool	cub_malloc_map_lines(t_game *game, char **line, int lines)
 	}
 	game->level.area.map[lines] = 0;
 	game->level.area.lines_length[lines] = 0;
-	return (TRUE);
-}
-
-t_bool	cub_malloc_area(t_area **area)
-{
-	*area = (t_area *)malloc(sizeof(t_area));
-	if (!(*area))
-		return (ft_error("program didn't find memory to load", 0));
-	(*area)->lines_length = 0;
-	(*area)->map = 0;
 	return (TRUE);
 }

@@ -13,28 +13,38 @@
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_parse_map(t_parser *parser, t_game *game, const char *file, int lines)
+t_bool	cub_free_error_line(char *line)
 {
-	char			*line;
-	t_bool			check;
-
-	check = TRUE;
-	line = ft_strdup(parser->line);
-	check = cub_get_setting_line(parser, file);
-	if (check && parser->eof == 1 && !(cub_check_end_map(line)))
-		check = cub_parse_map(parser, game, file, (lines + 1));
-	else if (check)
-		return(cub_malloc_map_lines(game, &line, lines));
-	if (check)
-		check = cub_malloc_map_columns(line,
-				&(game->level.area.map[lines]),
-				&(game->level.area.lines_length[lines]));
 	if (line)
 		ft_free_char(&line);
-	if (check && lines == 0)
-		check = cub_check_after_map(parser, file);
-	if (!check)
-		while (game->level.area.map[++lines])
-			ft_free_char(&(game->level.area.map[lines]));
-	return (check);
+	return (FALSE);
+}
+
+t_bool	cub_free_error_map(char **map, char *line, int lines)
+{
+	while (map[++lines])
+		ft_free_char(&(map[lines]));
+	return (cub_free_error_line(line));
+}
+
+t_bool	cub_parse_map(t_parser *parser, t_game *game,
+	const char *file, int lines)
+{
+	char			*line;
+
+	if (parser->line[0] < 0 || parser->line[0] > 127 || cub_check_end_map(parser->line))
+		return (cub_malloc_map_lines(game, lines));
+	line = ft_strdup(parser->line);
+	if (!cub_get_setting_line(parser, file))
+		return (cub_free_error_line(line));
+	else if (!cub_parse_map(parser, game, file, (lines + 1)))
+		return (cub_free_error_line(line));
+	if (!cub_malloc_map_columns(&line,
+			&(game->level.area.map[lines]),
+			&(game->level.area.lines_length[lines])))
+		return	(cub_free_error_map(game->level.area.map, line, lines));
+	ft_free_char(&line);
+	if (lines == 0)
+		return (cub_check_after_map(parser, file));
+	return (TRUE);
 }

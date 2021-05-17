@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:46:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/16 23:31:34 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/17 00:14:50 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	cub_render(t_game *game)
 	game->screen.resolution.cos_demi_fov = cos((FOV / 2));
 	while (++pix_x < game->screen.resolution.width)
 	{
+		walls.h_wall = FALSE;
+		walls.v_wall = FALSE;
 		if (pix_x == game->screen.resolution.width_mdl)
 			game->screen.resolution.cos_demi_fov = cos(-(FOV / 2));
 		cub_render_dda(game, &walls);
