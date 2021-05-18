@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:29:22 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/15 18:01:44 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/18 00:45:51 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,27 @@ t_bool	cub_malloc_hash_array(t_game *game)
 	return (TRUE);
 }
 
-t_bool	cub_init_color(t_color *color)
+t_bool	cub_init_screen(t_game *game)
 {
-	color->a = 0;
-	color->r = 0;
-	color->g = 0;
-	color->b = 0;
-	color->argb = 0;
-	return (TRUE);
+	game->screen.resolution.is = FALSE;
+	game->screen.resolution.width = 0;
+	game->screen.resolution.height = 0;
+	game->screen.resolution.width_mdl = 0;
+	game->screen.resolution.height_mdl = 0;
+	game->screen.resolution.plan_dist = 0;
+	game->screen.resolution.r_o_s = 0;
+	game->screen.resolution.cos_demi_fov = cos(((FOV / 2) * game->deg.rad));
+}
+
+t_bool	cub_init_degree(t_degree *degree)
+{
+	degree->d45 = M_PI_2 / 2;
+	degree->d135 = (degree->d45 = M_PI_2 / 2) + 90;
+	degree->d225 = degree->d135 + 90;
+	degree->d270 = M_PI + M_PI_2;
+	degree->d315 = degree->d225 + 90;
+	degree->d360 = M_PI * 2;
+	degree->rad = M_PI / 180;
 }
 
 t_bool	cub_init_level(t_game *game)
@@ -76,6 +89,8 @@ t_bool	cub_init_level(t_game *game)
 	game->level.player.dir = 0;
 	game->level.player.pos_x = 0;
 	game->level.player.pos_y = 0;
+	
+	cub_init_screen(game);
 	cub_init_color(&(game->level.floor.color));
 	cub_init_color(&(game->level.ceiling.color));
 	game->level.area.map = 0;
@@ -95,14 +110,9 @@ t_bool	cub_init_game(t_game *game)
 	game->screen.mlx_screen = 0;
 	game->screen.pic_screen.img = 0;
 	game->screen.pic_screen.addr = 0;
-	game->screen.resolution.is = FALSE;
-	game->screen.resolution.width = 0;
-	game->screen.resolution.height = 0;
-	game->screen.resolution.width_mdl = 0;
-	game->screen.resolution.height_mdl = 0;
-	game->screen.resolution.plan_dist = 0;
-	game->screen.resolution.r_o_s = 0;
 	game->mlx = mlx_init();
+	cub_init_degree(&(game->deg));
+	cub_init_screen(game);
 	cub_malloc_hash_array(game);
 	cub_init_level(game);
 	if (!(game->mlx) || !(game->hash_array))

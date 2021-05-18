@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:30:39 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/15 00:22:19 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/17 17:39:14 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ t_bool	cub_set_texture(t_game *game, t_parser *parser,
 	return (TRUE);
 }
 
-int		cub_set_image_to_window(t_game *game)
+int	cub_set_image_to_window(t_game *game)
 {
 	void	*mlx;
 	void	*mlx_screen;

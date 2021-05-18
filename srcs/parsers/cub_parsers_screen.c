@@ -6,28 +6,37 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 21:40:40 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/13 19:59:04 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/18 00:45:10 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
+t_bool	cub_next_color_value(t_parser *parser)
+{
+	while (parser->line[(parser->indln)] == ' '
+		|| parser->line[(parser->indln)] == '	')
+		parser->indln++;
+	if (parser->line[(parser->indln)++] != ',')
+		return (FALSE);
+	return (TRUE);
+}
 
 t_bool	cub_parse_color(t_parser *parser, t_color *color)
 {
 	if (!cub_set_int(parser->line, &(parser->indln), &(color->r)))
 		return (FALSE);
-	if (parser->line[(parser->indln)++] != ',')
-		return (FALSE);
-	if (!ft_isdigit(parser->line[parser->indln]))
+	if (!cub_next_color_value(parser))
 		return (FALSE);
 	if (!cub_set_int(parser->line, &(parser->indln), &(color->g)))
 		return (FALSE);
-	if (parser->line[(parser->indln)++] != ',')
-		return (FALSE);
-	if (!ft_isdigit(parser->line[parser->indln]))
+	if (!cub_next_color_value(parser))
 		return (FALSE);
 	if (!cub_set_int(parser->line, &(parser->indln), &(color->b)))
+		return (FALSE);
+	while (ft_isspace(parser->line[(parser->indln)]))
+		parser->indln++;
+	if (parser->line[(parser->indln)])
 		return (FALSE);
 	if (color->r < 0 || color->r > 255 || color->g < 0
 		|| color->g > 255 || color->b < 0 || color->b > 255)
@@ -56,5 +65,5 @@ resolution lines, you must need only one", parser->line));
 		if (!ft_isspace(parser->line[(parser->indln)++]))
 			return (ft_error("incorrect resolution line format",
 					parser->line));
-	return (cub_set_resolution(parser->line, game->mlx, resolution));
+	return (cub_set_resolution(&(game->deg), parser->line, game->mlx, resolution));
 }

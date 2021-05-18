@@ -6,39 +6,39 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/17 00:28:36 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/18 03:50:09 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-t_bool	cub_set_player(int map_x, int map_y, char **map, t_player *player)
+t_bool	cub_set_player(int map_x, int map_y, char **map, t_game *game)
 {
 	if (map[map_y][map_x] == 'N' || map[map_y][map_x] == 'S'
 		|| map[map_y][map_x] == 'W' || map[map_y][map_x] == 'E')
 	{
-		if (player->is)
+		if (game->level.player.is)
 			return (FALSE);
 		else
 		{
-			player->pos_x = (map_x * SIDE) + 31;
-			player->pos_y = (map_y * SIDE) + 31;
+			game->level.player.pos_x = (map_x * SIDE) + 31;
+			game->level.player.pos_y = (map_y * SIDE) + 31;
 			if (map[map_y][map_x] == 'N')
-				player->dir = M_PI_2;
+				game->level.player.dir = M_PI_2;
 			else if (map[map_y][map_x] == 'E')
-				player->dir = 0;
+				game->level.player.dir = 0;
 			else if (map[map_y][map_x] == 'S')
-				player->dir = 3 * M_PI_2;
+				game->level.player.dir = game->deg.d270;
 			else
-				player->dir = M_PI;
-			player->is = TRUE;
+				game->level.player.dir = M_PI;
+			game->level.player.is = TRUE;
 		}
 	}
 	return (TRUE);
 }
 
-t_bool	cub_search_player(char **map, t_player *player)
+t_bool	cub_search_player(char **map, t_game *game)
 {
 	int	map_y;
 	int	map_x;
@@ -48,11 +48,11 @@ t_bool	cub_search_player(char **map, t_player *player)
 	{
 		map_x = -1;
 		while (map[map_y][(++map_x)])
-			if (!cub_set_player(map_x, map_y, map, player))
+			if (!cub_set_player(map_x, map_y, map, game))
 				return (ft_error("the setting file has two or more declared \
 player location in the map, you must need only one", 0));
 	}
-	if (!(player->is))
+	if (!(game->level.player.is))
 		return (ft_error("the setting file has no declared \
 player location in the map", 0));
 	return (TRUE);
@@ -61,31 +61,31 @@ player location in the map", 0));
 t_bool	cub_set_horizon(t_parser *parser, t_game *game)
 {
 	t_horizon	*horizon;
+	int			indln;
 
-	if (parser->line[--(parser->indln)] == 'F')
+	indln = (parser->indln - 1);
+	if (parser->line[indln] == 'F')
 		horizon = &(game->level.floor);
 	else
 		horizon = &(game->level.ceiling);
 	if (horizon->is)
 	{
-		if (parser->line[parser->indln] == 'F')
+		if (parser->line[indln] == 'F')
 			return (ft_error("need only one floor color", 0));
-		else
-			return (ft_error("need only one ceiling color", 0));
+		return (ft_error("need only one ceiling color", 0));
 	}
-	(parser->indln)++;
 	if (!cub_parse_color(parser, &(horizon->color)))
 	{
-		if (parser->line[parser->indln] == 'F')
+		if (parser->line[indln] == 'F')
 			return (ft_error("invalid floor color", parser->line));
-		else
-			return (ft_error("invalid ceiling color", parser->line));
+		return (ft_error("invalid ceiling color", parser->line));
 	}
 	horizon->is = TRUE;
 	return (TRUE);
 }
 
-t_bool	cub_set_resolution(char *line, void *mlx, t_resolution *resolution)
+t_bool	cub_set_resolution(t_degree *degree, char *line,
+	void *mlx, t_resolution *resolution)
 {
 	int	width;
 	int	height;
@@ -100,9 +100,9 @@ t_bool	cub_set_resolution(char *line, void *mlx, t_resolution *resolution)
 		resolution->height = height;
 	resolution->width_mdl = resolution->width / 2;
 	resolution->height_mdl = resolution->height / 2;
-	resolution->r_o_s = ((double)(FOV) / resolution->width) * (M_PI / 180);
-	resolution->pi_2 = M_PI * 2;
-	resolution->plan_dist = resolution->width_mdl / tan(FOV / resolution->pi_2 / 180);
+	resolution->r_o_s = ((double)(FOV) / resolution->width) * degree->rad;
+	resolution->plan_dist = resolution->width_mdl / tan((FOV * degree->rad));
+	printf("%f\n", resolution->plan_dist);
 	resolution->is = TRUE;
 	return (TRUE);
 }

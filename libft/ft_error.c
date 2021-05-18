@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/24 16:41:10 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/15 22:06:44 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/17 16:21:06 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 t_bool	ft_error(const char *msg, const char *msg2)
 {
-	printf("Error\n%s", ((char *)msg));
+	printf("Error - %s", ((char *)msg));
 	if (msg2)
-		printf(" :\n'%s' file", ((char *)msg2));
+		printf(" :\n'%s'", ((char *)msg2));
 	printf(".\n");
 	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:43:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/17 01:36:52 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/17 13:30:38 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ t_bool	cub_check_after_map(t_parser *parser, const char *file)
 	return (TRUE);
 }
 
-t_bool	cub_check_end_map(char *line)
+t_bool	cub_check_end_map(char **line)
 {
 	int	indline;
 
 	indline = 0;
-	while (line[indline] == ' ' || line[indline] == '\t')
+	while ((*line)[indline] == ' ' || (*line)[indline] == '\t')
 		indline++;
-	if (line[indline])
+	if ((*line)[indline])
 		return (FALSE);
-	ft_free_char(&line);
+	ft_free_char(line);
 	return (TRUE);
 }
 

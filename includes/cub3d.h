@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/17 02:29:39 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/18 04:35:20 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,16 @@ typedef struct	s_color
 typedef struct	s_walls
 {
 	double	r_agl;
+	double	cs_agl;
 	double	t_agl;
-	double	c_agl;
-	double	h_wall_x;
-	double	h_wall_y;
-	double	v_wall_x;
-	double	v_wall_y;
+	double	hx_wall;
+	double	hy_wall;
+	double	vx_wall;
+	double	vy_wall;
 	double	check_x;
 	double	check_y;
+	double	wall;
+	double	cos_demi_fov;
 	t_bool	h_wall;
 	t_bool	v_wall;
 }				t_walls;
@@ -102,7 +104,6 @@ typedef struct	s_resolution
 	int			height_mdl;
 	double		r_o_s;
 	double		plan_dist;
-	double		pi_2;
 	double		cos_demi_fov;
 }				t_resolution;
 
@@ -130,8 +131,21 @@ typedef struct	s_hash_array
 	t_pt_fnct	pt_fonction;
 }				t_hash_array;
 
+typedef struct	s_degree
+{
+	double			d45;
+	double			d135;
+	double			d225;
+	double			d270;
+	double			d315;
+	double			d360;
+	double			rad;
+}				t_degree;
+
+
 struct	s_game
 {
+	t_degree		deg;
 	t_hash_array	*hash_array;
 	t_parser		parser;
 	void			*mlx;
@@ -165,40 +179,38 @@ int				cub_player_rotate_move(int key_code, t_game *game);
 int				cub_key_push(int key_code, t_game *game);
 t_bool			cub_coin(t_game *game);
 
-t_bool			cub_set_mlx(void **mlx);
-t_bool			cub_set_resolution(char *line, void *mlx, t_resolution *resolution);
+void			cub_set_map_color(char c, int *color);
+void			cub_ceiling_floor(t_game *game, int x, int y, t_bool cf);
 
 t_bool			cub_set_texture(t_game *game, t_parser *parser, char *path, void **texture);
 
-void			cub_render_closest_wall(t_game *game, t_walls walls, double pix_x);
+void			cub_fiat_lux(t_game *game, t_walls *walls, int pix_x);
+void			cub_render_closest_wall(t_game *game, t_walls *walls, int pix);
 
 t_bool			cub_dda_check_map(t_area *area, int map_y, int map_x);
-t_bool			cub_dda_check_vrtcl_wall(t_area *area, t_walls *walls, int map_y, int map_x);
-t_bool			cub_dda_check_hrztl_wall(t_area *area, t_walls *walls, int map_y, int map_x);
-t_bool			cub_dda_hrztl(t_level *lvl, t_walls *walls);
-t_bool			cub_dda_vrtcl(t_level *lvl, t_walls *walls);
+t_bool			cub_dda_check_vrtcl_wall(t_game *game, t_walls *walls, int *map_y, int *map_x);
+t_bool			cub_dda_check_hrztl_wall(t_game *game, t_walls *walls, int *map_y, int *map_x);
+t_bool			cub_dda_hrztl(t_game *game, t_level *lvl, t_walls *walls);
+t_bool			cub_dda_vrtcl(t_game *game, t_level *lvl, t_walls *walls);
 
-void			cub_ceiling_floor(t_game *game, int x, int y, t_bool cf);
-void			cub_render_map(t_game *game);
+void			cub_map_render(t_game *game);
 void			cub_render_dda(t_game *game, t_walls *walls);
 void			cub_render(t_game *game);
 
 int				cub_set_image_to_window(t_game *game);
 t_bool			cub_set_parser(const char *file, t_parser *parser);
-t_bool			cub_set_int(char *line, int *indln, int *value);
-t_bool			cub_set_double(char *line, int *indln, double *value);
 void			cub_set_mlx_screen(t_game *game);
 
-t_bool			cub_set_player(int map_x, int map_y, char **map, t_player *player);
-t_bool			cub_search_player(char **map, t_player *player);
+t_bool			cub_set_player(int map_x, int map_y, char **map, t_game *game);
+t_bool			cub_search_player(char **map, t_game *game);
 
 t_bool			cub_check_out_map(t_area area, int y, int x);
 t_bool			cub_check_wall_map(t_area area, int y, int x);
 t_bool			cub_check_in_map(t_level level, int y, int x);
-t_bool			cub_check_map(t_level *level);
+t_bool			cub_check_map(t_game *game);
 
 t_bool			cub_check_after_map(t_parser *parser, const char *file);
-t_bool			cub_check_end_map(char *line);
+t_bool			cub_check_end_map(char **line);
 t_bool			cub_get_map_line(t_parser *parser, char **line, const char *file);
 t_bool			cub_loop_map(t_parser *parser, t_bool *loop, char **line);
 
@@ -206,8 +218,8 @@ t_bool			cub_check_before_map(t_game *game);
 t_bool			cub_check_start_map(char *line, int indln);
 
 t_bool			cub_get_setting_line(t_parser *parser, const char *file);
-t_bool			cub_set_map_columns(char *line, char **line_map);
-t_bool			cub_malloc_map_columns(char *line, char **line_map, int *columns);
+t_bool			cub_set_map_columns(char **line, char **line_map);
+t_bool			cub_malloc_map_columns(char **line, char **line_map, int *columns);
 t_bool			cub_malloc_map_lines(t_game *game, int malloc_lines);
 t_bool			cub_free_error_map(char **map, char *line, int lines);
 t_bool			cub_free_error_line(char *line);
@@ -220,9 +232,8 @@ t_bool			cub_get_setting_line(t_parser *parser, const char *file);
 t_bool			cub_parser(const char *file, t_game *game);
 t_bool			cub_norm_file(const char *file, t_game *game);
 
-t_bool			cub_set_resolution(char *line, void *mlx, t_resolution *resolution);
+t_bool			cub_set_resolution(t_degree *degree, char *line, void *mlx, t_resolution *resolution);
 t_bool			cub_parse_color(t_parser *parser, t_color *color);
-t_bool			cub_set_texture(t_game *game, t_parser *parser, char *path, void **texture);
 
 t_bool			cub_parse_texture_north(t_parser *parser, t_game *game);
 t_bool			cub_parse_texture_east(t_parser *parser, t_game *game);
@@ -232,8 +243,6 @@ t_bool			cub_parse_texture_sprite(t_parser *parser, t_game *game);
 t_bool			cub_parse_resolution(t_parser *parser, t_game *game);
 t_bool			cub_set_horizon(t_parser *parser, t_game *game);
 
-t_bool			cub_dispacher_fnct(int indpf, t_parser *parser, t_game *game);
-t_bool			cub_dispatcher(const char *file, t_parser *parser, t_game *game);
 t_bool			cub_parser(const char *file, t_game *game);
 t_bool			cub_norm_file(const char *file, t_game *game);
 
@@ -242,6 +251,8 @@ t_bool			cub_is_save(int ac, char **av, t_bool *save);
 void			cub_init_hash_array(t_hash_array *hash_array);
 t_bool			cub_malloc_hash_array(t_game *game);
 t_bool			cub_init_color(t_color *color);
+t_bool			cub_init_screen(t_game *game);
+t_bool			cub_init_degree(t_degree *degree);
 t_bool			cub_init_level(t_game *game);
 t_bool			cub_init_game(t_game *game);
 
