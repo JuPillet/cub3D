@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/18 04:35:20 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/18 17:38:06 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,17 @@ typedef struct	s_color
 typedef struct	s_walls
 {
 	double	r_agl;
-	double	cs_agl;
+	double	cs_adj;
 	double	t_agl;
 	double	hx_wall;
-	double	hy_wall;
-	double	vx_wall;
+	int		hy_wall;
+	int		vx_wall;
 	double	vy_wall;
 	double	check_x;
 	double	check_y;
 	double	wall;
-	double	cos_demi_fov;
+	double	demi_fov;
+	t_bool	ori_wall;
 	t_bool	h_wall;
 	t_bool	v_wall;
 }				t_walls;
@@ -103,8 +104,8 @@ typedef struct	s_resolution
 	int			width_mdl;
 	int			height_mdl;
 	double		r_o_s;
-	double		plan_dist;
-	double		cos_demi_fov;
+	double		demi_fov;
+	double		dist_plan;
 }				t_resolution;
 
 typedef	struct	s_screen
@@ -133,13 +134,14 @@ typedef struct	s_hash_array
 
 typedef struct	s_degree
 {
-	double			d45;
-	double			d135;
-	double			d225;
-	double			d270;
-	double			d315;
-	double			d360;
-	double			rad;
+	double			r1;
+	double			r45;
+	double			r135;
+	double			r225;
+	double			r270;
+	double			r315;
+	double			r360;
+	
 }				t_degree;
 
 

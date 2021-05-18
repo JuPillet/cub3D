@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/18 03:50:09 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/18 18:07:41 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,14 @@ t_bool	cub_set_player(int map_x, int map_y, char **map, t_game *game)
 			return (FALSE);
 		else
 		{
-			game->level.player.pos_x = (map_x * SIDE) + 31;
-			game->level.player.pos_y = (map_y * SIDE) + 31;
+			game->level.player.pos_x = (map_x * SIDE) + 32;
+			game->level.player.pos_y = (map_y * SIDE) + 32;
 			if (map[map_y][map_x] == 'N')
 				game->level.player.dir = M_PI_2;
 			else if (map[map_y][map_x] == 'E')
 				game->level.player.dir = 0;
 			else if (map[map_y][map_x] == 'S')
-				game->level.player.dir = game->deg.d270;
+				game->level.player.dir = game->deg.r270;
 			else
 				game->level.player.dir = M_PI;
 			game->level.player.is = TRUE;
@@ -100,9 +100,9 @@ t_bool	cub_set_resolution(t_degree *degree, char *line,
 		resolution->height = height;
 	resolution->width_mdl = resolution->width / 2;
 	resolution->height_mdl = resolution->height / 2;
-	resolution->r_o_s = ((double)(FOV) / resolution->width) * degree->rad;
-	resolution->plan_dist = resolution->width_mdl / tan((FOV * degree->rad));
-	printf("%f\n", resolution->plan_dist);
+	resolution->demi_fov = (FOV / 2);
+	resolution->r_o_s = ((double)(FOV) / resolution->width) * degree->r1;
+	resolution->dist_plan = resolution->width_mdl / tan((FOV * degree->r1));
 	resolution->is = TRUE;
 	return (TRUE);
 }

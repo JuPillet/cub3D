@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:29:22 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/18 00:45:51 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/18 17:40:19 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,20 +60,18 @@ t_bool	cub_init_screen(t_game *game)
 	game->screen.resolution.height = 0;
 	game->screen.resolution.width_mdl = 0;
 	game->screen.resolution.height_mdl = 0;
-	game->screen.resolution.plan_dist = 0;
 	game->screen.resolution.r_o_s = 0;
-	game->screen.resolution.cos_demi_fov = cos(((FOV / 2) * game->deg.rad));
 }
 
 t_bool	cub_init_degree(t_degree *degree)
 {
-	degree->d45 = M_PI_2 / 2;
-	degree->d135 = (degree->d45 = M_PI_2 / 2) + 90;
-	degree->d225 = degree->d135 + 90;
-	degree->d270 = M_PI + M_PI_2;
-	degree->d315 = degree->d225 + 90;
-	degree->d360 = M_PI * 2;
-	degree->rad = M_PI / 180;
+	degree->r1 = M_PI / 180;
+	degree->r45 = M_PI_2 / 2;
+	degree->r135 = degree->r45 + M_PI_2;
+	degree->r225 = degree->r135 + M_PI_2;
+	degree->r270 = M_PI + M_PI_2;
+	degree->r315 = degree->r225 + M_PI_2;
+	degree->r360 = (M_PI * 2);
 }
 
 t_bool	cub_init_level(t_game *game)
