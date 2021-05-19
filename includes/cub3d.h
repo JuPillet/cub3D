@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/18 17:38:06 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/19 02:04:51 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct	s_color
 typedef struct	s_walls
 {
 	double	r_agl;
-	double	cs_adj;
+	double	c_adj;
 	double	t_agl;
 	double	hx_wall;
 	int		hy_wall;
@@ -104,8 +104,9 @@ typedef struct	s_resolution
 	int			width_mdl;
 	int			height_mdl;
 	double		r_o_s;
-	double		demi_fov;
+	double		r_demi_fov;
 	double		dist_plan;
+	double		wall_adj;
 }				t_resolution;
 
 typedef	struct	s_screen

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/18 18:07:41 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/19 02:05:13 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,10 @@ t_bool	cub_set_resolution(t_degree *degree, char *line,
 		resolution->height = height;
 	resolution->width_mdl = resolution->width / 2;
 	resolution->height_mdl = resolution->height / 2;
-	resolution->demi_fov = (FOV / 2);
+	resolution->r_demi_fov = (FOV / 2) * degree->r1;
 	resolution->r_o_s = ((double)(FOV) / resolution->width) * degree->r1;
-	resolution->dist_plan = resolution->width_mdl / tan((FOV * degree->r1));
+	resolution->dist_plan = resolution->width_mdl / tan(resolution->r_demi_fov);
+	resolution->dist_plan = SIDE * resolution->dist_plan;
 	resolution->is = TRUE;
 	return (TRUE);
 }

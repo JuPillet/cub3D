@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:41:19 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/18 17:56:28 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/18 19:58:52 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ int	cub_player_rotate_move(int key_code, t_game *game)
 {
 	if (key_code == 0xff51)
 	{
-		game->level.player.dir += 0.05;
+		game->level.player.dir += 0.025;
 		if (game->level.player.dir >= game->deg.r360)
-			game->level.player.dir = 0;
+			game->level.player.dir = (game->level.player.dir - game->deg.r360);
 	}
 	else if (key_code == 0xff53)
 	{
-		game->level.player.dir -= 0.05;
+		game->level.player.dir -= 0.025;
 		if (game->level.player.dir < 0)
 			game->level.player.dir = (game->deg.r360 - game->level.player.dir);
 	}

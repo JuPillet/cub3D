@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:46:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/18 17:54:35 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/19 02:23:58 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,21 +68,19 @@ void	cub_render(t_game *game)
 				game->screen.resolution.width_mdl
 				* game->screen.resolution.r_o_s));
 	pix_x = -1;
-	walls.demi_fov = game->screen.resolution.demi_fov * game->deg.r1;
+	walls.demi_fov = game->screen.resolution.r_demi_fov ;
 	while (++pix_x < game->screen.resolution.width)
 	{
-		if (walls.r_agl < 0)
-			walls.r_agl = game->deg.r360 - walls.r_agl;
-		else if (walls.r_agl > game->deg.r360)
-			walls.r_agl = 0;
-		walls.cs_adj = cos(walls.demi_fov);
-		walls.h_wall = FALSE;
-		walls.v_wall = FALSE;
+		walls.c_adj = cos(walls.demi_fov);
+		//if (walls.r_agl < 0)
+		//	walls.r_agl = game->deg.r360 - walls.r_agl;
+		//else if (walls.r_agl > game->deg.r360)
+		//	walls.r_agl = walls.r_agl - game->deg.r360;
 		cub_render_dda(game, &walls);
 		cub_render_closest_wall(game, &walls, pix_x);
 		cub_fiat_lux(game, &walls, pix_x);
 		walls.r_agl -= game->screen.resolution.r_o_s;
-	//	walls.demi_fov -= game->screen.resolution.r_o_s;
+		walls.demi_fov -= game->screen.resolution.r_o_s;
 	}
 	cub_map_render(game);
 }
