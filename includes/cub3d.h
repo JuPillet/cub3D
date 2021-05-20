@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/19 02:04:51 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/20 02:23:00 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,34 @@
 # define BUFFER_SIZE 32
 # define SIDE 64
 # define FOV 60
+
+# ifdef    __unix__
+
+#  define K_W    122
+#  define K_S    115
+#  define K_D    100
+#  define K_A    113
+#  define K_SP    32
+#  define K_A_U    65362
+#  define K_A_D    65364
+#  define K_A_R    65363
+#  define K_A_L    65361
+#  define K_ESC    65307
+
+# elif defined __APPLE__
+
+#  define K_W    13
+#  define K_S    1
+#  define K_D    2
+#  define K_A    0
+#  define K_SP    49
+#  define K_A_U    126
+#  define K_A_D    125
+#  define K_A_R    124
+#  define K_A_L    123
+#  define K_ESC    53
+
+# endif
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -103,8 +131,10 @@ typedef struct	s_resolution
 	int			height;
 	int			width_mdl;
 	int			height_mdl;
-	double		r_o_s;
+	double		r_fov;
+	double		r_pix;
 	double		r_demi_fov;
+	double		t_fov;
 	double		dist_plan;
 	double		wall_adj;
 }				t_resolution;
@@ -142,7 +172,6 @@ typedef struct	s_degree
 	double			r270;
 	double			r315;
 	double			r360;
-	
 }				t_degree;
 
 

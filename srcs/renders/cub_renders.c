@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:46:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/19 02:23:58 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/20 03:06:14 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,14 @@ void	cub_map_render(t_game *game)
 			{
 				pix_x = -1;
 				while (++pix_x < 16)
-					if (game->level.area.map[map_y][map_x] != ' ')
+				{
+					if ((int)(game->level.player.pos_x / 64) == map_x && (int)(game->level.player.pos_y / 64) == map_y && ((int)(game->level.player.pos_x) % 16) == pix_x && ((int)(game->level.player.pos_y) % 16) == pix_y)
+						cub_set_my_mlx_pixel(game->screen.pic_screen,
+							(map_x * 16) + pix_x, (map_y * 16) + pix_y, 0x000000);
+					else if (game->level.area.map[map_y][map_x] != ' ')
 						cub_set_my_mlx_pixel(game->screen.pic_screen,
 							(map_x * 16) + pix_x, (map_y * 16) + pix_y, color);
+				}
 			}
 		}
 	}
@@ -53,6 +58,7 @@ void	cub_map_render(t_game *game)
 
 void	cub_render_dda(t_game *game, t_walls *walls)
 {
+	walls->c_adj = cos(walls->r_agl);
 	walls->t_agl = tan(walls->r_agl);
 	walls->h_wall = cub_dda_hrztl(game, &(game->level), walls);
 	walls->v_wall = cub_dda_vrtcl(game, &(game->level), walls);
@@ -64,23 +70,15 @@ void	cub_render(t_game *game)
 	int		columns;
 	t_walls	walls;
 
-	walls.r_agl = (game->level.player.dir + (
-				game->screen.resolution.width_mdl
-				* game->screen.resolution.r_o_s));
+	walls.demi_fov = game->screen.resolution.r_demi_fov;
+	walls.r_agl =  game->level.player.dir + walls.demi_fov;
 	pix_x = -1;
-	walls.demi_fov = game->screen.resolution.r_demi_fov ;
 	while (++pix_x < game->screen.resolution.width)
 	{
-		walls.c_adj = cos(walls.demi_fov);
-		//if (walls.r_agl < 0)
-		//	walls.r_agl = game->deg.r360 - walls.r_agl;
-		//else if (walls.r_agl > game->deg.r360)
-		//	walls.r_agl = walls.r_agl - game->deg.r360;
 		cub_render_dda(game, &walls);
 		cub_render_closest_wall(game, &walls, pix_x);
 		cub_fiat_lux(game, &walls, pix_x);
-		walls.r_agl -= game->screen.resolution.r_o_s;
-		walls.demi_fov -= game->screen.resolution.r_o_s;
+		walls.r_agl -= game->screen.resolution.r_pix;
 	}
 	cub_map_render(game);
 }

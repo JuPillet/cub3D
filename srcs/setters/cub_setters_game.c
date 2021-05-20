@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:29:22 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/18 17:40:19 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/20 00:05:04 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,18 +60,18 @@ t_bool	cub_init_screen(t_game *game)
 	game->screen.resolution.height = 0;
 	game->screen.resolution.width_mdl = 0;
 	game->screen.resolution.height_mdl = 0;
-	game->screen.resolution.r_o_s = 0;
+	game->screen.resolution.r_pix = 0;
 }
 
-t_bool	cub_init_degree(t_degree *degree)
+t_bool	cub_init_degree(t_degree *deg)
 {
-	degree->r1 = M_PI / 180;
-	degree->r45 = M_PI_2 / 2;
-	degree->r135 = degree->r45 + M_PI_2;
-	degree->r225 = degree->r135 + M_PI_2;
-	degree->r270 = M_PI + M_PI_2;
-	degree->r315 = degree->r225 + M_PI_2;
-	degree->r360 = (M_PI * 2);
+	deg->r1 = M_PI / 180;
+	deg->r45 = M_PI_2 / 2;
+	deg->r135 = deg->r45 + M_PI_2;
+	deg->r225 = deg->r135 + M_PI_2;
+	deg->r270 = M_PI + M_PI_2;
+	deg->r315 = deg->r225 + M_PI_2;
+	deg->r360 = (M_PI * 2);
 }
 
 t_bool	cub_init_level(t_game *game)
@@ -87,7 +87,6 @@ t_bool	cub_init_level(t_game *game)
 	game->level.player.dir = 0;
 	game->level.player.pos_x = 0;
 	game->level.player.pos_y = 0;
-	
 	cub_init_screen(game);
 	cub_init_color(&(game->level.floor.color));
 	cub_init_color(&(game->level.ceiling.color));

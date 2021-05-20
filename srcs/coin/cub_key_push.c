@@ -6,102 +6,98 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:41:19 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/18 19:58:52 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/20 03:05:25 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-/*
-** Z = 0x007a || W = 0x0077
-*/
 int	cub_player_front_move(int key_code, t_game *game)
 {
 	char	**map;
-	double	*position_x;
-	double	*position_y;
+	double	*p_x;
+	double	*p_y;
+	double	o_s_x;
+	double	o_s_y;
 
-	position_x = &(game->level.player.pos_x);
-	position_y = &(game->level.player.pos_y);
-	if (key_code == 0x007a)
+	map = game->level.area.map;
+	p_x = &(game->level.player.pos_x);
+	p_y = &(game->level.player.pos_y);
+	o_s_x = 7 * cos(game->level.player.dir);
+	o_s_y = 7 * sin(game->level.player.dir);
+	if (key_code == K_W	&& map[(int)((*p_y - o_s_y) / SIDE)]
+		[(int)((*p_x - o_s_x) / SIDE)] == '0')
 	{
-		game->level.player.pos_x += (7 * cos(
-				game->level.player.dir));
-		game->level.player.pos_y += (7 * sin(
-				game->level.player.dir));
+		*p_x -= o_s_x;
+		*p_y -= o_s_y;
 	}
-	else if (key_code == 0x0073)
+	else if (key_code == K_S && map[(int)((*p_y + o_s_y) / SIDE)]
+		[(int)((*p_x + o_s_x) / SIDE)] == '0')
 	{
-		game->level.player.pos_x -= (7 * cos(
-				game->level.player.dir));
-		game->level.player.pos_y -= (7 * sin(
-				game->level.player.dir));
+		*p_x += o_s_x;
+		*p_y += o_s_y;
 	}
+	cub_map_render(game);
 	return (0);
 }
 
-/*
-** Q = 0x0071 // A = 0x0061
-*/
 int	cub_player_lateral_move(int key_code, t_game *game)
 {
 	char	**map;
-	double	*position_x;
-	double	*position_y;
-	double	*lateral_delta_x;
-	double	*lateral_delta_y;
+	double	*p_x;
+	double	*p_y;
+	double	o_s_x;
+	double	o_s_y;
 
-	position_x = &(game->level.player.pos_x);
-	position_y = &(game->level.player.pos_y);
-//	lateral_delta_x = 
-//	lateral_delta_y =
 	map = game->level.area.map;
-	if (key_code == 0x0071)
+	p_x = &(game->level.player.pos_x);
+	p_y = &(game->level.player.pos_y);
+	o_s_x = 7 * sin(game->level.player.dir);
+	o_s_y = 7 * cos(game->level.player.dir);
+	if (key_code == K_A && map[(int)((*p_y - o_s_y) / SIDE)]
+		[(int)((*p_x - o_s_x) / SIDE)] == '0')
 	{
-//		game->level.player.pos_x += 7 * cos(
-//			tan(game->level.player.dir));
-//		game->level.player.pos_y += 7 * sin(
-//			tan(game->level.player.dir));
-		;
+		*p_x -= o_s_x;
+		*p_y -= o_s_y;
 	}
-	else if (key_code == 0x0064)
+	else if (key_code == K_D && map[(int)((*p_y + o_s_y) / SIDE)]
+		[(int)((*p_x + o_s_x) / SIDE)] == '0')
 	{
-//		game->level.player.pos_x -= 7 * cos(
-//			tan(game->level.player.dir));
-//		game->level.player.pos_y -= 7 * sin(
-//			tan(game->level.player.dir));
-		;
+		*p_x += o_s_x;
+		*p_y += o_s_y;
 	}
+	cub_map_render(game);
 	return (0);
 }
 
 int	cub_player_rotate_move(int key_code, t_game *game)
 {
-	if (key_code == 0xff51)
+	if (key_code == K_A_L)
 	{
 		game->level.player.dir += 0.025;
 		if (game->level.player.dir >= game->deg.r360)
 			game->level.player.dir = (game->level.player.dir - game->deg.r360);
 	}
-	else if (key_code == 0xff53)
+	else if (key_code == K_A_R)
 	{
 		game->level.player.dir -= 0.025;
 		if (game->level.player.dir < 0)
 			game->level.player.dir = (game->deg.r360 - game->level.player.dir);
 	}
+	cub_map_render(game);
 	return (0);
 }
 
 int	cub_key_push(int key_code, t_game *game)
 {
-	if (key_code == 0x007a || key_code == 0x0073)
+	if (key_code == K_W || key_code == K_S)
 		return (cub_player_front_move(key_code, game));
-	if (key_code == 0x0071 || key_code == 0x0064)
+	if (key_code == K_A || key_code == K_D)
 		return (cub_player_lateral_move(key_code, game));
-	if (key_code == 0xff51 || key_code == 0xff53)
+	if (key_code == K_A_L || key_code == K_A_R)
 		return (cub_player_rotate_move(key_code, game));
-	if (key_code == 0xff1b)
+	if (key_code == K_ESC)
 		exit(cub_free_game(game));
 	return (0);
 }
