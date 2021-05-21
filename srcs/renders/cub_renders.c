@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:46:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/21 04:42:25 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/21 20:48:04 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,27 +65,13 @@ void	cub_map_render(t_game *game)
 		{
 			cub_set_map_color(game->level.area.map, map_x, map_y, &color);
 			pix_y = 0;
-			//while (++pix_y < 16)
-			while (pix_y < SIDE)
+			while (pix_y < 16)
 			{
 				pix_x = 0;
-				//while (++pix_x < 16)
-				while (pix_x < SIDE)
+				while (pix_x < 16)
 				{
-					//if (((int)(game->level.player.pos_x) / 64) == map_x && ((int)(game->level.player.pos_y) / 64) == map_y
-					//	&& (((((int)(game->level.player.pos_x) % 64) / 4) == pix_x && (((int)(game->level.player.pos_y) % 64) / 4) == pix_y)))
-					//	cub_set_my_mlx_pixel(game->screen.pic_screen,
-					//		(map_x * 32) + pix_x, (map_y * 16) + pix_y, 0x000000);
-					//else if (game->level.area.map[map_y][map_x] != ' ')
-					//	cub_set_my_mlx_pixel(game->screen.pic_screen,
-					//		(map_x * 16) + pix_x, (map_y * 16) + pix_y, color);
-					//if (((int)(game->level.player.pos_x) / 64) == map_x && ((int)(game->level.player.pos_y) / 64) == map_y
-					//	&& ((int)(game->level.player.pos_x) % 64 == pix_x && ((int)(game->level.player.pos_y) % 64) == pix_y))
-					//	cub_set_my_mlx_pixel(game->screen.pic_screen,
-					//		map_x + pix_x, map_y + pix_y, 0x000000);
-					//else if (game->level.area.map[map_y][map_x] != ' ')
 					cub_set_my_mlx_pixel(game->screen.pic_screen,
-						(map_x * SIDE) + pix_x, (map_y * SIDE) + pix_y, color);
+						(map_x * 16) + pix_x, (map_y * 16) + pix_y, color);
 					pix_x++;
 				}
 				pix_y++;
@@ -100,10 +86,6 @@ void	cub_render_dda(t_game *game, t_walls *walls)
 {
 	walls->h_wall = FALSE;
 	walls->v_wall = FALSE;
-	walls->c_agl = cos(walls->r_agl);
-	walls->s_agl = sin(walls->r_agl);
-	walls->t_agl = tan(walls->r_agl);
-	walls->c_fov = cos(walls->demi_fov);
 	walls->h_wall = cub_dda_hrztl(game, &(game->level), walls);
 	walls->v_wall = cub_dda_vrtcl(game, &(game->level), walls);
 }
@@ -115,26 +97,29 @@ void	cub_render(t_game *game)
 	t_walls	walls;
 
 	walls.demi_fov = game->screen.resolution.r_demi_fov;
-	walls.r_agl =  game->level.player.dir + walls.demi_fov;
-	pix_x = 0;
+	pix_x = -1;
 	cub_map_render(game);
-	while (walls.demi_fov > -(game->screen.resolution.r_demi_fov))
+	while (++pix_x < game->screen.resolution.width)
 	{
-		if (walls.r_agl < 0)
-			walls.r_agl = 360 + walls.r_agl;
-		else if (walls.r_agl > M_PI * 2)
-			walls.r_agl = walls.r_agl - 360;
+		walls.r_agl =  game->level.player.dir + walls.demi_fov;
+		//if (walls.c_agl > 0 && walls.s_agl < 0 && walls.r_agl < 0)
+		//	walls.r_agl =  game->deg.r360 + walls.r_agl;
+		//else if (walls.c_agl > 0 && walls.s_agl > 0 && walls.r_agl >= game->deg.r360)
+		//	walls.r_agl = walls.r_agl - game->deg.r360 ;
+		walls.c_agl = cos(walls.r_agl);
+		walls.s_agl = sin(walls.r_agl);
+		walls.t_agl = tan(walls.r_agl);
+		walls.c_demi_fov = cos(walls.demi_fov);
 		cub_render_dda(game, &walls);
 		cub_render_closest_wall(game, &walls, pix_x);
 		cub_fiat_lux(game, &walls, pix_x);
+		
+		plot_line (game, (int)game->level.player.pos_x / 4, (int)(game->level.player.pos_y / 4), (int)(walls.wall_x / 4), (int)(walls.wall_y / 4));
 		if ((int)(walls.r_agl * 10000) == (int)(game->level.player.dir * 10000))
 		{
-		//	plot_line (game, game->level.player.pos_x, game->level.player.pos_y, walls.wall_x, walls.wall_y);
 			system("clear");
-			printf("pos_x = %f pos_y = %f p_dir = %f c_agl = %f s_agl = %f t_agl = %f c_adj = %f d_fov = %f\n", game->level.player.pos_x, game->level.player.pos_y, game->level.player.dir, walls.c_agl, walls.s_agl, walls.t_agl, walls.c_fov, walls.demi_fov);
+			printf("pos_x = %f pos_y = %f p_dir = %f c_agl = %f s_agl = %f t_agl = %f c_adj = %f d_fov = %f\n", game->level.player.pos_x, game->level.player.pos_y, game->level.player.dir, walls.c_agl, walls.s_agl, walls.t_agl, walls.c_demi_fov, walls.demi_fov);
 		}
-		walls.r_agl -= game->screen.resolution.r_pix;
 		walls.demi_fov -= game->screen.resolution.r_pix;
-		pix_x++;
 	}
 }

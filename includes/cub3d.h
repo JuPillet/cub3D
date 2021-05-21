@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/21 02:16:13 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/21 20:33:56 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct	s_walls
 	double	c_agl;
 	double	s_agl;
 	double	t_agl;
-	double	c_fov;
+	double	c_demi_fov;
 	double	hx_wall;
 	int		hy_wall;
 	int		dh_wall;

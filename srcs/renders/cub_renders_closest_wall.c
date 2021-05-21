@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:08:13 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/21 05:31:48 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/21 20:55:03 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,21 +39,25 @@ void	cub_fiat_lux(t_game *game, t_walls *walls, int pix_x)
 
 void	cub_the_wall(t_game *game, t_walls *walls)
 {
-	if ((walls->h_wall && !(walls->v_wall)) || (walls->h_wall
-			&& walls->v_wall && walls->dh_wall < walls->dv_wall))
+	if (!(walls->v_wall) || (walls->h_wall && walls->v_wall && walls->dh_wall < walls->dv_wall))
 	{
 		walls->wall = walls->dh_wall;
 		walls->wall_x = walls->hx_wall;
 		walls->wall_y = walls->hy_wall;
 		walls->ori_wall = TRUE;
 	}
-	else
+	else if (!(walls->h_wall) || (walls->h_wall && walls->v_wall && walls->dh_wall > walls->dv_wall))
 	{
 		walls->wall = walls->dv_wall;
 		walls->wall_x = walls->vx_wall;
 		walls->wall_y = walls->vy_wall;
 		walls->ori_wall = FALSE;
 	}
+	else if (walls->dh_wall == walls->dv_wall
+		&& walls->t_agl < 1 && walls->t_agl > -1 )
+		{
+		
+		}
 }
 
 void	cub_render_closest_wall(t_game *game, t_walls *walls, int pix_x)
@@ -63,6 +67,6 @@ void	cub_render_closest_wall(t_game *game, t_walls *walls, int pix_x)
 	walls->dv_wall = sqrt(pow((game->level.player.pos_x - walls->vx_wall), 2)
 			+ pow((game->level.player.pos_y - walls->vy_wall), 2));
 	cub_the_wall(game, walls);
-	//walls->wall *= walls->c_fov;
+	walls->wall *= walls->c_demi_fov;
 	walls->wall = (SIDE / walls->wall) * game->screen.resolution.dist_plan;
 }
