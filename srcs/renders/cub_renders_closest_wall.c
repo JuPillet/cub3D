@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:08:13 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/20 03:08:10 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/21 05:31:48 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,40 +39,30 @@ void	cub_fiat_lux(t_game *game, t_walls *walls, int pix_x)
 
 void	cub_the_wall(t_game *game, t_walls *walls)
 {
-	if ((walls->h_wall && !(walls->v_wall))
-			|| (walls->h_wall && walls->v_wall
-					&& walls->h_wall < walls->v_wall))
+	if ((walls->h_wall && !(walls->v_wall)) || (walls->h_wall
+			&& walls->v_wall && walls->dh_wall < walls->dv_wall))
 	{
-		walls->wall = walls->h_wall;
-		walls->ori_wall = TRUE;
-	}
-	else if ((!(walls->h_wall) && walls->v_wall)
-			|| (walls->h_wall && walls->v_wall
-					&& walls->h_wall > walls->v_wall))
-	{
-		walls->wall = walls->v_wall;
-		walls->ori_wall = FALSE;
-	}
-	else if ((walls->r_agl > game->deg.r45 && walls->r_agl < game->deg.r135)
-		|| (walls->r_agl > game->deg.r225 && walls->r_agl < game->deg.r315))
-	{
-		walls->wall = walls->h_wall;
+		walls->wall = walls->dh_wall;
+		walls->wall_x = walls->hx_wall;
+		walls->wall_y = walls->hy_wall;
 		walls->ori_wall = TRUE;
 	}
 	else
 	{
-		walls->wall = walls->v_wall;
+		walls->wall = walls->dv_wall;
+		walls->wall_x = walls->vx_wall;
+		walls->wall_y = walls->vy_wall;
 		walls->ori_wall = FALSE;
 	}
 }
 
 void	cub_render_closest_wall(t_game *game, t_walls *walls, int pix_x)
 {
-	walls->h_wall = sqrt(pow((game->level.player.pos_x - walls->hx_wall), 2)
+	walls->dh_wall = sqrt(pow((game->level.player.pos_x - walls->hx_wall), 2)
 			+ pow((game->level.player.pos_y - walls->hy_wall), 2));
-	walls->v_wall = sqrt(pow((game->level.player.pos_x - walls->vx_wall), 2)
+	walls->dv_wall = sqrt(pow((game->level.player.pos_x - walls->vx_wall), 2)
 			+ pow((game->level.player.pos_y - walls->vy_wall), 2));
 	cub_the_wall(game, walls);
-	walls->wall *= walls->c_adj;
+	//walls->wall *= walls->c_fov;
 	walls->wall = (SIDE / walls->wall) * game->screen.resolution.dist_plan;
 }

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:41:19 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/20 03:05:25 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/21 00:49:20 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,18 @@ int	cub_player_front_move(int key_code, t_game *game)
 	p_y = &(game->level.player.pos_y);
 	o_s_x = 7 * cos(game->level.player.dir);
 	o_s_y = 7 * sin(game->level.player.dir);
-	if (key_code == K_W	&& map[(int)((*p_y - o_s_y) / SIDE)]
-		[(int)((*p_x - o_s_x) / SIDE)] == '0')
+	if (key_code == K_W	&& map[((int)(*p_y - o_s_y) / SIDE)]
+		[((int)(*p_x - o_s_x) / SIDE)] == '0')
 	{
 		*p_x -= o_s_x;
 		*p_y -= o_s_y;
 	}
-	else if (key_code == K_S && map[(int)((*p_y + o_s_y) / SIDE)]
-		[(int)((*p_x + o_s_x) / SIDE)] == '0')
+	else if (key_code == K_S && map[((int)(*p_y + o_s_y) / SIDE)]
+		[((int)(*p_x + o_s_x) / SIDE)] == '0')
 	{
 		*p_x += o_s_x;
 		*p_y += o_s_y;
 	}
-	cub_map_render(game);
 	return (0);
 }
 
@@ -55,19 +54,18 @@ int	cub_player_lateral_move(int key_code, t_game *game)
 	p_y = &(game->level.player.pos_y);
 	o_s_x = 7 * sin(game->level.player.dir);
 	o_s_y = 7 * cos(game->level.player.dir);
-	if (key_code == K_A && map[(int)((*p_y - o_s_y) / SIDE)]
-		[(int)((*p_x - o_s_x) / SIDE)] == '0')
+	if (key_code == K_A && map[((int)(*p_y - o_s_y) / SIDE)]
+		[((int)(*p_x - o_s_x) / SIDE)] == '0')
 	{
 		*p_x -= o_s_x;
 		*p_y -= o_s_y;
 	}
-	else if (key_code == K_D && map[(int)((*p_y + o_s_y) / SIDE)]
-		[(int)((*p_x + o_s_x) / SIDE)] == '0')
+	else if (key_code == K_D && map[((int)(*p_y + o_s_y) / SIDE)]
+		[((int)(*p_x + o_s_x) / SIDE)] == '0')
 	{
 		*p_x += o_s_x;
 		*p_y += o_s_y;
 	}
-	cub_map_render(game);
 	return (0);
 }
 
@@ -77,15 +75,14 @@ int	cub_player_rotate_move(int key_code, t_game *game)
 	{
 		game->level.player.dir += 0.025;
 		if (game->level.player.dir >= game->deg.r360)
-			game->level.player.dir = (game->level.player.dir - game->deg.r360);
+			game->level.player.dir = game->level.player.dir - game->deg.r360;
 	}
 	else if (key_code == K_A_R)
 	{
 		game->level.player.dir -= 0.025;
 		if (game->level.player.dir < 0)
-			game->level.player.dir = (game->deg.r360 - game->level.player.dir);
+			game->level.player.dir = (M_PI * 2) + game->level.player.dir;
 	}
-	cub_map_render(game);
 	return (0);
 }
 
@@ -99,5 +96,6 @@ int	cub_key_push(int key_code, t_game *game)
 		return (cub_player_rotate_move(key_code, game));
 	if (key_code == K_ESC)
 		exit(cub_free_game(game));
+	//cub_map_render(game);
 	return (0);
 }

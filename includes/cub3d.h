@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/20 02:23:00 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/21 02:16:13 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,20 @@ typedef struct	s_color
 typedef struct	s_walls
 {
 	double	r_agl;
-	double	c_adj;
+	double	c_agl;
+	double	s_agl;
 	double	t_agl;
+	double	c_fov;
 	double	hx_wall;
 	int		hy_wall;
+	int		dh_wall;
 	int		vx_wall;
 	double	vy_wall;
+	double	dv_wall;
 	double	check_x;
 	double	check_y;
+	double	wall_x;
+	double	wall_y;
 	double	wall;
 	double	demi_fov;
 	t_bool	ori_wall;
@@ -166,7 +172,6 @@ typedef struct	s_hash_array
 typedef struct	s_degree
 {
 	double			r1;
-	double			r45;
 	double			r135;
 	double			r225;
 	double			r270;
@@ -211,7 +216,7 @@ int				cub_player_rotate_move(int key_code, t_game *game);
 int				cub_key_push(int key_code, t_game *game);
 t_bool			cub_coin(t_game *game);
 
-void			cub_set_map_color(char c, int *color);
+void			cub_set_map_color(char **map, int map_x, int map_y, int *color);
 void			cub_ceiling_floor(t_game *game, int x, int y, t_bool cf);
 
 t_bool			cub_set_texture(t_game *game, t_parser *parser, char *path, void **texture);

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:29:22 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/20 00:05:04 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/20 20:31:56 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,7 @@ t_bool	cub_init_screen(t_game *game)
 t_bool	cub_init_degree(t_degree *deg)
 {
 	deg->r1 = M_PI / 180;
-	deg->r45 = M_PI_2 / 2;
-	deg->r135 = deg->r45 + M_PI_2;
+	deg->r135 = M_PI_4 + M_PI_2;
 	deg->r225 = deg->r135 + M_PI_2;
 	deg->r270 = M_PI + M_PI_2;
 	deg->r315 = deg->r225 + M_PI_2;

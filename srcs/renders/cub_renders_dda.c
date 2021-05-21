@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:53:52 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/20 02:47:21 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/21 04:08:43 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ t_bool	cub_dda_check_vrtcl_wall(t_game *game, t_walls *walls,
 		return (TRUE);
 	walls->vx_wall += walls->check_x;
 	*map_x = (int)(walls->vx_wall / SIDE);
+	if (walls->s_agl == -1 || walls->s_agl == 1)
+		return(FALSE);
 	walls->vy_wall += walls->check_y;
 	*map_y = (int)(walls->vy_wall / SIDE);
 	return (FALSE);
@@ -37,18 +39,23 @@ t_bool	cub_dda_vrtcl(t_game *game, t_level *lvl, t_walls *walls)
 {
 	int	map_y;
 	int	map_x;
-
+	
+	if (walls->s_agl != 1 && walls->s_agl != -1)
+		return (FALSE);
 	walls->vx_wall = (SIDE * (int)(lvl->player.pos_x / SIDE));
-	if (walls->r_agl > M_PI_2 && walls->r_agl < game->deg.r270)
+	if (walls->c_agl < 0)
 		 walls->vx_wall -= 1;
 	else
 		walls->vx_wall += SIDE;
 	walls->check_x = SIDE;
-	if (walls->r_agl > M_PI_2 && walls->r_agl < game->deg.r270)
-	walls->check_x = -(walls->check_x);
-	walls->check_y = SIDE * walls->t_agl;
+	if (walls->s_agl < 0)
+		walls->check_x = -(walls->check_x);
 	walls->vy_wall = lvl->player.pos_y;
-	walls->vy_wall += (lvl->player.pos_x - walls->vx_wall) * walls->t_agl;
+	if (walls->s_agl != 1 && walls->s_agl != -1)
+	{
+		walls->vy_wall += ((lvl->player.pos_x - walls->vx_wall) * walls->t_agl);
+		walls->check_y = SIDE * walls->t_agl;
+	}
 	map_y = (int)(walls->vy_wall / SIDE);
 	map_x = (int)(walls->vx_wall / SIDE);
 	while (cub_dda_check_map(&(lvl->area), map_y, map_x))
@@ -64,6 +71,8 @@ t_bool	cub_dda_check_hrztl_wall(t_game *game, t_walls *walls,
 		return (TRUE);
 	walls->hy_wall += walls->check_y;
 	*map_y = (int)(walls->hy_wall / SIDE);
+	if (walls->s_agl == 1 || walls->s_agl == -1)
+		return (FALSE);
 	walls->hx_wall += walls->check_x;
 	*map_x = (int)(walls->hx_wall / SIDE);
 	return (FALSE);
@@ -74,17 +83,22 @@ t_bool	cub_dda_hrztl(t_game *game, t_level *lvl, t_walls *walls)
 	int	map_y;
 	int	map_x;
 
-	walls->hy_wall = (SIDE * (int)(lvl->player.pos_y / SIDE)) ;
-	if (walls->r_agl < M_PI && walls->r_agl > 0)
+	if (walls->c_agl == 1 || walls->c_agl == -1)
+		return (FALSE);
+	walls->hy_wall = (SIDE * (int)(lvl->player.pos_y / SIDE));
+	if (walls->s_agl > 0)
 		walls->hy_wall -= 1;
 	else
 		walls->hy_wall += SIDE;
 	walls->check_y = SIDE;
-	if (walls->r_agl < M_PI && walls->r_agl > 0)
+	if (walls->s_agl > 0)
 		walls->check_y = -(walls->check_y);
 	walls->hx_wall = lvl->player.pos_x;
-	walls->hx_wall += ((lvl->player.pos_y - walls->hy_wall) / walls->t_agl);
-	walls->check_x = SIDE / walls->t_agl;
+	if (walls->s_agl != 1 && walls->s_agl != -1)
+	{
+		walls->hx_wall += ((lvl->player.pos_y - walls->hy_wall) / walls->t_agl);
+		walls->check_x = walls->hx_wall / walls->t_agl;
+	}
 	map_y = (int)(walls->hy_wall / SIDE);
 	map_x = (int)(walls->hx_wall / SIDE);
 	while (cub_dda_check_map(&(lvl->area), map_y, map_x))

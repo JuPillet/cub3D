@@ -6,18 +6,18 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 19:10:31 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/18 18:49:27 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/20 21:48:03 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-void	cub_set_map_color(char c, int *color)
+void	cub_set_map_color(char **map, int map_x, int map_y, int *color)
 {
-	if (c == '1')
+	if (map[map_y][map_x] == '1')
 		*color = 0x663300;
-	else if (c == '0')
+	else if (map[map_y][map_x] == '0')
 		*color = 0xA0A0A0;
 	else
 		*color = 0x660066;

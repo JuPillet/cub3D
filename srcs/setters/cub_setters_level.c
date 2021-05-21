@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/20 01:59:17 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/20 22:31:53 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,15 @@ t_bool	cub_search_player(char **map, t_game *game)
 	int	map_y;
 	int	map_x;
 
-	map_y = -1;
-	while (map[(++map_y)])
+	map_y = 0;
+	while (map[map_y])
 	{
-		map_x = -1;
-		while (map[map_y][(++map_x)])
-			if (!cub_set_player(map_x, map_y, map, game))
+		map_x = 0;
+		while (map[map_y][map_x])
+			if (!cub_set_player(map_x++, map_y, map, game))
 				return (ft_error("the setting file has two or more declared \
 player location in the map, you must need only one", 0));
+		map_y++;
 	}
 	if (!(game->level.player.is))
 		return (ft_error("the setting file has no declared \
@@ -101,8 +102,8 @@ t_bool	cub_set_resolution(t_degree *degree, char *line,
 		resolution->height = height;
 	resolution->width_mdl = resolution->width / 2;
 	resolution->height_mdl = resolution->height / 2;
-	resolution->r_fov = FOV * degree->r1;
-	resolution->r_demi_fov = resolution->r_fov / 2;
+	resolution->r_fov = FOV * (M_PI / 180);
+	resolution->r_demi_fov = (FOV / 2) * (M_PI / 180);
 	resolution->r_pix =  resolution->r_fov / resolution->width;
 	resolution->dist_plan = resolution->width_mdl / tan(resolution->r_demi_fov);
 	resolution->is = TRUE;
