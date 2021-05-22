@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:53:52 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/21 20:58:20 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/22 02:14:31 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_bool	cub_dda_hrztl(t_game *game, t_level *lvl, t_walls *walls)
 			walls->check_x *= -1;
 	}
 	map_y = (int)(walls->hy_wall / SIDE);
-	map_x = (int)(walls->hx_wall / SIDE);d
+	map_x = (int)(walls->hx_wall / SIDE);
 	while (cub_dda_check_map(&(lvl->area), map_y, map_x))
 		if (cub_dda_check_hrztl_wall(game, walls, &map_y, &map_x))
 			return (TRUE);
