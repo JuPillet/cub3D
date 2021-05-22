@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:53:52 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/22 02:14:31 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/22 02:21:14 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 t_bool	cub_dda_check_map(t_area *area, int map_y, int map_x)
 {
-	if (map_y >= 0 && map_x >= 0 && map_y < area->map_height
-		&& map_x < area->lines_length[map_y])
+	if ((map_y >= 0 && map_y < area->map_height) && (map_x >= 0 
+		&& map_x < area->lines_length[map_y]))
 		return (TRUE);
 	return (FALSE);
 }

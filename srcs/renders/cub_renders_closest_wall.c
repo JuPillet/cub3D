@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:08:13 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/21 20:55:03 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/22 02:24:19 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,11 @@ void	cub_the_wall(t_game *game, t_walls *walls)
 		walls->wall_y = walls->vy_wall;
 		walls->ori_wall = FALSE;
 	}
-	else if (walls->dh_wall == walls->dv_wall
-		&& walls->t_agl < 1 && walls->t_agl > -1 )
-		{
-		
-		}
+	//else if (walls->dh_wall == walls->dv_wall
+	//	&& walls->t_agl < 1 && walls->t_agl > -1 )
+	//	{
+	//	
+	//	}
 }
 
 void	cub_render_closest_wall(t_game *game, t_walls *walls, int pix_x)
