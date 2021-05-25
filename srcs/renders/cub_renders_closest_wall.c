@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:08:13 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/22 02:24:19 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/24 16:27:38 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ void	cub_fiat_lux(t_game *game, t_walls *walls, int pix_x)
 
 void	cub_the_wall(t_game *game, t_walls *walls)
 {
-	if (!(walls->v_wall) || (walls->h_wall && walls->v_wall && walls->dh_wall < walls->dv_wall))
+	if (!(walls->v_wall) || (walls->h_wall && walls->v_wall && walls->dh_wall >= walls->dv_wall))
 	{
 		walls->wall = walls->dh_wall;
 		walls->wall_x = walls->hx_wall;
 		walls->wall_y = walls->hy_wall;
 		walls->ori_wall = TRUE;
 	}
-	else if (!(walls->h_wall) || (walls->h_wall && walls->v_wall && walls->dh_wall > walls->dv_wall))
+	else if (!(walls->h_wall) || (walls->h_wall && walls->v_wall && walls->dh_wall < walls->dv_wall))
 	{
 		walls->wall = walls->dv_wall;
 		walls->wall_x = walls->vx_wall;

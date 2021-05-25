@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:46:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/21 20:48:04 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/24 15:49:46 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ void	cub_render_dda(t_game *game, t_walls *walls)
 {
 	walls->h_wall = FALSE;
 	walls->v_wall = FALSE;
+	walls->hx_wall = 141006540;
+	walls->hy_wall = 141006540;
+	walls->vx_wall = 141006540;
+	walls->vy_wall = 141006540;
 	walls->h_wall = cub_dda_hrztl(game, &(game->level), walls);
 	walls->v_wall = cub_dda_vrtcl(game, &(game->level), walls);
 }
@@ -97,11 +101,11 @@ void	cub_render(t_game *game)
 	t_walls	walls;
 
 	walls.demi_fov = game->screen.resolution.r_demi_fov;
+	walls.r_agl =  game->level.player.dir + walls.demi_fov;
 	pix_x = -1;
 	cub_map_render(game);
 	while (++pix_x < game->screen.resolution.width)
 	{
-		walls.r_agl =  game->level.player.dir + walls.demi_fov;
 		//if (walls.c_agl > 0 && walls.s_agl < 0 && walls.r_agl < 0)
 		//	walls.r_agl =  game->deg.r360 + walls.r_agl;
 		//else if (walls.c_agl > 0 && walls.s_agl > 0 && walls.r_agl >= game->deg.r360)
@@ -113,13 +117,13 @@ void	cub_render(t_game *game)
 		cub_render_dda(game, &walls);
 		cub_render_closest_wall(game, &walls, pix_x);
 		cub_fiat_lux(game, &walls, pix_x);
-		
 		plot_line (game, (int)game->level.player.pos_x / 4, (int)(game->level.player.pos_y / 4), (int)(walls.wall_x / 4), (int)(walls.wall_y / 4));
 		if ((int)(walls.r_agl * 10000) == (int)(game->level.player.dir * 10000))
 		{
 			system("clear");
 			printf("pos_x = %f pos_y = %f p_dir = %f c_agl = %f s_agl = %f t_agl = %f c_adj = %f d_fov = %f\n", game->level.player.pos_x, game->level.player.pos_y, game->level.player.dir, walls.c_agl, walls.s_agl, walls.t_agl, walls.c_demi_fov, walls.demi_fov);
 		}
+		walls.r_agl -= game->screen.resolution.r_pix;
 		walls.demi_fov -= game->screen.resolution.r_pix;
 	}
 }
