@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:30:39 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/24 17:00:25 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/25 15:23:19 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	cub_set_image_to_window(t_game *game)
 	mlx = game->mlx;
 	mlx_screen = game->screen.mlx_screen;
 	img = game->screen.pic_screen.img;
-	cub_render(game);
+	cub_render(game); 
 	if (game->save)
 	{
 		cub_save_bmp(img);

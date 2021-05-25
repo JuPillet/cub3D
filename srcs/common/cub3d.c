@@ -6,15 +6,18 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 12:19:37 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/24 17:11:03 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/25 15:13:21 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
-t_bool	cub_savebmp(void *img)
+
+void	cub_save_bmp(void *img)
 {
-	
+	void *test;
+
+	test = img;
 }
 
 t_bool	cub_is_save(int ac, char **av, t_bool *save)

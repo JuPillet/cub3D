@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:47:56 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/18 00:19:35 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/25 14:34:08 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_bool	cub_dispacher_fnct(int indpf, t_parser *parser, t_game *game)
 		parser->eof = -1;
 		return (FALSE);
 	}
+	return (TRUE);
 }
 
 t_bool	cub_dispatcher(const char *file, t_parser *parser, t_game *game)

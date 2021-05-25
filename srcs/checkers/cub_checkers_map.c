@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:43:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/17 13:30:38 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/25 14:25:44 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_bool	cub_check_after_map(t_parser *parser, const char *file)
 	t_bool	loop;
 
 	loop = TRUE;
-	while (loop, parser->eof == 1)
+	while (loop && parser->eof == 1)
 	{
 		loop = cub_get_setting_line(parser, file);
 		while (parser->line[parser->indln])

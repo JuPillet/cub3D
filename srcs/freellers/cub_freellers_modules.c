@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 13:29:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/14 13:58:38 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/25 15:14:03 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,5 @@ t_bool	cub_free_hash_array(t_game *game)
 	if (game->hash_array)
 		free(game->hash_array);
 	game->hash_array = 0;
+	return (TRUE);
 }
