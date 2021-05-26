@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/25 23:40:33 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/26 22:09:46 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 # define BUFFER_SIZE 32
 # define SIDE 64
-# define FOV 90
+# define FOV 60
 
 # ifdef    __unix__
 
