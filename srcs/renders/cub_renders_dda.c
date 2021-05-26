@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:53:52 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/26 02:37:34 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/26 19:38:01 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ t_bool	cub_dda_check_map(t_area *area, int map_y, int map_x)
 t_bool	cub_dda_check_vrtcl_wall(t_game *game, t_walls *walls,
 	int *map_y, int *map_x)
 {
+	printf("check_x %f\n", walls->check_x);
+	printf("check_y %f\n", walls->check_y);
+	printf("v_wall_x %d\n", walls->vx_wall);
+	printf("v_wall_y %f\n", walls->vy_wall);
+	printf("pos_y %f\n", game->level.player.pos_y);
+	printf("t_agl %f\n", walls->t_agl);
+	printf("map_x %d\n", *map_x);
+	printf("map_y %d\n", *map_y);
 	if (game->level.area.map[*map_y][*map_x] == '1')
 		return (TRUE);
 	walls->vx_wall += walls->check_x;
@@ -49,14 +57,13 @@ t_bool	cub_dda_vrtcl(t_game *game, t_level *lvl, t_walls *walls)
 	walls->check_x = SIDE;
 	if (walls->c_agl < 0)
 		walls->check_x *= -1;
-	if (walls->s_agl > 0)
-		walls->vy_wall = lvl->player.pos_y;
-	if (walls->c_agl != -1 && walls->c_agl != 1 && walls->s_agl < 0)
+	walls->vy_wall = lvl->player.pos_y;
+	if (walls->c_agl != -1 && walls->c_agl != 1 && walls->c_agl < 0)
 		walls->vy_wall += ((lvl->player.pos_x - walls->vx_wall) * walls->t_agl);
-	else if (walls->c_agl != -1 && walls->c_agl != 1 && walls->s_agl > 0)
-		walls->vy_wall += ((lvl->player.pos_x - walls->vx_wall) * -(walls->t_agl));
+	else if (walls->c_agl != -1 && walls->c_agl != 1 && walls->c_agl > 0)
+		walls->vy_wall += ((lvl->player.pos_x - walls->vx_wall) * (-(walls->t_agl)));
 	walls->check_y = SIDE * walls->t_agl;
-	if (walls->s_agl > 0)
+	if (walls->c_agl < 0)
 		walls->check_y *= -1;
 	map_y = (int)(walls->vy_wall / SIDE);
 	map_x = (int)(walls->vx_wall / SIDE);
@@ -69,15 +76,6 @@ t_bool	cub_dda_vrtcl(t_game *game, t_level *lvl, t_walls *walls)
 t_bool	cub_dda_check_hrztl_wall(t_game *game, t_walls *walls,
 	int *map_y, int *map_x)
 {
-	printf("check_x %f\n", walls->check_x);
-	printf("check_y %f\n", walls->check_y);
-	printf("h_wall_x %f\n", walls->hx_wall);
-	printf("pos_y %f\n", game->level.player.pos_y);
-	printf("h_wall_y %d\n", walls->hy_wall);
-	printf("t_agl %f\n", walls->t_agl);
-	printf("h_wall_x %f\n", walls->hx_wall);
-	printf("map_x %d\n", *map_x);
-	printf("map_y %d\n", *map_y);
 	if (game->level.area.map[*map_y][*map_x] == '1')
 		return (TRUE);
 	walls->hy_wall += walls->check_y;
@@ -104,12 +102,12 @@ t_bool	cub_dda_hrztl(t_game *game, t_level *lvl, t_walls *walls)
 	if (walls->s_agl > 0)
 		walls->check_y *= -1;
 	walls->hx_wall = lvl->player.pos_x;
-	if (walls->s_agl != -1 && walls->s_agl != 1 && walls->c_agl > 0)
+	if (walls->s_agl != -1 && walls->s_agl != 1 && walls->s_agl > 0)
 		walls->hx_wall += ((lvl->player.pos_y - walls->hy_wall) / walls->t_agl);
-	else if (walls->s_agl != -1 && walls->s_agl != 1 && walls->c_agl < 0)
-		walls->hx_wall += ((lvl->player.pos_y - walls->hy_wall) / -(walls->t_agl));
+	else if (walls->s_agl != -1 && walls->s_agl != 1 && walls->s_agl < 0)
+		walls->hx_wall += ((lvl->player.pos_y - walls->hy_wall) / (-(walls->t_agl)));
 	walls->check_x = SIDE / walls->t_agl;
-	if (walls->c_agl < 0)
+	if (walls->s_agl < 0)
 		walls->check_x *= -1 ;
 	map_y = (int)(walls->hy_wall / SIDE);
 	map_x = (int)(walls->hx_wall / SIDE);

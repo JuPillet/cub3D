@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:08:13 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/26 00:35:32 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/26 19:13:23 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,4 @@ void	cub_render_closest_wall(t_game *game, t_walls *walls, int pix_x)
 	cub_the_wall(game, walls);
 	walls->wall *= walls->c_demi_fov;
 	walls->wall = (SIDE / walls->wall) * game->screen.resolution.dist_plan;
-	//if (!(walls->ori_wall) && ((walls->r_agl * (180 / M_PI)) < 40 || (walls->r_agl * (180 / M_PI)) > 315))
-	//	exit(cub_free_game(game));
 }

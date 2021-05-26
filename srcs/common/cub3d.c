@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 12:19:37 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/25 15:13:21 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/26 13:57:26 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	cub_save_bmp(void *img)
 {
 	void *test;
 
-	test = img;
+	test = 1;
 }
 
 t_bool	cub_is_save(int ac, char **av, t_bool *save)
