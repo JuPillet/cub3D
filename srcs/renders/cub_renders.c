@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:46:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/26 22:10:00 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/27 00:14:14 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,16 @@ void	cub_map_render(t_game *game)
 		while (game->level.area.map[map_y][map_x])
 		{
 			cub_set_map_color(game->level.area.map, map_x, map_y, &color);
-			pix_y = 0;
-			while (pix_y < 16)
-			{
-				pix_x = 0;
-				while (pix_x < 16)
+				pix_y = -1;
+				while (++pix_y < 16)
 				{
-					cub_set_my_mlx_pixel(game->screen.pic_screen,
-						(map_x * 16) + pix_x, (map_y * 16) + pix_y, color);
-					pix_x++;
+					pix_x = -1;
+					while (++pix_x < 16)
+						if (game->level.area.map[map_y][map_x] != ' ')
+							cub_set_my_mlx_pixel(game->screen.pic_screen,
+								(map_x * 16) + pix_x, (map_y * 16) + pix_y, color);
 				}
-				pix_y++;
-			}
-			map_x++;
+				map_x++;
 		}
 		map_y++;
 	}
@@ -97,16 +94,15 @@ void	cub_render(t_game *game)
 	int		columns;
 	t_walls	walls;
 
-	//cub_map_render(game);
-	system("clear\n");
+	//system("clear\n");
 	walls.demi_fov = game->screen.resolution.r_demi_fov;
 	pix_x = -1;
 	while (++pix_x < game->screen.resolution.width)
 	{
 		walls.r_agl =  game->level.player.dir + walls.demi_fov ;
-		if (walls.c_agl > 0 && walls.s_agl < 0 && walls.r_agl < 0)
+		if (walls.r_agl < 0)
 			walls.r_agl =  game->deg.r360 + walls.r_agl;
-		else if (walls.c_agl > 0 && walls.s_agl > 0 && walls.r_agl >= game->deg.r360)
+		else if (walls.r_agl >= game->deg.r360)
 			walls.r_agl = walls.r_agl - game->deg.r360 ;
 		walls.c_agl = cos(walls.r_agl);
 		walls.s_agl = sin(walls.r_agl);
@@ -115,7 +111,7 @@ void	cub_render(t_game *game)
 		cub_render_dda(game, &walls);
 		cub_render_closest_wall(game, &walls, pix_x);
 		cub_fiat_lux(game, &walls, pix_x);
-		//plot_line (game, (int)game->level.player.pos_x / 8, (int)game->level.player.pos_y / 8, (int)walls.wall_x / 8, (int)walls.wall_y / 8);
+		//plot_line (game, game->level.player.pos_x / 4, game->level.player.pos_y / 4, walls.wall_x / 4, walls.wall_y / 4);
 		//if ((int)(walls.r_agl * 10000) == (int)(game->level.player.dir * 10000))
 		//{
 		//	system("clear");
@@ -127,5 +123,6 @@ void	cub_render(t_game *game)
 		//walls.r_agl -= game->screen.resolution.r_o_s_pix;
 		walls.demi_fov -= game->screen.resolution.r_o_s_pix;
 	}
+	//cub_map_render(game);
 	//exit(cub_free_game(game));
 }

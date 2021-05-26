@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 19:10:31 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/20 21:48:03 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/26 22:37:52 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	cub_set_map_color(char **map, int map_x, int map_y, int *color)
 		*color = 0x663300;
 	else if (map[map_y][map_x] == '0')
 		*color = 0xA0A0A0;
-	else
-		*color = 0x660066;
 }
 
 int	cub_set_argb(int a, int r, int g, int b)

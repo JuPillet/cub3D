@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:53:52 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/26 22:10:38 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/26 23:47:01 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,8 @@ t_bool	cub_dda_vrtcl(t_game *game, t_level *lvl, t_walls *walls)
 	if (walls->c_agl < 0)
 		walls->check_x *= -1;
 	walls->vy_wall = lvl->player.pos_y;
-	//if (walls->c_agl != -1 && walls->c_agl != 1 && walls->s_agl > 0)
-	walls->vy_wall += ((lvl->player.pos_x - walls->vx_wall) * (-(walls->t_agl)));
-	//else if (walls->c_agl != -1 && walls->c_agl != 1 && walls->s_agl < 0)
-	//	walls->vy_wall += ((lvl->player.pos_x - walls->vx_wall) * walls->t_agl);
+	if (walls->c_agl != -1 && walls->c_agl != 1)
+		walls->vy_wall += ((lvl->player.pos_x - walls->vx_wall) * (-(walls->t_agl)));
 	walls->check_y = SIDE * walls->t_agl;
 	if (walls->c_agl < 0)
 		walls->check_y *= -1;
@@ -102,10 +100,8 @@ t_bool	cub_dda_hrztl(t_game *game, t_level *lvl, t_walls *walls)
 	if (walls->s_agl > 0)
 		walls->check_y *= -1;
 	walls->hx_wall = lvl->player.pos_x;
-	//if (walls->s_agl != -1 && walls->s_agl != 1 && walls->s_agl > 0)
-	//	walls->hx_wall += ((lvl->player.pos_y - walls->hy_wall) / walls->t_agl);
-	//else if (walls->s_agl != -1 && walls->s_agl != 1 && walls->s_agl < 0)
-	walls->hx_wall += ((lvl->player.pos_y - walls->hy_wall) / walls->t_agl);
+	if (walls->s_agl != -1 && walls->s_agl != 1)
+		walls->hx_wall += ((lvl->player.pos_y - walls->hy_wall) / walls->t_agl);
 	walls->check_x = SIDE / walls->t_agl;
 	if (walls->s_agl < 0)
 		walls->check_x *= -1 ;
