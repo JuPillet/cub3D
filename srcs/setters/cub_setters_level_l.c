@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_setters_level.c                                :+:      :+:    :+:   */
+/*   cub_setters_level_l.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/25 15:01:44 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/26 01:44:29 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_bool	cub_set_resolution(t_degree *degree, char *line,
 	resolution->height_mdl = resolution->height / 2;
 	resolution->r_fov = FOV * degree->r1;
 	resolution->r_demi_fov = resolution->r_fov / 2;
-	resolution->r_pix =  resolution->r_fov / resolution->width;
+	resolution->r_o_s_pix = resolution->r_fov / resolution->width;
 	resolution->dist_plan = resolution->width_mdl / tan(resolution->r_demi_fov);
 	resolution->is = TRUE;
 	return (TRUE);

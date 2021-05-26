@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:46:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/25 18:48:32 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/26 01:53:58 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	plot_line (t_game *game, int x0, int y0, int x1, int y1)
   while (TRUE)
   {
     cub_set_my_mlx_pixel(game->screen.pic_screen, x0, y0,
-			0xFF0000);
+			0x00FF00);
     if (x0 == x1 && y0 == y1)
 		break;
     e2 = 2 * err;
@@ -97,10 +97,12 @@ void	cub_render(t_game *game)
 	t_walls	walls;
 
 	walls.demi_fov = game->screen.resolution.r_demi_fov;
-	walls.r_agl =  game->level.player.dir + walls.demi_fov;
+	walls.r_agl =  game->level.player.dir + walls.demi_fov ;
 	pix_x = -1;
-	cub_map_render(game);
-	//system("clear");
+	//cub_map_render(game);
+	system("clear\n");
+	walls.r_agl -= game->screen.resolution.r_o_s_pix;
+	walls.demi_fov -= game->screen.resolution.r_o_s_pix;
 	while (++pix_x < game->screen.resolution.width)
 	{
 		if (walls.c_agl > 0 && walls.s_agl < 0 && walls.r_agl < 0)
@@ -109,21 +111,21 @@ void	cub_render(t_game *game)
 			walls.r_agl = walls.r_agl - game->deg.r360 ;
 		walls.c_agl = cos(walls.r_agl);
 		walls.s_agl = sin(walls.r_agl);
-		walls.t_agl = tan(walls.r_agl);
+		walls.t_agl = fabs(tan(walls.r_agl));
 		walls.c_demi_fov = cos(walls.demi_fov);
 		cub_render_dda(game, &walls);
 		cub_render_closest_wall(game, &walls, pix_x);
 		cub_fiat_lux(game, &walls, pix_x);
-		plot_line (game, (int)game->level.player.pos_x, (int)game->level.player.pos_y, (int)walls.wall_x, (int)walls.wall_y);
-		if ((int)(walls.r_agl * 10000) == (int)(game->level.player.dir * 10000))
-		{
-			system("clear");
-		printf("r_agl = %f pos_x = %f pos_y = %f p_dir = %f wall_x = %f wall_y = %f\n", walls.r_agl * 180/M_PI, game->level.player.pos_x, game->level.player.pos_y, game->level.player.dir * (180 / M_PI), walls.wall_x, walls.wall_y);
-			printf("r_agl = %f pos_x = %f pos_y = %f p_dir = %f c_agl = %f s_agl = %f t_agl = %f c_adj = %f d_fov = %f\n", walls.r_agl * 180/M_PI, game->level.player.pos_x, game->level.player.pos_y, game->level.player.dir * (180 / M_PI), walls.c_agl, walls.s_agl, walls.t_agl, walls.c_demi_fov, walls.demi_fov);
-		}
-		walls.r_agl -= game->screen.resolution.r_pix;
-
-		walls.demi_fov -= game->screen.resolution.r_pix;
+		plot_line (game, (int)game->level.player.pos_x / 8, (int)game->level.player.pos_y / 8, (int)walls.wall_x / 8, (int)walls.wall_y / 8);
+		//if ((int)(walls.r_agl * 10000) == (int)(game->level.player.dir * 10000))
+		//{
+		//	system("clear");
+		//	printf("r_agl = %f pos_x = %f pos_y = %f p_dir = %f wall_x = %f wall_y = %f\n", walls.r_agl * 180/M_PI, game->level.player.pos_x, game->level.player.pos_y, game->level.player.dir * (180 / M_PI), walls.wall_x, walls.wall_y);
+			printf("r_index = %d r_agl = %f pos_x = %f pos_y = %f c_agl = %f s_agl = %f t_agl = %f c_adj = %f d_fov = %f\n\n", pix_x, walls.r_agl * 180/M_PI, game->level.player.pos_x, game->level.player.pos_y, walls.c_agl, walls.s_agl, walls.t_agl, walls.c_demi_fov, walls.demi_fov);
+			//printf("r_agl = %f pos_x = %f pos_y = %f p_dir = %f c_agl = %f s_agl = %f t_agl = %f c_adj = %f d_fov = %f\n", walls.r_agl * 180/M_PI, game->level.player.pos_x, game->level.player.pos_y, game->level.player.dir * (180 / M_PI), walls.c_agl, walls.s_agl, walls.t_agl, walls.c_demi_fov, walls.demi_fov);
+		//}
+		walls.r_agl -= game->screen.resolution.r_o_s_pix;
+		walls.demi_fov -= game->screen.resolution.r_o_s_pix;
 	}
-	//exit(0);
+	//exit(cub_free_game(game));
 }

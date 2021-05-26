@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/25 16:42:51 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/25 23:40:33 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 # define BUFFER_SIZE 32
 # define SIDE 64
-# define FOV 60
+# define FOV 90
 
 # ifdef    __unix__
 
@@ -137,7 +137,7 @@ typedef struct	s_resolution
 	int			width_mdl;
 	int			height_mdl;
 	double		r_fov;
-	double		r_pix;
+	double		r_o_s_pix;
 	double		r_demi_fov;
 	double		t_fov;
 	double		dist_plan;

@@ -6,22 +6,22 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/05/25 15:14:53 by jpillet          ###   ########.fr        #
+#    Updated: 2021/05/25 20:11:11 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 UNAME_S	 		=	$(shell uname -s)
 
 ifeq ($(UNAME_S),Darwin)
-	ALL		=	make -f makefile_darwin
-	CLEAN		=	make clean -f makefile_darwin
-	FCLEAN		=	make fclean -f makefile_darwin
-	RE			=	make re -f makefile_darwin
+	ALL			=	make -f Makefile_Darwin
+	CLEAN		=	make clean -f Makefile_Darwin
+	FCLEAN		=	make fclean -f Makefile_Darwin
+	RE			=	make re -f Makefile_Darwin
 else
-	MAKE		=	make -f makefile_linux
-	CLEAN		=	make clean -f makefile_linux
-	FCLEAN		=	make fclean -f makefile_linux
-	RE			=	make re -f makefile_linux
+	ALL			=	make -f Makefile_Linux
+	CLEAN		=	make clean -f Makefile_Linux
+	FCLEAN		=	make fclean -f Makefile_Linux
+	RE			=	make re -f Makefile_Linux
 endif
 
 .c.o			:

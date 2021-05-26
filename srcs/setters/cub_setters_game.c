@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:29:22 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/25 14:34:42 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/25 23:40:44 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ t_bool	cub_init_screen(t_game *game)
 	game->screen.resolution.height = 0;
 	game->screen.resolution.width_mdl = 0;
 	game->screen.resolution.height_mdl = 0;
-	game->screen.resolution.r_pix = 0;
+	game->screen.resolution.r_o_s_pix = 0;
 	return (TRUE);
 }
 
