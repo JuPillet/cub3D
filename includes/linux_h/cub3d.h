@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/27 23:36:35 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/28 17:45:24 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # define BUFFER_SIZE 32
 # define SIDE 64
 # define FOV 60
+# define WALLS_CORRECTION 1
 
 # ifdef    __unix__
 
@@ -82,7 +83,7 @@ typedef struct	s_walls
 	double	wall_y;
 	double	wall;
 	double	demi_fov;
-	t_bool	ori_wall;
+	char	ori_wall;
 	t_bool	h_wall;
 	t_bool	v_wall;
 }				t_walls;
@@ -224,6 +225,7 @@ void			cub_ceiling_floor(t_game *game, int x, int y, t_bool cf);
 t_bool			cub_set_texture(t_game *game, t_parser *parser, char *path, void **texture);
 
 void			cub_fiat_lux(t_game *game, t_walls *walls, int pix_x);
+char			cub_the_wall(t_game *game, t_walls *walls);
 void			cub_render_closest_wall(t_game *game, t_walls *walls, int pix);
 
 t_bool			cub_dda_check_map(t_area *area, int map_y, int map_x);

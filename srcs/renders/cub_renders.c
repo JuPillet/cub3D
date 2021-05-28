@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:46:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/28 01:08:20 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/28 16:57:38 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	cub_render_dda(t_game *game, t_walls *walls)
 	walls->h_wall = FALSE;
 	walls->v_wall = FALSE;
 	walls->h_wall = cub_dda_hrztl(game, &(game->level), walls);
-	//walls.c_agl = cos(walls.r_agl);
 	walls->t_agl *= -1;
 	walls->v_wall = cub_dda_vrtcl(game, &(game->level), walls);
 }

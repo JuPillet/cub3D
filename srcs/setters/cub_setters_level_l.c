@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/27 23:18:01 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/28 16:36:10 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ t_bool	cub_set_player(int map_x, int map_y, char **map, t_game *game)
 			return (FALSE);
 		else
 		{
-			game->level.player.pos_x = (map_x * SIDE) + 31;
-			game->level.player.pos_y = (map_y * SIDE) + 31;
+			game->level.player.pos_x = (map_x * SIDE) + ((SIDE / 2) - 0.5);
+			game->level.player.pos_y = (map_y * SIDE) + ((SIDE / 2) - 0.5);
 			if (map[map_y][map_x] == 'N')
 				game->level.player.dir = M_PI_2;
 			else if (map[map_y][map_x] == 'E')

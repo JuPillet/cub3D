@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:08:13 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/28 01:27:55 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/28 18:56:24 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	cub_fiat_lux(t_game *game, t_walls *walls, int pix_x)
 	int	wall_end;
 	int	argb;
 
-	if (walls->ori_wall)
+	if (walls->ori_wall == 'N' || walls->ori_wall == 'S')
 		argb = 0x663300;
 	else
 		argb = 0x808080;
@@ -37,32 +37,47 @@ void	cub_fiat_lux(t_game *game, t_walls *walls, int pix_x)
 			game->level.floor.color.argb);
 }
 
-t_bool	cub_the_wall(t_game *game, t_walls *walls)
+char	cub_the_wall(t_game *game, t_walls *walls)
 {
 	if (!(walls->v_wall) || (walls->h_wall && walls->v_wall
-			&& walls->dh_wall < walls->dv_wall) || (walls->h_wall
-			&& walls->v_wall && walls->dh_wall == walls->dv_wall
-			&& ((walls->c_agl > -0.70711 && walls->c_agl < 0.70711
-					&& walls->s_agl > 0) || (walls->c_agl > -0.70711
-					&& walls->c_agl < 0.70711 && walls->s_agl < 0))))
+			&& (walls->dh_wall < walls->dv_wall
+				|| (walls->dh_wall == walls->dv_wall
+					&& walls->c_agl > -(0.70711)
+					&& walls->c_agl < 0.70711))))
 	{
 		walls->wall = walls->dh_wall;
 		walls->wall_x = walls->hx_wall;
 		walls->wall_y = walls->hy_wall;
-		return (TRUE);
+		if (walls->s_agl < 0)
+			return ('N');
+		return ('S');
 	}
 	walls->wall = walls->dv_wall;
 	walls->wall_x = walls->vx_wall;
 	walls->wall_y = walls->vy_wall;
-	return (FALSE);
+	if (walls->c_agl > 0)
+		return ('E');
+	return ('W');
 }
 
 void	cub_render_closest_wall(t_game *game, t_walls *walls, int pix_x)
 {
-	walls->dh_wall = sqrt(pow((game->level.player.pos_x - walls->hx_wall), 2)
-			+ pow((game->level.player.pos_y - walls->hy_wall), 2));
-	walls->dv_wall = sqrt(pow((game->level.player.pos_x - walls->vx_wall), 2)
-			+ pow((game->level.player.pos_y - walls->vy_wall), 2));
+	if (walls->h_wall)
+	{
+		if (walls->c_agl < 0 && walls->s_agl > -1 && walls->s_agl < 1)
+			walls->hx_wall -= WALLS_CORRECTION;
+		walls->dh_wall = sqrt(
+				pow((game->level.player.pos_x - walls->hx_wall), 2)
+				+ pow((game->level.player.pos_y - walls->hy_wall), 2));
+	}
+	if (walls->v_wall)
+	{
+		if (walls->s_agl > 0 && walls->c_agl > -1 && walls->c_agl < 1)
+			walls->vy_wall -= WALLS_CORRECTION;
+		walls->dv_wall = sqrt(
+				pow((game->level.player.pos_x - walls->vx_wall), 2)
+				+ pow((game->level.player.pos_y - walls->vy_wall), 2));
+	}
 	walls->ori_wall = cub_the_wall(game, walls);
 	walls->wall *= walls->c_demi_fov;
 	walls->wall = (SIDE / walls->wall) * game->screen.resolution.dist_plan;
