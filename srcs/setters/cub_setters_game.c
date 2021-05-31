@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:29:22 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/25 23:40:44 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/31 22:21:44 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,24 @@ t_bool	cub_malloc_hash_array(t_game *game)
 	return (TRUE);
 }
 
-t_bool	cub_init_screen(t_game *game)
+t_bool	cub_init_keys_and_radiants(t_game *game)
+{
+	game->keys.z = FALSE;
+	game->keys.s = FALSE;
+	game->keys.q = FALSE;
+	game->keys.d = FALSE;
+	game->keys.a_l = FALSE;
+	game->keys.a_r = FALSE;
+	game->deg.r1 = M_PI / 180;
+	game->deg.r135 = M_PI_4 + M_PI_2;
+	game->deg.r225 = game->deg.r135 + M_PI_2;
+	game->deg.r270 = M_PI + M_PI_2;
+	game->deg.r315 = game->deg.r225 + M_PI_2;
+	game->deg.r360 = (M_PI * 2);
+	return (TRUE);
+}
+
+t_bool	cub_init_screen_and_level(t_game *game)
 {
 	game->screen.resolution.is = FALSE;
 	game->screen.resolution.width = 0;
@@ -61,22 +78,6 @@ t_bool	cub_init_screen(t_game *game)
 	game->screen.resolution.width_mdl = 0;
 	game->screen.resolution.height_mdl = 0;
 	game->screen.resolution.r_o_s_pix = 0;
-	return (TRUE);
-}
-
-t_bool	cub_init_degree(t_degree *deg)
-{
-	deg->r1 = M_PI / 180;
-	deg->r135 = M_PI_4 + M_PI_2;
-	deg->r225 = deg->r135 + M_PI_2;
-	deg->r270 = M_PI + M_PI_2;
-	deg->r315 = deg->r225 + M_PI_2;
-	deg->r360 = (M_PI * 2);
-	return (TRUE);
-}
-
-t_bool	cub_init_level(t_game *game)
-{
 	game->level.no = 0;
 	game->level.so = 0;
 	game->level.we = 0;
@@ -88,7 +89,6 @@ t_bool	cub_init_level(t_game *game)
 	game->level.player.dir = 0;
 	game->level.player.pos_x = 0;
 	game->level.player.pos_y = 0;
-	cub_init_screen(game);
 	cub_init_color(&(game->level.floor.color));
 	cub_init_color(&(game->level.ceiling.color));
 	game->level.area.map = 0;
@@ -109,10 +109,9 @@ t_bool	cub_init_game(t_game *game)
 	game->screen.pic_screen.img = 0;
 	game->screen.pic_screen.addr = 0;
 	game->mlx = mlx_init();
-	cub_init_degree(&(game->deg));
-	cub_init_screen(game);
+	cub_init_keys_and_radiants(game);
+	cub_init_screen_and_level(game);
 	cub_malloc_hash_array(game);
-	cub_init_level(game);
 	if (!(game->mlx) || !(game->hash_array))
 		return (ft_error("cub3D didn't find the memory to load", 0));
 	return (TRUE);

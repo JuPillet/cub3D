@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/28 17:23:36 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/31 22:40:07 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,17 @@
 # define BUFFER_SIZE 32
 # define SIDE 64
 # define FOV 60
-# define WALLS_CORRECTION
-
-# ifdef    __unix__
-
-#  define K_W    122
-#  define K_S    115
-#  define K_D    100
-#  define K_A    113
-#  define K_SP    32
-#  define K_A_U    65362
-#  define K_A_D    65364
-#  define K_A_R    65363
-#  define K_A_L    65361
-#  define K_ESC    65307
-
-# elif defined __APPLE__
-
-#  define K_W    13
-#  define K_S    1
-#  define K_D    2
-#  define K_A    0
-#  define K_SP    49
-#  define K_A_U    126
-#  define K_A_D    125
-#  define K_A_R    124
-#  define K_A_L    123
-#  define K_ESC    53
-
-# endif
+# define WALLS_CORRECTION 1
+# define K_W    13
+# define K_S    1
+# define K_D    2
+# define K_A    0
+# define K_SP    49
+# define K_A_U    126
+# define K_A_D    125
+# define K_A_R    124
+# define K_A_L    123
+# define K_ESC    53
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -179,6 +161,15 @@ typedef struct	s_degree
 	double			r360;
 }				t_degree;
 
+typedef struct	s_keys
+{
+	t_bool	z;
+	t_bool	s;
+	t_bool	q;
+	t_bool	d;
+	t_bool	a_l;
+	t_bool	a_r;
+}				t_keys;
 
 struct	s_game
 {
@@ -189,6 +180,7 @@ struct	s_game
 	t_screen		screen;
 	t_level			level;
 	t_bool			save;
+	t_keys			keys;
 };
 
 void			cub_save_bmp(void *img);
@@ -212,10 +204,11 @@ int				cub_set_shade(double distance, int color);
 int				cub_set_opposite(int trgb);
 int				cub_set_argb(int a, int r, int g, int b);
 
-int				cub_player_front_move(int key_code, t_game *game);
-int				cub_player_lateral_move(int key_code, t_game *game);
-int				cub_player_rotate_move(int key_code, t_game *game);
+int				cub_player_front_move(t_game *game);
+int				cub_player_lateral_move(t_game *game);
+int				cub_player_rotate_move(t_game *game);
 int				cub_key_push(int key_code, t_game *game);
+int				cub_key_release(int key_code, t_game *game);
 t_bool			cub_coin(t_game *game);
 
 void			cub_set_map_color(char **map, int map_x, int map_y, int *color);
@@ -268,9 +261,6 @@ t_bool			cub_parse_map(t_parser *parser, t_game *game, const char *file, int lin
 t_bool			cub_dispacher_fnct(int indpf, t_parser *parser, t_game *game);
 t_bool			cub_dispatcher(const char *file, t_parser *parser, t_game *game);
 t_bool			cub_get_setting_line(t_parser *parser, const char *file);
-
-t_bool			cub_parser(const char *file, t_game *game);
-t_bool			cub_norm_file(const char *file, t_game *game);
 
 t_bool			cub_set_resolution(t_degree *degree, char *line, void *mlx, t_resolution *resolution);
 t_bool			cub_parse_color(t_parser *parser, t_color *color);

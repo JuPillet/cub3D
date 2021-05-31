@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:08:13 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/28 18:56:24 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/05/31 23:41:29 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,16 +64,16 @@ void	cub_render_closest_wall(t_game *game, t_walls *walls, int pix_x)
 {
 	if (walls->h_wall)
 	{
-		if (walls->c_agl < 0 && walls->s_agl > -1 && walls->s_agl < 1)
-			walls->hx_wall -= WALLS_CORRECTION;
+		//if (walls->c_agl < 0 && walls->s_agl > -1 && walls->s_agl < 1)
+		//	walls->hx_wall += WALLS_CORRECTION;
 		walls->dh_wall = sqrt(
 				pow((game->level.player.pos_x - walls->hx_wall), 2)
 				+ pow((game->level.player.pos_y - walls->hy_wall), 2));
 	}
 	if (walls->v_wall)
 	{
-		if (walls->s_agl > 0 && walls->c_agl > -1 && walls->c_agl < 1)
-			walls->vy_wall -= WALLS_CORRECTION;
+		//if (walls->s_agl > 0 && walls->c_agl > -1 && walls->c_agl < 1)
+		//	walls->vy_wall -= WALLS_CORRECTION;
 		walls->dv_wall = sqrt(
 				pow((game->level.player.pos_x - walls->vx_wall), 2)
 				+ pow((game->level.player.pos_y - walls->vy_wall), 2));
