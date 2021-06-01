@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:41:19 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/01 12:29:05 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/01 14:54:57 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ int	cub_player_front_move(t_game *game)
 	map = game->level.area.map;
 	p_x = &(game->level.player.pos_x);
 	p_y = &(game->level.player.pos_y);
-	o_s_x = 6 * cos(game->level.player.dir);
-	o_s_y = 6 * sin(game->level.player.dir);
+	o_s_x = 5 * cos(game->level.player.dir);
+	o_s_y = 5 * sin(game->level.player.dir);
 	if (game->keys.z && map[((int)(*p_y - o_s_y) / SIDE)]
 		[((int)(*p_x + o_s_x) / SIDE)] == '0')
 	{
@@ -52,8 +52,8 @@ int	cub_player_lateral_move(t_game *game)
 	map = game->level.area.map;
 	p_x = &(game->level.player.pos_x);
 	p_y = &(game->level.player.pos_y);
-	o_s_x = 6 * sin(game->level.player.dir);
-	o_s_y = 6 * cos(game->level.player.dir);
+	o_s_x = 5 * sin(game->level.player.dir);
+	o_s_y = 5 * cos(game->level.player.dir);
 	if (game->keys.q && map[((int)(*p_y - o_s_y) / SIDE)]
 		[((int)(*p_x - o_s_x) / SIDE)] == '0')
 	{

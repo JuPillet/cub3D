@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/01 12:25:42 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/01 23:37:07 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,7 +182,8 @@ struct	s_game
 	t_keys			keys;
 };
 
-void			cub_save_bmp(void *img);
+void			cub_bmp_save(char *c_bm, short *s_bm, int *i_bm, t_game *game);
+void			cub_bmp_init(t_game *game);
 
 t_bool			cub_free_area(t_area area);
 t_bool			cub_free_parser(t_parser *parser);
@@ -275,7 +276,7 @@ t_bool			cub_set_horizon(t_parser *parser, t_game *game);
 t_bool			cub_parser(const char *file, t_game *game);
 t_bool			cub_norm_file(const char *file, t_game *game);
 
-t_bool			cub_is_save(int ac, char **av, t_bool *save);
+t_bool			cub_is_save(int ac, char **av, t_game *game);
 
 void			cub_init_hash_array(t_hash_array *hash_array);
 t_bool			cub_malloc_hash_array(t_game *game);

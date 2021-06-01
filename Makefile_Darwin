@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/05/25 21:36:03 by jpillet          ###   ########.fr        #
+#    Updated: 2021/06/01 13:08:31 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ SRCSRNDR		=	$(addprefix ./srcs/renders/, \
 SRCSSTTR		=	$(addprefix ./srcs/setters/, \
 					cub_setters_color.c \
 					cub_setters_game.c \
-					cub_setters_level_d.c \
+					cub_setters_level.c \
 					cub_setters_mlx.c \
 					cub_setters_values.c)
 
