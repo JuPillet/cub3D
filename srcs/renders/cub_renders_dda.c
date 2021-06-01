@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:53:52 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/31 23:40:23 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/01 12:28:29 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,17 +43,15 @@ t_bool	cub_dda_vrtcl(t_game *game, t_level *lvl, t_walls *walls)
 	if (walls->s_agl == -1 || walls->s_agl == 1)
 		return (FALSE);
 	if (walls->c_agl < 0)
-		walls->vx_wall = (SIDE * (int)(lvl->player.pos_x / SIDE)) - 1 - 0.000001;
+		walls->vx_wall = (SIDE * (int)(lvl->player.pos_x / SIDE)) - 0.0000000001;
 	else
-		walls->vx_wall = (SIDE * (int)(lvl->player.pos_x / SIDE)) + SIDE + 0.000001;
+		walls->vx_wall = (SIDE * (int)(lvl->player.pos_x / SIDE)) + SIDE;
 	walls->check_x = SIDE;
 	if (walls->c_agl < 0)
 		walls->check_x *= -1;
 	walls->vy_wall = lvl->player.pos_y;
 	if (walls->c_agl != -1 && walls->c_agl != 1)
 		walls->vy_wall -= (((lvl->player.pos_x - walls->vx_wall) * walls->t_agl));
-	//if (walls->s_agl > 0)
-	//	walls->vy_wall += WALLS_CORRECTION;
 	walls->check_y = SIDE * walls->t_agl;
 	if (walls->c_agl < 0)
 		walls->check_y *= -1;
@@ -87,17 +85,15 @@ t_bool	cub_dda_hrztl(t_game *game, t_level *lvl, t_walls *walls)
 	if (walls->c_agl == -1 || walls->c_agl == 1)
 		return (FALSE);
 	if (walls->s_agl > 0)
-		walls->hy_wall = (int)(SIDE * (int)(lvl->player.pos_y / SIDE)) - 1 - 0.000001;
+		walls->hy_wall = (SIDE * (int)(lvl->player.pos_y / SIDE)) - 0.0000000001;
 	else
-		walls->hy_wall = (int)(SIDE * (int)(lvl->player.pos_y / SIDE)) + SIDE + 0.000001;
+		walls->hy_wall = (SIDE * (int)(lvl->player.pos_y / SIDE)) + SIDE;
 	walls->check_y = SIDE;
 	if (walls->s_agl > 0)
 		walls->check_y *= -1;
 	walls->hx_wall = lvl->player.pos_x;
 	if (walls->s_agl != -1 && walls->s_agl != 1)
 		walls->hx_wall += ((lvl->player.pos_y - walls->hy_wall) / walls->t_agl);
-	//if (walls->c_agl < 0)
-	//	walls->hx_wall += WALLS_CORRECTION;
 	walls->check_x = SIDE / walls->t_agl;
 	if (walls->s_agl < 0)
 		walls->check_x *= -1 ;

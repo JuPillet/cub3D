@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/31 22:38:49 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/01 12:25:44 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # define BUFFER_SIZE 32
 # define SIDE 64
 # define FOV 60
-# define WALLS_CORRECTION 1
 # define K_W    122
 # define K_S    115
 # define K_D    100
@@ -54,9 +53,9 @@ typedef struct	s_walls
 	double	t_agl;
 	double	c_demi_fov;
 	double	hx_wall;
-	int		hy_wall;
+	double	hy_wall;
 	double	dh_wall;
-	int		vx_wall;
+	double	vx_wall;
 	double	vy_wall;
 	double	dv_wall;
 	double	check_x;
