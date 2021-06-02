@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/24 16:50:35 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/18 00:12:36 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/02 22:23:22 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_bool	cub_check_in_map(t_level level, int y, int x)
 	if ((map[y][x] != '0' && map[y][x] != '2' && map[y][x] != 'N'
 		&& map[y][x] != 'E' && map[y][x] != 'S' && map[y][x] != 'W'))
 		return (FALSE);
-	if (map[y][x] == '2' && !(level.sp))
+	if (map[y][x] == '2' && !(level.sp.addr))
 		return (ft_error("value '2' used but sprite undeclared", map[y]));
 	if (!y || !x || (y && (!(x < lines_length[y - 1])
 				|| !(x < lines_length[y + 1]))))

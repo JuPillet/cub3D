@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 18:51:28 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/17 17:42:51 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/02 22:58:32 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_bool	cub_parse_texture_north(t_parser *parser, t_game *game)
 	char	*line;
 
 	line = parser->line;
-	if (game->level.no)
+	if (game->level.no.img)
 		return (ft_error("setting file need only one north texture", 0));
 	while (ft_isspace(line[parser->indln]))
 		(parser->indln)++;
@@ -49,7 +49,7 @@ t_bool	cub_parse_texture_east(t_parser *parser, t_game *game)
 	char	*line;
 
 	line = parser->line;
-	if (game->level.ea)
+	if (game->level.ea.img)
 		return (ft_error("setting file need only one east texture", 0));
 	while (ft_isspace(line[parser->indln]))
 		(parser->indln)++;
@@ -78,7 +78,7 @@ t_bool	cub_parse_texture_south(t_parser *parser, t_game *game)
 	char	*line;
 
 	line = parser->line;
-	if (game->level.so)
+	if (game->level.so.img)
 		return (ft_error("setting file need only one south texture", 0));
 	while (ft_isspace(line[parser->indln]))
 		(parser->indln)++;
@@ -107,7 +107,7 @@ t_bool	cub_parse_texture_west(t_parser *parser, t_game *game)
 	char	*line;
 
 	line = parser->line;
-	if (game->level.we)
+	if (game->level.we.img)
 		return (ft_error("setting file need only one west texture", 0));
 	while (ft_isspace(line[parser->indln]))
 		(parser->indln)++;
@@ -136,7 +136,7 @@ t_bool	cub_parse_texture_sprite(t_parser *parser, t_game *game)
 	char	*line;
 
 	line = parser->line;
-	if (game->level.sp)
+	if (game->level.sp.img)
 		return (ft_error("setting file need only one sprite texture", 0));
 	while (ft_isspace(line[parser->indln]))
 		(parser->indln)++;

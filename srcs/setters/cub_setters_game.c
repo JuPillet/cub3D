@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:29:22 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/01 14:29:28 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/02 22:47:27 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,11 +78,11 @@ t_bool	cub_init_screen_and_level(t_game *game)
 	game->screen.resolution.width_mdl = 0;
 	game->screen.resolution.height_mdl = 0;
 	game->screen.resolution.r_o_s_pix = 0;
-	game->level.no = 0;
-	game->level.so = 0;
-	game->level.we = 0;
-	game->level.ea = 0;
-	game->level.sp = 0;
+	game->level.no.img = 0;
+	game->level.so.img = 0;
+	game->level.we.img = 0;
+	game->level.ea.img = 0;
+	game->level.sp.img = 0;
 	game->level.floor.is = FALSE;
 	game->level.ceiling.is = FALSE;
 	game->level.player.is = FALSE;

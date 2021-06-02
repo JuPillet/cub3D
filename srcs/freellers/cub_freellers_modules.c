@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 13:29:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/25 15:14:03 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/02 22:42:45 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_bool	cub_free_parser(t_parser *parser)
 	return (TRUE);
 }
 
-t_bool	cub_free_sprite(void *mlx, void *img)
+t_bool	cub_free_texture(void *mlx, void *img)
 {
 	if (!img)
 		return (FALSE);

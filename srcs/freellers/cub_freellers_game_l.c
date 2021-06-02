@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_freellers_game.c                               :+:      :+:    :+:   */
+/*   cub_freellers_game_l.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 22:53:33 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/14 13:57:37 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/02 22:43:01 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ t_bool	cub_free_game(t_game *game)
 		mlx_destroy_image(game->mlx, game->screen.pic_screen.img);
 	if (game->screen.mlx_screen)
 		mlx_destroy_window(game->mlx, game->screen.mlx_screen);
-	cub_free_sprite(game->mlx, game->level.no);
-	cub_free_sprite(game->mlx, game->level.ea);
-	cub_free_sprite(game->mlx, game->level.so);
-	cub_free_sprite(game->mlx, game->level.we);
-	cub_free_sprite(game->mlx, game->level.sp);
+	cub_free_texture(game->mlx, game->level.no.img);
+	cub_free_texture(game->mlx, game->level.ea.img);
+	cub_free_texture(game->mlx, game->level.so.img);
+	cub_free_texture(game->mlx, game->level.we.img);
+	cub_free_texture(game->mlx, game->level.sp.img);
 	if (game->mlx)
 	{
 		mlx_destroy_display(game->mlx);

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 13:17:52 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/02 00:17:39 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/02 17:44:28 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,13 @@ t_bool	cub_coin(t_game *game)
 	if (game->save)
 	{
 		cub_render(game);
-		cub_bmp_init(game);
+		if (!(cub_bmp_init(game)))
+			ft_error("cub3D failed to create the cub_save.bmp:", 0);
+		else 
+		{
+			printf("cub3D succeed to create cub_save.bmp, ");
+			printf("you found it in the folder : \"./bmp_save/\"\n");
+		}
 	}
 	else
 	{

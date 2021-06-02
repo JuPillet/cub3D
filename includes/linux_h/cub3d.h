@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/01 23:36:59 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/02 22:47:55 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@ typedef struct	s_walls
 	double	wall;
 	double	demi_fov;
 	char	ori_wall;
+	int		texture_x;
+	double	texture_y_o_s;
+	double	texture_y;
 	t_bool	h_wall;
 	t_bool	v_wall;
 }				t_walls;
@@ -101,11 +104,11 @@ typedef struct	s_area
 
 typedef struct	s_level
 {
-	void		*no;
-	void		*so;
-	void		*we;
-	void		*ea;
-	void		*sp;
+	t_img_data	no;
+	t_img_data	so;
+	t_img_data	we;
+	t_img_data	ea;
+	t_img_data	sp;
 	t_horizon	floor;
 	t_horizon	ceiling;
 	t_player	player;
@@ -183,12 +186,12 @@ struct	s_game
 	t_keys			keys;
 };
 
-void			cub_bmp_save(char *c_bm, short *s_bm, int *i_bm, t_game *game);
-void			cub_bmp_init(t_game *game);
+t_bool			cub_bmp_save(char *c_bm, short *s_bm, int *i_bm, t_game *game);
+t_bool			cub_bmp_init(t_game *game);
 
 t_bool			cub_free_area(t_area area);
 t_bool			cub_free_parser(t_parser *parser);
-t_bool			cub_free_sprite(void *mlx, void *img);
+t_bool			cub_free_texture(void *mlx, void *img);
 t_bool			cub_free_screen(void *mlx, void *screen);
 t_bool			cub_free_hash_array(t_game *game);
 t_bool			cub_free_game(t_game *game);
@@ -196,6 +199,7 @@ t_bool			cub_free_game(t_game *game);
 t_bool			cub_set_int(char *line, int *indln, int *value);
 t_bool			cub_set_double(char *line, int *indln, double *value);
 
+int				cub_get_texture(t_level *level, t_walls *walls);
 int				get_a(int argb);
 int				get_r(int argb);
 int				get_g(int argb);
@@ -215,7 +219,7 @@ t_bool			cub_coin(t_game *game);
 void			cub_set_map_color(char **map, int map_x, int map_y, int *color);
 void			cub_ceiling_floor(t_game *game, int x, int y, t_bool cf);
 
-t_bool			cub_set_texture(t_game *game, t_parser *parser, char *path, void **texture);
+t_bool			cub_set_texture(t_game *game, t_parser *parser, char *path, t_img_data *texture);
 
 void			cub_fiat_lux(t_game *game, t_walls *walls, int pix_x);
 char			cub_the_wall(t_game *game, t_walls *walls);

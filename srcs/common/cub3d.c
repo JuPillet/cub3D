@@ -6,44 +6,41 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 12:19:37 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/02 00:25:27 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/02 16:28:54 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-void	cub_bmp_save(char *c_bm, short *s_bm, int *i_bm, t_game *game)
+t_bool	cub_bmp_save(char *c_bm, short *s_bm, int *i_bm, t_game *game)
 {
 	int	save_fd;
 	int	paint;
 
-	save_fd = open("./bmp_save/cub_save.bmp",
+	save_fd = open("./bmp_save/cub3D_save.bmp",
 		O_CREAT | O_WRONLY | O_TRUNC, S_IRWXU);
 	if (save_fd == -1)
-		ft_error("cub3D failed to create the cub_save.bmp:", 0);
-	else
+		return (FALSE);
+	write(save_fd, c_bm, 2);
+	write(save_fd, i_bm, 4);
+	write(save_fd, s_bm, 4);
+	write(save_fd, (i_bm + 1), 16);
+	write(save_fd, (s_bm + 2), 4);
+	write(save_fd, (i_bm + 5), 24);
+	while (game->screen.resolution.height--)
 	{
-		write(save_fd, c_bm, 2);
-		write(save_fd, i_bm, 4);
-		write(save_fd, s_bm, 4);
-		write(save_fd, (i_bm + 1), 16);
-		write(save_fd, (s_bm + 2), 4);
-		write(save_fd, (i_bm + 5), 24);
-		while (game->screen.resolution.height--)
-		{
-			paint = -1;
-			while (++paint < game->screen.resolution.width)
-				write(save_fd, (game->screen.pic_screen.addr + game->screen.resolution.height + (paint * 4)), 4);
-		}
-		close(save_fd);
-		printf("cub3D succeed to create cub_save.bmp,");
-		printf("you found it in the folder : \"./bmp_save/\"\n");
+		paint = -1;
+		while (++paint < game->screen.resolution.width)
+			write(save_fd, (game->screen.pic_screen.addr+ (
+					game->screen.resolution.height
+					* (game->screen.pic_screen.line_length)) + (paint * 4)), 4);
 	}
-	exit(cub_free_game(game));
+	close(save_fd);
+	return (TRUE);
 }
 
-void	cub_bmp_init(t_game *game)
+t_bool	cub_bmp_init(t_game *game)
 {
 	char	c_bm[2];
 	short	s_bm[4];
@@ -51,11 +48,12 @@ void	cub_bmp_init(t_game *game)
 
 	c_bm[0] = 'B';
 	c_bm[1] = 'M';
-	i_bm[0] = 54 + ((game->screen.resolution.height * game->screen.resolution.width) * 4); 
+	i_bm[0] = sizeof(c_bm) + sizeof(s_bm) + sizeof(i_bm) + (
+		(game->screen.resolution.height * game->screen.resolution.width) * 4);
 	s_bm[0] = 0;
 	s_bm[1] = 0;
-	i_bm[1] = 54;
-	i_bm[2] = 40;
+	i_bm[1] = sizeof(c_bm) + sizeof(s_bm) + sizeof(i_bm);
+	i_bm[2] = sizeof(s_bm) - 4 + sizeof(i_bm) - 8;
 	i_bm[3] = game->screen.resolution.width;
 	i_bm[4] = game->screen.resolution.height;
 	s_bm[2] = 1;
@@ -66,7 +64,7 @@ void	cub_bmp_init(t_game *game)
 	i_bm[8] = 0;
 	i_bm[9] = 0;
 	i_bm[10] = 0;
-	cub_bmp_save(c_bm, s_bm, i_bm, game);
+	return (cub_bmp_save(c_bm, s_bm, i_bm, game));
 }
 
 t_bool	cub_is_save(int ac, char **av, t_game *game)

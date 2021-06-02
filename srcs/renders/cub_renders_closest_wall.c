@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:08:13 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/01 12:23:44 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/02 23:57:56 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,6 @@ void	cub_fiat_lux(t_game *game, t_walls *walls, int pix_x)
 	int	wall_end;
 	int	argb;
 
-	if (walls->ori_wall == 'N' || walls->ori_wall == 'S')
-		argb = 0x663300;
-	else
-		argb = 0x808080;
 	wall_top = game->screen.resolution.height_mdl - ((int)(walls->wall) / 2);
 	wall_end = game->screen.resolution.height - wall_top;
 	pix_y = 0;
@@ -31,7 +27,11 @@ void	cub_fiat_lux(t_game *game, t_walls *walls, int pix_x)
 		cub_set_my_mlx_pixel(game->screen.pic_screen, pix_x, pix_y++,
 			game->level.ceiling.color.argb);
 	while (pix_y < wall_end && pix_y < game->screen.resolution.height)
+	{	
+		argb = cub_get_texture(&(game->level), walls);
 		cub_set_my_mlx_pixel(game->screen.pic_screen, pix_x, pix_y++, argb);
+		walls->texture_y += walls->texture_y_o_s;
+	}
 	while (pix_y < game->screen.resolution.height)
 		cub_set_my_mlx_pixel(game->screen.pic_screen, pix_x, pix_y++,
 			game->level.floor.color.argb);
@@ -70,4 +70,10 @@ void	cub_render_closest_wall(t_game *game, t_walls *walls, int pix_x)
 	walls->ori_wall = cub_the_wall(game, walls);
 	walls->wall *= walls->c_demi_fov;
 	walls->wall = (SIDE / walls->wall) * game->screen.resolution.dist_plan;
+	if (walls->ori_wall == 'N' || walls->ori_wall == 'S')
+		walls->texture_x = (int)(walls->wall_x) % SIDE;
+	else
+		walls->texture_x = (int)(walls->wall_y) % SIDE;
+	walls->texture_y_o_s =(SIDE / walls->wall);
+	walls->texture_y = 0;
 }
