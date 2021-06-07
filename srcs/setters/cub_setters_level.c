@@ -6,12 +6,38 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/02 21:33:28 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/03 20:31:02 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
+
+t_bool	cub_set_sprite(t_game *game)
+{
+	int center;
+	int	map_y;
+	int map_x;
+	int	sprite;
+	
+	center = (SIDE / 2) - 1;
+	sprite = 0;
+	map_y = -1;
+	while (game->level.area.map[++(map_y)])
+	{
+		map_x = -1;
+		while (game->level.area.map[map_y][++(map_x)])
+		{
+			if (game->level.area.map[map_y][map_x] == '2')
+			{
+				game->level.area.sprite[sprite].pos_y = map_y * SIDE + center;
+				game->level.area.sprite[sprite].pos_x = map_x * SIDE + center;
+			}
+		}
+	}
+	cub_set_distance_sprite(&(game->level));
+	return (TRUE);
+}
 
 t_bool	cub_set_player(int map_x, int map_y, char **map, t_game *game)
 {
@@ -22,8 +48,8 @@ t_bool	cub_set_player(int map_x, int map_y, char **map, t_game *game)
 			return (FALSE);
 		else
 		{
-			game->level.player.pos_x = (map_x * SIDE) + (SIDE / 2);
-			game->level.player.pos_y = (map_y * SIDE) + (SIDE / 2);
+			game->level.player.pos_x = (map_x * SIDE) + (SIDE / 2) - 1;
+			game->level.player.pos_y = (map_y * SIDE) + (SIDE / 2) - 1;
 			if (map[map_y][map_x] == 'N')
 				game->level.player.dir = M_PI_2;
 			else if (map[map_y][map_x] == 'E')
@@ -105,7 +131,8 @@ t_bool	cub_set_resolution(t_degree *degree, char *line,
 	resolution->r_fov = (FOV / 180.0) * M_PI;
 	resolution->r_demi_fov = (FOV / 180.0 * M_PI) / 2;
 	resolution->r_o_s_pix = resolution->r_fov / (resolution->width - 1);
-	resolution->dist_plan = resolution->width_mdl / fabs(tan(resolution->r_demi_fov));
+	resolution->dist_plan = resolution->width_mdl / fabs(
+		tan(resolution->r_demi_fov));
 	resolution->is = TRUE;
 	return (TRUE);
 }

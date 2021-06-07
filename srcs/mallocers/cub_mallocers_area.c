@@ -6,12 +6,33 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 17:26:04 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/17 17:30:40 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/03 20:53:39 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
+
+t_bool	cub_malloc_sprite(t_game *game)
+{
+	int	map_y;
+	int	map_x;
+
+	game->level.area.nb_sprite = 0;
+	map_y = -1;
+	while (game->level.area.map[++(map_y)])
+	{
+		map_x = -1;
+		while (game->level.area.map[map_y][++(map_x)])
+			if (game->level.area.map[map_y][map_x] == '2')
+				game->level.area.nb_sprite++;
+	}
+	game->level.area.sprite = (t_sprite *)malloc(
+		game->level.area.nb_sprite * sizeof(t_sprite));
+	if (!(game->level.area.sprite))
+		return (ft_error("cub3D didn't find the memory to load", 0));
+	return (cub_set_sprite(game));
+}
 
 t_bool	cub_set_map_columns(char **line, char **line_map)
 {

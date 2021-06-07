@@ -1,54 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_getters_color.c                                :+:      :+:    :+:   */
+/*   cub_getters_textures.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 19:10:37 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/03 00:03:19 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/07 21:56:23 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-int	cub_get_texture(t_level *level, t_walls *walls)
+int	cub_get_texture(t_level *level, t_textures *txtrs)
 {
-	if (walls->ori_wall == 'N')
+	if (txtrs->ori_wall == 'N')
 		return (*(((int *)(level->no.addr))
-			+ ((int)(walls->texture_y) * SIDE)
-			+ walls->texture_x));
-	else if (walls->ori_wall == 'E')
+			+ ((int)(txtrs->texture_y) * SIDE)
+			+ txtrs->texture_x));
+	else if (txtrs->ori_wall == 'E')
 		return (*(((int *)(level->ea.addr))
-			+ ((int)(walls->texture_y) * SIDE)
-			+ walls->texture_x));
-	else if (walls->ori_wall == 'S')
+			+ ((int)(txtrs->texture_y) * SIDE)
+			+ txtrs->texture_x));
+	else if (txtrs->ori_wall == 'S')
 		return (*(((int *)(level->so.addr))
-			+ ((int)(walls->texture_y) * SIDE)
-			+ walls->texture_x));
+			+ ((int)(txtrs->texture_y) * SIDE)
+			+ txtrs->texture_x));
 	else
 		return (*(((int *)(level->we.addr))
-			+ ((int)(walls->texture_y) * SIDE)
-			+ walls->texture_x));
-}
-
-int	get_a(int argb)
-{
-	return (argb & (0xFF << 24));
-}
-
-int	get_r(int argb)
-{
-	return (argb & (0xFF << 16));
-}
-
-int	get_g(int argb)
-{
-	return (argb & (0xFF << 8));
-}
-
-int	get_b(int argb)
-{
-	return (argb & 0xFF);
+			+ ((int)(txtrs->texture_y) * SIDE)
+			+ txtrs->texture_x));
 }

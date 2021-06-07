@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/23 18:47:56 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/25 14:34:08 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/03 20:54:50 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ t_bool	cub_parser(const char *file, t_game *game)
 		return (ft_error("setting file hasn't all prerequisite before map", 0));
 	if (!cub_parse_map(&(game->parser), game, file, 0))
 		return (FALSE);
-	return (cub_check_map(game));
+	if (!(cub_check_map(game)))
+		return (FALSE);
+	return (cub_malloc_sprite(game));
 }
 
 t_bool	cub_norm_file(const char *file, t_game *game)

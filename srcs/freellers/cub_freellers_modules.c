@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 13:29:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/02 22:42:45 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/03 20:57:09 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_bool	cub_free_area(t_area area)
 	while (area.map[indmap])
 		free(area.map[indmap++]);
 	free(area.map);
+	if (area.sprite)
+		free(area.sprite);
 	return (TRUE);
 }
 

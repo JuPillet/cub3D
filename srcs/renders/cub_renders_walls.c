@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:46:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/01 15:06:18 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/07 21:52:31 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,37 +23,48 @@ void	cub_ceiling_floor(t_game *game, int x, int y, t_bool cf)
 			game->level.floor.color.argb);
 }
 
-void	cub_render_dda(t_game *game, t_walls *walls)
+void	cub_render_dda(t_game *game, t_textures *txtrs)
 {
-	walls->h_wall = FALSE;
-	walls->v_wall = FALSE;
-	walls->h_wall = cub_dda_hrztl(game, &(game->level), walls);
-	walls->t_agl *= -1;
-	walls->v_wall = cub_dda_vrtcl(game, &(game->level), walls);
+	txtrs->h_wall = FALSE;
+	txtrs->v_wall = FALSE;
+	txtrs->h_wall = cub_dda_hrztl(game, &(game->level), txtrs);
+	txtrs->t_agl *= -1;
+	txtrs->v_wall = cub_dda_vrtcl(game, &(game->level), txtrs);
+}
+
+void	cub_invisibilize_sprite(t_area *area)
+{
+	int	crnt_sprite;
+
+	crnt_sprite = -1;
+	while (++crnt_sprite < area->nb_sprite)
+		area->sprite[crnt_sprite].visible = FALSE;
 }
 
 void	cub_render(t_game *game)
 {
 	int		pix_x;
 	int		columns;
-	t_walls	walls;
+	t_textures	txtrs;
 
-	walls.demi_fov = game->screen.resolution.r_demi_fov;
+	txtrs.demi_fov = game->screen.resolution.r_demi_fov;
 	pix_x = -1;
+	if (game->level.area.nb_sprite)
+		cub_invisibilize_sprite(&(game->level.area));
 	while (++pix_x < game->screen.resolution.width)
 	{
-		walls.r_agl =  game->level.player.dir + walls.demi_fov ;
-		if (walls.r_agl < 0)
-			walls.r_agl =  game->deg.r360 + walls.r_agl;
-		else if (walls.r_agl >= game->deg.r360)
-			walls.r_agl = walls.r_agl - game->deg.r360 ;
-		walls.c_agl = cos(walls.r_agl);
-		walls.s_agl = sin(walls.r_agl);
-		walls.t_agl = tan(walls.r_agl);
-		walls.c_demi_fov = cos(walls.demi_fov);
-		cub_render_dda(game, &walls);
-		cub_render_closest_wall(game, &walls, pix_x);
-		cub_fiat_lux(game, &walls, pix_x);
-		walls.demi_fov -= game->screen.resolution.r_o_s_pix;
+		txtrs.r_agl =  game->level.player.dir + txtrs.demi_fov ;
+		if (txtrs.r_agl < 0)
+			txtrs.r_agl =  game->deg.r360 + txtrs.r_agl;
+		else if (txtrs.r_agl >= game->deg.r360)
+			txtrs.r_agl = txtrs.r_agl - game->deg.r360 ;
+		txtrs.c_agl = cos(txtrs.r_agl);
+		txtrs.s_agl = sin(txtrs.r_agl);
+		txtrs.t_agl = tan(txtrs.r_agl);
+		txtrs.c_demi_fov = cos(txtrs.demi_fov);
+		cub_render_dda(game, &txtrs);
+		cub_render_closest_wall(game, &txtrs, pix_x);
+		cub_fiat_lux(game, &txtrs, pix_x);
+		txtrs.demi_fov -= game->screen.resolution.r_o_s_pix;
 	}
 }

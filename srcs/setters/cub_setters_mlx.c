@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:30:39 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/02 22:32:45 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/07 21:48:51 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ int	cub_set_image_to_window(t_game *game)
 	mlx = game->mlx;
 	mlx_screen = game->screen.mlx_screen;
 	img = game->screen.pic_screen.img;
-	cub_render(game);
+	cub_render_wall(game);
+	cub_render_sprite(game);
 	mlx_put_image_to_window(mlx, mlx_screen, img, 0, 0);
 	if ((game->keys.z && !(game->keys.s)) || (!(game->keys.z) && game->keys.s))
 		cub_player_front_move(game);
@@ -60,6 +61,8 @@ int	cub_set_image_to_window(t_game *game)
 		cub_player_lateral_move(game);
 	if ((game->keys.a_l && !(game->keys.a_r)) || (!(game->keys.a_l) && game->keys.a_r))
 		cub_player_rotate_move(game);
+	if (game->keys.z ||game->keys.s || game->keys.q || game->keys.d)
+		cub_set_distance_sprite(&(game->level));
 	return (TRUE);
 }
 

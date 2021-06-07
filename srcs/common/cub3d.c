@@ -6,12 +6,17 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 12:19:37 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/02 16:28:54 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/03 20:36:27 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
+
+int	cub_close_cub(t_game *game)
+{
+	exit(cub_free_game(game));
+}
 
 t_bool	cub_bmp_save(char *c_bm, short *s_bm, int *i_bm, t_game *game)
 {

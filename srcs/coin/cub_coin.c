@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/12 13:17:52 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/02 17:44:28 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/07 21:50:51 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ t_bool	cub_coin(t_game *game)
 	cub_set_mlx_screen(game);
 	if (game->save)
 	{
-		cub_render(game);
+		cub_render_walls(game);
+		cub_render_sprites(game);
 		if (!(cub_bmp_init(game)))
 			ft_error("cub3D failed to create the cub_save.bmp:", 0);
 		else 
@@ -32,6 +33,7 @@ t_bool	cub_coin(t_game *game)
 		mlx_loop_hook(game->mlx, &cub_set_image_to_window, game);
 		mlx_hook(game->screen.mlx_screen, 2, (1L << 0), &cub_key_push, game);
 		mlx_hook(game->screen.mlx_screen, 3, (1L << 1), &cub_key_release, game);
+		mlx_hook(game->screen.mlx_screen, 17, 0, &cub_close_cub, game);
 		mlx_loop(game->mlx);
 	}
 	return (TRUE);

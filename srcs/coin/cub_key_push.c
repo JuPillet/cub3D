@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:41:19 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/02 17:26:49 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/05 15:05:38 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ int	cub_player_front_move(t_game *game)
 	o_s_x = 5 * cos(game->level.player.dir);
 	o_s_y = 5 * sin(game->level.player.dir);
 	if (game->keys.z && map[((int)(*p_y - o_s_y) / SIDE)]
-		[((int)(*p_x + o_s_x) / SIDE)] == '0')
+		[((int)(*p_x + o_s_x) / SIDE)] != '1')
 	{
 		*p_x += o_s_x;
 		*p_y -= o_s_y;
 	}
 	else if (game->keys.s && map[((int)(*p_y + o_s_y) / SIDE)]
-		[((int)(*p_x - o_s_x) / SIDE)] == '0')
+		[((int)(*p_x - o_s_x) / SIDE)] != '1')
 	{
 		*p_x -= o_s_x;
 		*p_y += o_s_y;
@@ -55,13 +55,13 @@ int	cub_player_lateral_move(t_game *game)
 	o_s_x = 5 * sin(game->level.player.dir);
 	o_s_y = 5 * cos(game->level.player.dir);
 	if (game->keys.q && map[((int)(*p_y - o_s_y) / SIDE)]
-		[((int)(*p_x - o_s_x) / SIDE)] == '0')
+		[((int)(*p_x - o_s_x) / SIDE)] != '1')
 	{
 			*p_x -= o_s_x;
 			*p_y -= o_s_y;
 	}
 	else if (game->keys.d && map[((int)(*p_y + o_s_y) / SIDE)]
-		[((int)(*p_x + o_s_x) / SIDE)] == '0')
+		[((int)(*p_x + o_s_x) / SIDE)] != '1')
 	{
 		*p_x += o_s_x;
 		*p_y += o_s_y;

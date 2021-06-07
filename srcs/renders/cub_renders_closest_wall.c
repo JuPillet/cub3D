@@ -6,74 +6,75 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:08:13 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/02 23:57:56 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/07 21:55:54 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cub3d.h"
 #include "cub3d.h"
 
-void	cub_fiat_lux(t_game *game, t_walls *walls, int pix_x)
+void	cub_fiat_lux(t_game *game, t_textures *txtrs, int pix_x)
 {
 	int	pix_y;
-	int	wall_top;
-	int	wall_end;
+	int	texture_top;
+	int	texture_end;
 	int	argb;
 
-	wall_top = game->screen.resolution.height_mdl - ((int)(walls->wall) / 2);
-	wall_end = game->screen.resolution.height - wall_top;
+	texture_top = game->screen.resolution.height_mdl - ((int)(txtrs->wall) / 2);
+	texture_end = game->screen.resolution.height - texture_top;
 	pix_y = 0;
-	while (pix_y < wall_top)
+	while (pix_y < texture_top)
 		cub_set_my_mlx_pixel(game->screen.pic_screen, pix_x, pix_y++,
 			game->level.ceiling.color.argb);
-	while (pix_y < wall_end && pix_y < game->screen.resolution.height)
+	txtrs->texture_y = (pix_y - game->screen.resolution.height_mdl
+		+ (txtrs->wall / 2)) * txtrs->texture_y_o_s;
+	while (pix_y < texture_end && pix_y < game->screen.resolution.height)
 	{	
-		argb = cub_get_texture(&(game->level), walls);
+		cub_get_texture(&(game->level), txtrs);
 		cub_set_my_mlx_pixel(game->screen.pic_screen, pix_x, pix_y++, argb);
-		walls->texture_y += walls->texture_y_o_s;
+		txtrs->texture_y += txtrs->texture_y_o_s;
 	}
 	while (pix_y < game->screen.resolution.height)
 		cub_set_my_mlx_pixel(game->screen.pic_screen, pix_x, pix_y++,
 			game->level.floor.color.argb);
 }
 
-char	cub_the_wall(t_game *game, t_walls *walls)
+char	cub_the_wall(t_game *game, t_textures *txtrs)
 {
-	if (!(walls->v_wall) || (walls->h_wall && walls->v_wall
-			&& walls->dh_wall < walls->dv_wall))
+	if (!(txtrs->v_wall) || (txtrs->h_wall && txtrs->v_wall
+			&& txtrs->dh_wall < txtrs->dv_wall))
 	{
-		walls->wall = walls->dh_wall;
-		walls->wall_x = walls->hx_wall;
-		walls->wall_y = walls->hy_wall;
-		if (walls->s_agl < 0)
+		txtrs->wall = txtrs->dh_wall;
+		txtrs->wall_x = txtrs->hx_wall;
+		txtrs->wall_y = txtrs->hy_wall;
+		if (txtrs->s_agl < 0)
 			return ('N');
 		return ('S');
 	}
-	walls->wall = walls->dv_wall;
-	walls->wall_x = walls->vx_wall;
-	walls->wall_y = walls->vy_wall;
-	if (walls->c_agl > 0)
+	txtrs->wall = txtrs->dv_wall;
+	txtrs->wall_x = txtrs->vx_wall;
+	txtrs->wall_y = txtrs->vy_wall;
+	if (txtrs->c_agl > 0)
 		return ('E');
 	return ('W');
 }
 
-void	cub_render_closest_wall(t_game *game, t_walls *walls, int pix_x)
+void	cub_render_closest_wall(t_game *game, t_textures *txtrs, int pix_x)
 {
-	if (walls->h_wall)
-		walls->dh_wall = sqrt(
-				pow((game->level.player.pos_x - walls->hx_wall), 2)
-				+ pow((game->level.player.pos_y - walls->hy_wall), 2));
-	if (walls->v_wall)
-		walls->dv_wall = sqrt(
-				pow((game->level.player.pos_x - walls->vx_wall), 2)
-				+ pow((game->level.player.pos_y - walls->vy_wall), 2));
-	walls->ori_wall = cub_the_wall(game, walls);
-	walls->wall *= walls->c_demi_fov;
-	walls->wall = (SIDE / walls->wall) * game->screen.resolution.dist_plan;
-	if (walls->ori_wall == 'N' || walls->ori_wall == 'S')
-		walls->texture_x = (int)(walls->wall_x) % SIDE;
+	if (txtrs->h_wall)
+		txtrs->dh_wall = sqrt(
+				pow((game->level.player.pos_x - txtrs->hx_wall), 2)
+				+ pow((game->level.player.pos_y - txtrs->hy_wall), 2));
+	if (txtrs->v_wall)
+		txtrs->dv_wall = sqrt(
+				pow((game->level.player.pos_x - txtrs->vx_wall), 2)
+				+ pow((game->level.player.pos_y - txtrs->vy_wall), 2));
+	txtrs->ori_wall = cub_the_wall(game, txtrs);
+	txtrs->wall *= txtrs->c_demi_fov;
+	txtrs->wall = (SIDE / txtrs->wall) * game->screen.resolution.dist_plan;
+	if (txtrs->ori_wall == 'N' || txtrs->ori_wall == 'S')
+		txtrs->texture_x = (int)(txtrs->wall_x) % SIDE;
 	else
-		walls->texture_x = (int)(walls->wall_y) % SIDE;
-	walls->texture_y_o_s =(SIDE / walls->wall);
-	walls->texture_y = 0;
+		txtrs->texture_x = (int)(txtrs->wall_y) % SIDE;
+	txtrs->texture_y_o_s = (SIDE / txtrs->wall);
 }

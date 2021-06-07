@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:53:52 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/01 13:04:59 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/07 22:20:29 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,86 +21,106 @@ t_bool	cub_dda_check_map(t_area *area, int map_y, int map_x)
 	return (FALSE);
 }
 
-t_bool	cub_dda_check_vrtcl_wall(t_game *game, t_walls *walls,
+t_bool	cub_dda_check_vrtcl_wall(t_game *game, t_textures *txtrs,
 	int *map_y, int *map_x)
 {
-	if (game->level.area.map[*map_y][*map_x] == '1')
+	t_sprite *sprite;
+
+	sprite = &(game->level.area.sprite);
+	if (game->level.area.map[*map_y][*map_x] == '2')
+	{
+		while ((sprite->pos_y + (1 - (SIDE / 2)) / SIDE != *map_y)
+			|| (sprite->pos_x + (1 - (SIDE / 2)) / SIDE != *map_x))
+			sprite++;
+		sprite->visible == TRUE;
+	}
+	else if (game->level.area.map[*map_y][*map_x] == '1')
 		return (TRUE);
-	walls->vx_wall += walls->check_x;
-	*map_x = (int)(walls->vx_wall / SIDE);
-	if (walls->c_agl == -1 || walls->c_agl == 1)
+	txtrs->vx_wall += txtrs->check_x;
+	*map_x = (int)(txtrs->vx_wall / SIDE);
+	if (txtrs->c_agl == -1 || txtrs->c_agl == 1)
 		return(FALSE);
-	walls->vy_wall += walls->check_y;
-	*map_y = (int)(walls->vy_wall / SIDE);
+	txtrs->vy_wall += txtrs->check_y;
+	*map_y = (int)(txtrs->vy_wall / SIDE);
 	return (FALSE);
 }
 
-t_bool	cub_dda_vrtcl(t_game *game, t_level *lvl, t_walls *walls)
+t_bool	cub_dda_vrtcl(t_game *game, t_level *lvl, t_textures *txtrs)
 {
 	int	map_y;
 	int	map_x;
 	
-	if (walls->s_agl == -1 || walls->s_agl == 1)
+	if (txtrs->s_agl == -1 || txtrs->s_agl == 1)
 		return (FALSE);
-	if (walls->c_agl < 0)
-		walls->vx_wall = (SIDE * (int)(lvl->player.pos_x / SIDE)) - 0.0000000001;
+	if (txtrs->c_agl < 0)
+		txtrs->vx_wall = (SIDE * (int)(lvl->player.pos_x / SIDE)) - 0.000000001;
 	else
-		walls->vx_wall = (SIDE * (int)(lvl->player.pos_x / SIDE)) + SIDE;
-	walls->check_x = SIDE;
-	if (walls->c_agl < 0)
-		walls->check_x *= -1;
-	walls->vy_wall = lvl->player.pos_y;
-	if (walls->c_agl != -1 && walls->c_agl != 1)
-		walls->vy_wall -= (((lvl->player.pos_x - walls->vx_wall) * walls->t_agl));
-	walls->check_y = SIDE * walls->t_agl;
-	if (walls->c_agl < 0)
-		walls->check_y *= -1;
-	map_y = (int)(walls->vy_wall / SIDE);
-	map_x = (int)(walls->vx_wall / SIDE);
+		txtrs->vx_wall = (SIDE * (int)(lvl->player.pos_x / SIDE)) + SIDE;
+	txtrs->check_x = SIDE;
+	if (txtrs->c_agl < 0)
+		txtrs->check_x *= -1;
+	txtrs->vy_wall = lvl->player.pos_y;
+	if (txtrs->c_agl != -1 && txtrs->c_agl != 1)
+		txtrs->vy_wall -= ((lvl->player.pos_x - txtrs->vx_wall) * txtrs->t_agl);
+	txtrs->check_y = SIDE * txtrs->t_agl;
+	if (txtrs->c_agl < 0)
+		txtrs->check_y *= -1;
+	map_y = (int)(txtrs->vy_wall / SIDE);
+	map_x = (int)(txtrs->vx_wall / SIDE);
 	while (cub_dda_check_map(&(lvl->area), map_y, map_x))
-		if (cub_dda_check_vrtcl_wall(game, walls, &map_y, &map_x))
+		if (cub_dda_check_vrtcl_wall(game, txtrs, &map_y, &map_x))
 			return (TRUE);
 	return (FALSE);
 }
 
-t_bool	cub_dda_check_hrztl_wall(t_game *game, t_walls *walls,
+t_bool	cub_dda_check_hrztl_wall(t_game *game, t_textures *txtrs,
 	int *map_y, int *map_x)
 {
-	if (game->level.area.map[*map_y][*map_x] == '1')
+	t_sprite *sprite;
+
+	sprite = &(game->level.area.sprite);
+	if (game->level.area.map[*map_y][*map_x] == '2')
+	{
+		while ((sprite->pos_y + (1 - (SIDE / 2)) / SIDE != *map_y)
+			|| (sprite->pos_x + (1 - (SIDE / 2)) / SIDE != *map_x))
+			sprite++;
+		sprite->visible == TRUE;
+	}
+	else if (game->level.area.map[*map_y][*map_x] == '1')
 		return (TRUE);
-	walls->hy_wall += walls->check_y;
-	*map_y = (int)(walls->hy_wall / SIDE);
-	if (walls->s_agl == -1 || walls->s_agl == 1)
+	txtrs->hy_wall += txtrs->check_y;
+	*map_y = (int)(txtrs->hy_wall / SIDE);
+	if (txtrs->s_agl == -1 || txtrs->s_agl == 1)
 		return (FALSE);
-	walls->hx_wall += walls->check_x;
-	*map_x = (int)(walls->hx_wall / SIDE);
+	txtrs->hx_wall += txtrs->check_x;
+	*map_x = (int)(txtrs->hx_wall / SIDE);
 	return (FALSE);
 }
 
-t_bool	cub_dda_hrztl(t_game *game, t_level *lvl, t_walls *walls)
+t_bool	cub_dda_hrztl(t_game *game, t_level *lvl, t_textures *txtrs)
 {
 	int	map_y;
 	int	map_x;
 
-	if (walls->c_agl == -1 || walls->c_agl == 1)
+	if (txtrs->c_agl == -1 || txtrs->c_agl == 1)
 		return (FALSE);
-	if (walls->s_agl > 0)
-		walls->hy_wall = (SIDE * (int)(lvl->player.pos_y / SIDE)) - 0.0000000001;
+	if (txtrs->s_agl > 0)
+		txtrs->hy_wall = (SIDE * (int)(lvl->player.pos_y / SIDE)) - 0.000000001;
 	else
-		walls->hy_wall = (SIDE * (int)(lvl->player.pos_y / SIDE)) + SIDE;
-	walls->check_y = SIDE;
-	if (walls->s_agl > 0)
-		walls->check_y *= -1;
-	walls->hx_wall = lvl->player.pos_x;
-	if (walls->s_agl != -1 && walls->s_agl != 1)
-		walls->hx_wall += ((lvl->player.pos_y - walls->hy_wall) / walls->t_agl);
-	walls->check_x = SIDE / walls->t_agl;
-	if (walls->s_agl < 0)
-		walls->check_x *= -1 ;
-	map_y = (int)(walls->hy_wall / SIDE);
-	map_x = (int)(walls->hx_wall / SIDE);
+		txtrs->hy_wall = (SIDE * (int)(lvl->player.pos_y / SIDE)) + SIDE;
+	txtrs->check_y = SIDE;
+	if (txtrs->s_agl > 0)
+		txtrs->check_y *= -1;
+	txtrs->hx_wall = lvl->player.pos_x;
+	if (txtrs->s_agl != -1 && txtrs->s_agl != 1)
+		txtrs->hx_wall += ((lvl->player.pos_y - txtrs->hy_wall) / txtrs->t_agl);
+	txtrs->check_x = SIDE / txtrs->t_agl;
+	if (txtrs->s_agl < 0)
+		txtrs->check_x *= -1 ;
+	map_y = (int)(txtrs->hy_wall / SIDE);
+	map_x = (int)(txtrs->hx_wall / SIDE);
 	while (cub_dda_check_map(&(lvl->area), map_y, map_x))
-		if (cub_dda_check_hrztl_wall(game, walls, &map_y, &map_x))
+		if (cub_dda_check_hrztl_wall(game, txtrs, &map_y, &map_x))
 			return (TRUE);
 	return (FALSE);
 }
