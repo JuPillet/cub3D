@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 12:19:37 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/03 20:36:27 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/08 18:37:53 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ t_bool	cub_bmp_save(char *c_bm, short *s_bm, int *i_bm, t_game *game)
 	{
 		paint = -1;
 		while (++paint < game->screen.resolution.width)
-			write(save_fd, (game->screen.pic_screen.addr+ (
+			write(save_fd, (game->screen.pic_scrn.addr+ (
 					game->screen.resolution.height
-					* (game->screen.pic_screen.line_length)) + (paint * 4)), 4);
+					* (game->screen.pic_scrn.line_length)) + (paint * 4)), 4);
 	}
 	close(save_fd);
 	return (TRUE);

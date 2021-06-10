@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_renders.c                                      :+:      :+:    :+:   */
+/*   cub_renders_walls.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:46:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/07 21:52:31 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/08 20:31:46 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@
 void	cub_ceiling_floor(t_game *game, int x, int y, t_bool cf)
 {
 	if (cf)
-		cub_set_my_mlx_pixel(game->screen.pic_screen, x, y,
+		cub_set_my_mlx_pixel(game->screen.pic_scrn, x, y,
 			game->level.ceiling.color.argb);
 	else
-		cub_set_my_mlx_pixel(game->screen.pic_screen, x, y,
+		cub_set_my_mlx_pixel(game->screen.pic_scrn, x, y,
 			game->level.floor.color.argb);
 }
 
@@ -32,16 +32,7 @@ void	cub_render_dda(t_game *game, t_textures *txtrs)
 	txtrs->v_wall = cub_dda_vrtcl(game, &(game->level), txtrs);
 }
 
-void	cub_invisibilize_sprite(t_area *area)
-{
-	int	crnt_sprite;
-
-	crnt_sprite = -1;
-	while (++crnt_sprite < area->nb_sprite)
-		area->sprite[crnt_sprite].visible = FALSE;
-}
-
-void	cub_render(t_game *game)
+void	cub_render_walls(t_game *game)
 {
 	int		pix_x;
 	int		columns;
@@ -49,8 +40,6 @@ void	cub_render(t_game *game)
 
 	txtrs.demi_fov = game->screen.resolution.r_demi_fov;
 	pix_x = -1;
-	if (game->level.area.nb_sprite)
-		cub_invisibilize_sprite(&(game->level.area));
 	while (++pix_x < game->screen.resolution.width)
 	{
 		txtrs.r_agl =  game->level.player.dir + txtrs.demi_fov ;

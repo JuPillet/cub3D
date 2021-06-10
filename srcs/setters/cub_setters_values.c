@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:50:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/07 22:00:41 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/10 18:45:41 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	cub_set_distance_sprite(t_level *level)
 		dif_x = level->area.sprite[sprite].pos_x - level->player.pos_x;
 		dif_x *= dif_x;
 		level->area.sprite[sprite].distance = sqrt(dif_y + dif_x);
+		printf("%f\n", level->area.sprite[sprite].distance);
 	}
 	cub_sort_sprite(level);
 }

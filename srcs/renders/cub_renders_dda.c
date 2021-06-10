@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:53:52 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/07 22:20:29 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/10 21:41:56 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ t_bool	cub_dda_check_vrtcl_wall(t_game *game, t_textures *txtrs,
 {
 	t_sprite *sprite;
 
-	sprite = &(game->level.area.sprite);
+	sprite = game->level.area.sprite;
 	if (game->level.area.map[*map_y][*map_x] == '2')
 	{
-		while ((sprite->pos_y + (1 - (SIDE / 2)) / SIDE != *map_y)
-			|| (sprite->pos_x + (1 - (SIDE / 2)) / SIDE != *map_x))
+		while (((sprite->pos_y + 1 - (SIDE / 2)) / SIDE != *map_y)
+			|| ((sprite->pos_x + 1 - (SIDE / 2)) / SIDE != *map_x))
 			sprite++;
-		sprite->visible == TRUE;
+		sprite->visible = TRUE;
 	}
 	else if (game->level.area.map[*map_y][*map_x] == '1')
 		return (TRUE);
@@ -78,13 +78,13 @@ t_bool	cub_dda_check_hrztl_wall(t_game *game, t_textures *txtrs,
 {
 	t_sprite *sprite;
 
-	sprite = &(game->level.area.sprite);
+	sprite = game->level.area.sprite;
 	if (game->level.area.map[*map_y][*map_x] == '2')
 	{
-		while ((sprite->pos_y + (1 - (SIDE / 2)) / SIDE != *map_y)
-			|| (sprite->pos_x + (1 - (SIDE / 2)) / SIDE != *map_x))
+		while ((((sprite->pos_y + 1) - (SIDE / 2)) / SIDE != *map_y)
+			|| (((sprite->pos_x + 1) - (SIDE / 2)) / SIDE != *map_x))
 			sprite++;
-		sprite->visible == TRUE;
+		sprite->visible = TRUE;
 	}
 	else if (game->level.area.map[*map_y][*map_x] == '1')
 		return (TRUE);

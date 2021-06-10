@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:30:39 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/07 21:48:51 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/08 21:35:06 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,12 @@ int	cub_set_image_to_window(t_game *game)
 
 	mlx = game->mlx;
 	mlx_screen = game->screen.mlx_screen;
-	img = game->screen.pic_screen.img;
-	cub_render_wall(game);
-	cub_render_sprite(game);
+	img = game->screen.pic_scrn.img;
+	if (game->level.area.nb_sprite)
+		cub_invisibilize_sprite(&(game->level.area));
+	cub_render_walls(game);
+	if (game->level.area.nb_sprite)
+		cub_render_sprites(game);
 	mlx_put_image_to_window(mlx, mlx_screen, img, 0, 0);
 	if ((game->keys.z && !(game->keys.s)) || (!(game->keys.z) && game->keys.s))
 		cub_player_front_move(game);
@@ -73,7 +76,7 @@ void	cub_set_mlx_screen(t_game *game)
 	t_resolution	resolution;
 
 	screen = &(game->screen);
-	pic_screen = &(screen->pic_screen);
+	pic_screen = &(screen->pic_scrn);
 	resolution = game->screen.resolution;
 	if (!(game->save))
 		screen->mlx_screen = mlx_new_window(game->mlx,
@@ -81,6 +84,6 @@ void	cub_set_mlx_screen(t_game *game)
 	pic_screen->img = mlx_new_image(game->mlx,
 			resolution.width, resolution.height);
 	pic_screen->addr = mlx_get_data_addr(
-			screen->pic_screen.img, &(pic_screen->bits_per_pixel),
+			screen->pic_scrn.img, &(pic_screen->bits_per_pixel),
 			&(pic_screen->line_length), &(pic_screen->endian));
 }

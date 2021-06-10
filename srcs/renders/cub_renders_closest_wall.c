@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:08:13 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/07 21:55:54 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/08 18:39:24 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ void	cub_fiat_lux(t_game *game, t_textures *txtrs, int pix_x)
 	texture_end = game->screen.resolution.height - texture_top;
 	pix_y = 0;
 	while (pix_y < texture_top)
-		cub_set_my_mlx_pixel(game->screen.pic_screen, pix_x, pix_y++,
+		cub_set_my_mlx_pixel(game->screen.pic_scrn, pix_x, pix_y++,
 			game->level.ceiling.color.argb);
 	txtrs->texture_y = (pix_y - game->screen.resolution.height_mdl
 		+ (txtrs->wall / 2)) * txtrs->texture_y_o_s;
 	while (pix_y < texture_end && pix_y < game->screen.resolution.height)
 	{	
-		cub_get_texture(&(game->level), txtrs);
-		cub_set_my_mlx_pixel(game->screen.pic_screen, pix_x, pix_y++, argb);
+		argb = cub_get_texture_wall(&(game->level), txtrs);
+		cub_set_my_mlx_pixel(game->screen.pic_scrn, pix_x, pix_y++, argb);
 		txtrs->texture_y += txtrs->texture_y_o_s;
 	}
 	while (pix_y < game->screen.resolution.height)
-		cub_set_my_mlx_pixel(game->screen.pic_screen, pix_x, pix_y++,
+		cub_set_my_mlx_pixel(game->screen.pic_scrn, pix_x, pix_y++,
 			game->level.floor.color.argb);
 }
 

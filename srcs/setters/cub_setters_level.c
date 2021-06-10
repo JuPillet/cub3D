@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/03 20:31:02 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/10 14:07:07 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@ t_bool	cub_set_sprite(t_game *game)
 		{
 			if (game->level.area.map[map_y][map_x] == '2')
 			{
-				game->level.area.sprite[sprite].pos_y = map_y * SIDE + center;
-				game->level.area.sprite[sprite].pos_x = map_x * SIDE + center;
+				game->level.area.sprite[sprite].pos_y = (map_y * SIDE) + center;
+				game->level.area.sprite[sprite].pos_x = (map_x * SIDE) + center;
+				sprite++;
 			}
 		}
 	}

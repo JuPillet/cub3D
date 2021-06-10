@@ -1,6 +1,6 @@
 R	832 832
-NO	./settings/pics/eagle.xpm
-SO	./settings/pics/wood.xpm
+SO	./settings/pics/eagle.xpm
+NO	./settings/pics/wood.xpm
 WE	./settings/pics/redbrick.xpm
 EA	./settings/pics/colorstone.xpm
 S	./settings/pics/barrel.xpm
@@ -11,11 +11,11 @@ C	43,250,250
 1			1
 1	 111	1
 1	10001	1
-1  1000001	1
+1  1002001	1
 1 100000001	1
+1 100020001	1
 1 1000N0001	1
-1 100000001	1
-1  1000001	1
+1  1002001	1
 1	10001	1
 1	 111	1
 1			1

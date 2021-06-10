@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/07 23:00:00 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/10 19:10:21 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,9 @@ typedef struct	s_sprite
 	int		top;
 	int		end;
 	double	r_x_sprite;
+	double	sprite_x;
+	double	sprite_y;
+	double	pix_o_s;
 	t_bool	visible;
 }				t_sprite;
 
@@ -148,7 +151,7 @@ typedef	struct	s_screen
 {
 	t_resolution	resolution;
 	void			*mlx_screen;
-	t_img_data		pic_screen;
+	t_img_data		pic_scrn;
 }				t_screen;
 
 typedef struct	s_parser
@@ -214,7 +217,8 @@ t_bool			cub_free_game(t_game *game);
 t_bool			cub_set_int(char *line, int *indln, int *value);
 t_bool			cub_set_double(char *line, int *indln, double *value);
 
-int				cub_get_texture(t_level *level, t_textures *txtrs);
+int				cub_get_texture_sprite(char *addr, t_sprite *sprt, double sprt_y);
+int				cub_get_texture_wall(t_level *level, t_textures *txtrs);
 void			cub_set_my_mlx_pixel(t_img_data data, int x, int y, int color);
 int				cub_set_argb(int a, int r, int g, int b);
 
@@ -227,6 +231,9 @@ int				cub_player_rotate_move(t_game *game);
 int				cub_key_push(int key_code, t_game *game);
 int				cub_key_release(int key_code, t_game *game);
 t_bool			cub_coin(t_game *game);
+
+void			cub_print_sprite(t_game *game, t_sprite *sprt, int start);
+void			cub_init_print_sprite(t_game *game, t_sprite *sprt, int *pix_x);
 
 void			cub_set_map_color(char **map, int map_x, int map_y, int *color);
 void			cub_ceiling_floor(t_game *game, int x, int y, t_bool cf);
@@ -242,6 +249,7 @@ t_bool			cub_dda_check_vrtcl_wall(t_game *game, t_textures *txtrs, int *map_y, i
 t_bool			cub_dda_check_hrztl_wall(t_game *game, t_textures *txtrs, int *map_y, int *map_x);
 t_bool			cub_dda_hrztl(t_game *game, t_level *lvl, t_textures *txtrs);
 t_bool			cub_dda_vrtcl(t_game *game, t_level *lvl, t_textures *txtrs);
+void			cub_invisibilize_sprite(t_area *area);
 
 void			cub_map_render(t_game *game);
 void			cub_render_sprites(t_game *game);

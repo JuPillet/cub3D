@@ -1,7 +1,7 @@
 R	832 832
-NO	./settings/pics/eagle.xpm
-SO	./settings/pics/wood.xpm
-WE	./settings/pics/redbrick.xpm
+NO	./settings/pics/redbrick.xpm
+SO	./settings/pics/eagle.xpm
+WE	./settings/pics/wood.xpm
 EA	./settings/pics/colorstone.xpm
 S	./settings/pics/barrel.xpm
 F	243,114,32
