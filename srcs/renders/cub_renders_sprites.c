@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 21:49:17 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/10 21:32:18 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/14 20:54:01 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,22 @@ void	cub_print_sprite(t_game *game, t_sprite *sprt, int start)
 	if (start < 0)
 		start = 0;
 	start -= 1;
-	while (++start < game->screen.resolution.width && (int)(sprt->sprite_x) < SIDE)
+	while (++start < game->screen.resolution.width && (int)(sprt->sprite_x) <= SIDE)
 	{
-		pix_y = sprt->top;
-		sprt_y = sprt->sprite_y;
-		if (pix_y < 0)
-			pix_y = 0;
-		pix_y -= 1;
-		while ((++pix_y) < sprt->end && pix_y < game->screen.resolution.height)
+		if (sprt->distance < game->level.area.dist_walls[start])
 		{
-			argb = cub_get_texture_sprite(game->level.sp.addr, sprt, sprt_y);
-			if (argb)
-				cub_set_my_mlx_pixel(game->screen.pic_scrn, start, pix_y, argb);
-			sprt_y += sprt->pix_o_s;
+			pix_y = sprt->top;
+			sprt_y = sprt->sprite_y;
+			if (pix_y < 0)
+				pix_y = 0;
+			pix_y -= 1;
+			while ((++pix_y) < sprt->end && pix_y < game->screen.resolution.height)
+			{
+				argb = cub_get_texture_sprite(game->level.sp.addr, sprt, sprt_y);
+				if (argb)
+					cub_set_my_mlx_pixel(game->screen.pic_scrn, start, pix_y, argb);
+				sprt_y += sprt->pix_o_s;
+			}
 		}
 		sprt->sprite_x += sprt->pix_o_s;
 	}
@@ -57,8 +60,6 @@ void	cub_init_print_sprite(t_game *game, t_sprite *sprt, int *start)
 	sprt->demi_height = (sprt->height / 2);
 	sprt->top = game->screen.resolution.height_mdl - (sprt->demi_height);
 	sprt->end = game->screen.resolution.height - sprt->top;
-	printf("\n%d\n", sprt->top);
-	printf("\n%d\n", sprt->end);
 	sprt->r_x_sprite = atan2((game->level.player.pos_y - sprt->pos_y),
 		(sprt->pos_x - game->level.player.pos_x));
 	sprt->r_x_sprite = game->level.player.dir - sprt->r_x_sprite
@@ -86,9 +87,6 @@ void	cub_render_sprites(t_game *game)
 	
 	sprt = game->level.area.sprite;
 	crnt_sprite = -1;
-	system("clear");
-	printf("\n%f\n", game->level.player.pos_x);
-	printf("\n%f\n\n", game->level.player.pos_y);
 	while (++crnt_sprite < game->level.area.nb_sprite)
 	{
 		if (sprt[crnt_sprite].visible)

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:08:13 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/08 18:39:24 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/14 20:37:09 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	cub_render_closest_wall(t_game *game, t_textures *txtrs, int pix_x)
 				pow((game->level.player.pos_x - txtrs->vx_wall), 2)
 				+ pow((game->level.player.pos_y - txtrs->vy_wall), 2));
 	txtrs->ori_wall = cub_the_wall(game, txtrs);
+	game->level.area.dist_walls[pix_x] = txtrs->wall;
 	txtrs->wall *= txtrs->c_demi_fov;
 	txtrs->wall = (SIDE / txtrs->wall) * game->screen.resolution.dist_plan;
 	if (txtrs->ori_wall == 'N' || txtrs->ori_wall == 'S')
