@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/06/15 17:23:52 by jpillet          ###   ########.fr        #
+#    Updated: 2021/06/15 18:55:29 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ HDMLX			=	mlx.h
 
 DIRLIBFT		=	./libft/
 
-DIRMLX			=	./minilibx_linux/
+DIRMLX			=	./minilibx-linux/
 
 SRCSCMMN		=	$(addprefix ./srcs/common/, \
 						cub3d.c)
