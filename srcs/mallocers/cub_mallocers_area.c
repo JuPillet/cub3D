@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 17:26:04 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/14 20:34:42 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/15 17:01:18 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ t_bool	cub_set_map_columns(char **line, char **line_map)
 
 t_bool	cub_malloc_map_columns(char **line, char **line_map, int *columns)
 {
-	int	tabulation;
 	int	indln;
 
 	indln = 0;
@@ -103,8 +102,12 @@ t_bool	cub_malloc_map_lines(t_game *game, int lines)
 	return (TRUE);
 }
 
-t_bool cub_malloc_dist_walls(t_game *game)
+t_bool	cub_malloc_dist_walls(t_game *game)
 {
+	game->level.area.dist_walls = 0;
 	ft_malloc_double(game->screen.resolution.width,
 		&(game->level.area.dist_walls));
+	if (game->level.area.dist_walls)
+		return (TRUE);
+	return (FALSE);
 }

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/14 15:12:12 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/15 18:16:04 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <math.h>
-# include <mlx.h>
+# include "../minilibx_mms/mlx.h"
+# include "mlx.h"
 # include "../libft/libft.h"
 # include "libft.h"
 
@@ -46,10 +47,11 @@ typedef struct	s_color
 
 typedef struct	s_sprite
 {
-	int		pos_y;
-	int		pos_x;
+	double	pos_y;
+	double	pos_x;
 	double	distance;
 	double	height;
+	double	demi_height;
 	int		top;
 	int		end;
 	double	r_x_sprite;
@@ -122,11 +124,11 @@ typedef struct	s_area
 
 typedef struct	s_level
 {
-	void		*no;
-	void		*so;
-	void		*we;
-	void		*ea;
-	void		*sp;
+	t_img_data	no;
+	t_img_data	so;
+	t_img_data	we;
+	t_img_data	ea;
+	t_img_data	sp;
 	t_horizon	floor;
 	t_horizon	ceiling;
 	t_player	player;
@@ -202,6 +204,7 @@ struct	s_game
 	t_level			level;
 	t_bool			save;
 	t_keys			keys;
+	const char		*file;
 };
 
 int				cub_close_cub(t_game *game);
@@ -242,7 +245,7 @@ void			cub_ceiling_floor(t_game *game, int x, int y, t_bool cf);
 t_bool			cub_set_texture(t_game *game, t_parser *parser, char *path, t_img_data *textures);
 
 void			cub_fiat_lux(t_game *game, t_textures *txtrs, int pix_x);
-char			cub_the_wall(t_game *game, t_textures *txtrs);
+char			cub_the_wall(t_textures *txtrs);
 void			cub_render_closest_wall(t_game *game, t_textures *txtrs, int pix);
 
 t_bool			cub_dda_check_map(t_area *area, int map_y, int map_x);
@@ -250,7 +253,7 @@ t_bool			cub_dda_check_vrtcl_wall(t_game *game, t_textures *txtrs, int *map_y, i
 t_bool			cub_dda_check_hrztl_wall(t_game *game, t_textures *txtrs, int *map_y, int *map_x);
 t_bool			cub_dda_hrztl(t_game *game, t_level *lvl, t_textures *txtrs);
 t_bool			cub_dda_vrtcl(t_game *game, t_level *lvl, t_textures *txtrs);
-void			cub_invisibilize_sprite(t_area *area);
+//void			cub_invisibilize_sprite(t_area *area);
 
 void			cub_map_render(t_game *game);
 void			cub_render_sprites(t_game *game);
@@ -286,7 +289,7 @@ t_bool			cub_free_error_line(char *line);
 t_bool			cub_parse_map(t_parser *parser, t_game *game, const char *file, int lines);
 
 t_bool			cub_dispacher_fnct(int indpf, t_parser *parser, t_game *game);
-t_bool			cub_dispatcher(const char *file, t_parser *parser, t_game *game);
+t_bool			cub_dispatcher(t_parser *parser, t_game *game);
 t_bool			cub_get_setting_line(t_parser *parser, const char *file);
 
 t_bool			cub_set_resolution(t_degree *degree, char *line, void *mlx, t_resolution *resolution);
@@ -300,7 +303,9 @@ t_bool			cub_parse_texture_sprite(t_parser *parser, t_game *game);
 t_bool			cub_parse_resolution(t_parser *parser, t_game *game);
 t_bool			cub_set_horizon(t_parser *parser, t_game *game);
 
-t_bool			cub_parser(const char *file, t_game *game);
+t_bool			cub_set_sprite(t_game *game);
+t_bool			cub_malloc_sprite(t_game *game);
+t_bool			cub_parser(t_game *game);
 t_bool			cub_norm_file(const char *file, t_game *game);
 
 t_bool			cub_is_save(int ac, char **av, t_game *game);

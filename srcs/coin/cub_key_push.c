@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:41:19 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/14 14:29:00 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/15 18:01:53 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,13 @@ int	cub_player_lateral_move(t_game *game)
 		[((int)(*p_x - o_s_x) / SIDE)] != '1')
 	{
 			*p_x -= o_s_x;
-			*p_y += o_s_y;
+			*p_y -= o_s_y;
 	}
 	else if (game->keys.d && map[((int)(*p_y + o_s_y) / SIDE)]
 		[((int)(*p_x + o_s_x) / SIDE)] != '1')
 	{
 		*p_x += o_s_x;
-		*p_y -= o_s_y;
+		*p_y += o_s_y;
 	}
 	return (0);
 }

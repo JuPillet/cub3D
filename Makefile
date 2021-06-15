@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/06/14 19:44:54 by jpillet          ###   ########.fr        #
+#    Updated: 2021/06/15 13:32:17 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,9 +23,6 @@ else
 	FCLEAN		=	make fclean -f Makefile_Linux
 	RE			=	make re -f Makefile_Linux
 endif
-
-#.c.o			:
-#					${MAKE}
 
 all				:
 					${ALL}
