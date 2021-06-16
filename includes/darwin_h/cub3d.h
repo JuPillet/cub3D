@@ -6,7 +6,11 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/06/15 18:16:04 by jpillet          ###   ########.fr       */
+=======
+/*   Updated: 2021/06/10 19:10:21 by jpillet          ###   ########.fr       */
+>>>>>>> parent of ee737d3... JuPillet My 42 cub3D
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +123,6 @@ typedef struct	s_area
 	int			map_height;
 	t_sprite	*sprite;
 	int			nb_sprite;
-	double		*dist_walls;
 }				t_area;
 
 typedef struct	s_level
@@ -310,7 +313,6 @@ t_bool			cub_norm_file(const char *file, t_game *game);
 
 t_bool			cub_is_save(int ac, char **av, t_game *game);
 
-t_bool			cub_malloc_dist_walls(t_game *game);
 void			cub_init_hash_array(t_hash_array *hash_array);
 t_bool			cub_malloc_hash_array(t_game *game);
 t_bool			cub_init_color(t_color *color);

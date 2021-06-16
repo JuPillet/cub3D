@@ -6,7 +6,11 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 17:26:04 by jpillet           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/06/15 17:01:18 by jpillet          ###   ########.fr       */
+=======
+/*   Updated: 2021/06/03 20:53:39 by jpillet          ###   ########.fr       */
+>>>>>>> parent of ee737d3... JuPillet My 42 cub3D
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +86,7 @@ t_bool	cub_malloc_map_columns(char **line, char **line_map, int *columns)
 	if (ft_malloc_char((*columns) + 1, line_map))
 		return (cub_set_map_columns(line, line_map));
 	ft_free_char(line);
-	return (ft_error("cub3D didn't find memory to load", 0));
+	return (ft_error("program didn't find memory to load", 0));
 }
 
 t_bool	cub_malloc_map_lines(t_game *game, int lines)
@@ -91,7 +95,7 @@ t_bool	cub_malloc_map_lines(t_game *game, int lines)
 	game->level.area.lines_length = (int *)malloc((lines + 1) * sizeof(int));
 	game->level.area.map_height = lines;
 	if (!(game->level.area.map) || !(game->level.area.lines_length))
-		return (ft_error("cub3D didn't find memory to load", 0));
+		return (ft_error("program didn't find memory to load", 0));
 	while (lines)
 	{
 		game->level.area.map[lines] = 0;
@@ -101,6 +105,7 @@ t_bool	cub_malloc_map_lines(t_game *game, int lines)
 	game->level.area.lines_length[lines] = 0;
 	return (TRUE);
 }
+<<<<<<< HEAD
 
 t_bool	cub_malloc_dist_walls(t_game *game)
 {
@@ -111,3 +116,5 @@ t_bool	cub_malloc_dist_walls(t_game *game)
 		return (TRUE);
 	return (FALSE);
 }
+=======
+>>>>>>> parent of ee737d3... JuPillet My 42 cub3D

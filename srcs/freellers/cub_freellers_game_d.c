@@ -6,7 +6,11 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/01 22:53:33 by jpillet           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/06/15 14:54:14 by jpillet          ###   ########.fr       */
+=======
+/*   Updated: 2021/05/25 14:23:03 by jpillet          ###   ########.fr       */
+>>>>>>> parent of ee737d3... JuPillet My 42 cub3D
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +21,8 @@ t_bool	cub_free_game(t_game *game)
 {
 	cub_free_hash_array(game);
 	cub_free_parser(&(game->parser));
-	if (game->screen.pic_scrn.img)
-		mlx_destroy_image(game->mlx, game->screen.pic_scrn.img);
+	if (game->screen.pic_screen.img)
+		mlx_destroy_image(game->mlx, game->screen.pic_screen.img);
 	if (game->screen.mlx_screen)
 		mlx_destroy_window(game->mlx, game->screen.mlx_screen);
 	cub_free_texture(game->mlx, game->level.no.img);

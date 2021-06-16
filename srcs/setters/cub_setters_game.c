@@ -6,7 +6,11 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:29:22 by jpillet           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/06/15 17:16:05 by jpillet          ###   ########.fr       */
+=======
+/*   Updated: 2021/06/08 18:38:04 by jpillet          ###   ########.fr       */
+>>>>>>> parent of ee737d3... JuPillet My 42 cub3D
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +96,6 @@ t_bool	cub_init_screen_and_level(t_game *game)
 	game->level.area.lines_length = 0;
 	game->level.area.sprite = 0;
 	game->level.area.nb_sprite = 0;
-	game->level.area.dist_walls = 0;
 	return (TRUE);
 }
 

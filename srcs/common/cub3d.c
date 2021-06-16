@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 12:19:37 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/14 20:36:00 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/08 18:37:53 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ if you want save the first cub3D frame.", 0));
 	check = cub_norm_file((const char *)av[1], &game);
 	cub_free_parser(&(game.parser));
 	cub_free_hash_array(&game);
-	if (check && cub_malloc_dist_walls(&game))
+	if (check)
 		cub_coin(&game);
 	return (cub_free_game(&game));
 }
