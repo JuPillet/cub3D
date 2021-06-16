@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/01 22:53:33 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/15 14:54:14 by jpillet          ###   ########.fr       */
+/*   Created: 2021/06/16 20:33:58 by jpillet           #+#    #+#             */
+/*   Updated: 2021/06/16 20:34:00 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_bool	cub_free_game(t_game *game)
 {
 	cub_free_hash_array(game);
 	cub_free_parser(&(game->parser));
-	if (game->screen.pic_scrn.img)
-		mlx_destroy_image(game->mlx, game->screen.pic_scrn.img);
+	if (game->screen.pic_screen.img)
+		mlx_destroy_image(game->mlx, game->screen.pic_screen.img);
 	if (game->screen.mlx_screen)
 		mlx_destroy_window(game->mlx, game->screen.mlx_screen);
 	cub_free_texture(game->mlx, game->level.no.img);

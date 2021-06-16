@@ -6,7 +6,11 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:08:13 by jpillet           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/06/15 17:19:21 by jpillet          ###   ########.fr       */
+=======
+/*   Updated: 2021/06/08 18:39:24 by jpillet          ###   ########.fr       */
+>>>>>>> parent of ee737d3... JuPillet My 42 cub3D
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +73,12 @@ void	cub_render_closest_wall(t_game *game, t_textures *txtrs, int pix_x)
 		txtrs->dv_wall = sqrt(
 				pow((game->level.player.pos_x - txtrs->vx_wall), 2)
 				+ pow((game->level.player.pos_y - txtrs->vy_wall), 2));
+<<<<<<< HEAD
 	txtrs->ori_wall = cub_the_wall(txtrs);
 	game->level.area.dist_walls[pix_x] = txtrs->wall;
+=======
+	txtrs->ori_wall = cub_the_wall(game, txtrs);
+>>>>>>> parent of ee737d3... JuPillet My 42 cub3D
 	txtrs->wall *= txtrs->c_demi_fov;
 	txtrs->wall = (SIDE / txtrs->wall) * game->screen.resolution.dist_plan;
 	if (txtrs->ori_wall == 'N' || txtrs->ori_wall == 'S')

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/15 18:16:12 by jpillet          ###   ########.fr       */
+/*   Created: 2021/06/16 20:35:03 by jpillet           #+#    #+#             */
+/*   Updated: 2021/06/16 20:35:05 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ typedef struct	s_area
 	int			map_height;
 	t_sprite	*sprite;
 	int			nb_sprite;
-	double		*dist_walls;
 }				t_area;
 
 typedef struct	s_level
@@ -253,7 +252,6 @@ t_bool			cub_dda_check_vrtcl_wall(t_game *game, t_textures *txtrs, int *map_y, i
 t_bool			cub_dda_check_hrztl_wall(t_game *game, t_textures *txtrs, int *map_y, int *map_x);
 t_bool			cub_dda_hrztl(t_game *game, t_level *lvl, t_textures *txtrs);
 t_bool			cub_dda_vrtcl(t_game *game, t_level *lvl, t_textures *txtrs);
-//void			cub_invisibilize_sprite(t_area *area);
 
 void			cub_map_render(t_game *game);
 void			cub_render_sprites(t_game *game);
@@ -310,7 +308,6 @@ t_bool			cub_norm_file(const char *file, t_game *game);
 
 t_bool			cub_is_save(int ac, char **av, t_game *game);
 
-t_bool			cub_malloc_dist_walls(t_game *game);
 void			cub_init_hash_array(t_hash_array *hash_array);
 t_bool			cub_malloc_hash_array(t_game *game);
 t_bool			cub_init_color(t_color *color);

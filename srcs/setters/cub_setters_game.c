@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/13 19:29:22 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/15 17:16:05 by jpillet          ###   ########.fr       */
+/*   Created: 2021/06/16 20:32:26 by jpillet           #+#    #+#             */
+/*   Updated: 2021/06/16 20:32:28 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ t_bool	cub_init_screen_and_level(t_game *game)
 	game->level.area.lines_length = 0;
 	game->level.area.sprite = 0;
 	game->level.area.nb_sprite = 0;
-	game->level.area.dist_walls = 0;
 	return (TRUE);
 }
 

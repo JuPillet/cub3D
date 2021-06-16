@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/13 19:30:39 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/16 19:18:37 by jpillet          ###   ########.fr       */
+/*   Created: 2021/06/16 20:32:10 by jpillet           #+#    #+#             */
+/*   Updated: 2021/06/16 20:32:11 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	cub_set_image_to_window(t_game *game)
 	mlx = game->mlx;
 	mlx_screen = game->screen.mlx_screen;
 	img = game->screen.pic_scrn.img;
-	cub_set_distance_sprite(&(game->level));
 	cub_render_walls(game);
 	if (game->level.area.nb_sprite)
 		cub_render_sprites(game);
@@ -64,8 +63,8 @@ int	cub_set_image_to_window(t_game *game)
 	if ((game->keys.a_l && !(game->keys.a_r))
 		|| (!(game->keys.a_l) && game->keys.a_r))
 		cub_player_rotate_move(game);
-	//if (game->keys.z || game->keys.s || game->keys.q || game->keys.d)
-	//	cub_set_distance_sprite(&(game->level));
+	if (game->keys.z || game->keys.s || game->keys.q || game->keys.d)
+		cub_set_distance_sprite(&(game->level));
 	return (TRUE);
 }
 
