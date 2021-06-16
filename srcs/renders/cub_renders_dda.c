@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 17:53:52 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/10 21:41:56 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/16 20:17:50 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,17 @@ t_bool	cub_dda_check_map(t_area *area, int map_y, int map_x)
 t_bool	cub_dda_check_vrtcl_wall(t_game *game, t_textures *txtrs,
 	int *map_y, int *map_x)
 {
-	t_sprite *sprite;
+	t_sprite	*sprite;
+	int			crnt_sprt;
 
 	sprite = game->level.area.sprite;
+	crnt_sprt = 0;
 	if (game->level.area.map[*map_y][*map_x] == '2')
 	{
-		while (((sprite->pos_y + 1 - (SIDE / 2)) / SIDE != *map_y)
-			|| ((sprite->pos_x + 1 - (SIDE / 2)) / SIDE != *map_x))
-			sprite++;
-		sprite->visible = TRUE;
+		while ((sprite[crnt_sprt].pos_y != ((*map_y) * SIDE) + (SIDE / 2) - 1)
+			|| (sprite[crnt_sprt].pos_x != ((*map_x) * SIDE) + (SIDE / 2) - 1))
+			crnt_sprt++;
+		sprite[crnt_sprt].visible = TRUE;
 	}
 	else if (game->level.area.map[*map_y][*map_x] == '1')
 		return (TRUE);
@@ -76,15 +78,17 @@ t_bool	cub_dda_vrtcl(t_game *game, t_level *lvl, t_textures *txtrs)
 t_bool	cub_dda_check_hrztl_wall(t_game *game, t_textures *txtrs,
 	int *map_y, int *map_x)
 {
-	t_sprite *sprite;
+	t_sprite	*sprite;
+	int			crnt_sprt;
 
 	sprite = game->level.area.sprite;
+	crnt_sprt = 0;
 	if (game->level.area.map[*map_y][*map_x] == '2')
 	{
-		while ((((sprite->pos_y + 1) - (SIDE / 2)) / SIDE != *map_y)
-			|| (((sprite->pos_x + 1) - (SIDE / 2)) / SIDE != *map_x))
-			sprite++;
-		sprite->visible = TRUE;
+		while ((sprite[crnt_sprt].pos_y != ((*map_y) * SIDE) + (SIDE / 2) - 1)
+			|| (sprite[crnt_sprt].pos_x != ((*map_x) * SIDE) + (SIDE / 2) - 1))
+			crnt_sprt++;
+		sprite[crnt_sprt].visible = TRUE;
 	}
 	else if (game->level.area.map[*map_y][*map_x] == '1')
 		return (TRUE);

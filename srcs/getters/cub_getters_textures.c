@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 19:10:37 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/15 16:19:25 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/16 15:39:51 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 int	cub_get_texture_sprite(char *addr, t_sprite *sprt, double sprt_y)
 {
 	return (*(((int *)(addr))
-		+ (((int)(sprt_y)) * SIDE)
+		+ ((int)(sprt_y) * SIDE)
 		+ ((int)(sprt->sprite_x))));
 }
 

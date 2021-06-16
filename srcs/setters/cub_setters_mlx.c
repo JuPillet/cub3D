@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:30:39 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/15 18:16:53 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/16 19:18:37 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_bool	cub_set_texture(t_game *game, t_parser *parser,
 	if (!(texture->img))
 		return (ft_error("cub3D can't open texture", parser->line));
 	texture->addr = mlx_get_data_addr(texture->img, &(texture->bits_per_pixel),
-		&(texture->line_length), &(texture->endian));
+			&(texture->line_length), &(texture->endian));
 	if (!(texture->addr))
 		return (ft_error("cub3D didn't find the memory to load", parser->line));
 	if (width != SIDE || height != SIDE)
@@ -52,18 +52,20 @@ int	cub_set_image_to_window(t_game *game)
 	mlx = game->mlx;
 	mlx_screen = game->screen.mlx_screen;
 	img = game->screen.pic_scrn.img;
+	cub_set_distance_sprite(&(game->level));
 	cub_render_walls(game);
 	if (game->level.area.nb_sprite)
 		cub_render_sprites(game);
 	mlx_put_image_to_window(mlx, mlx_screen, img, 0, 0);
 	if ((game->keys.z && !(game->keys.s)) || (!(game->keys.z) && game->keys.s))
 		cub_player_front_move(game);
-	if ((game->keys.q && !(game->keys.d)) || (!(game->keys.q) &&game->keys.d))
+	if ((game->keys.q && !(game->keys.d)) || (!(game->keys.q) && game->keys.d))
 		cub_player_lateral_move(game);
-	if ((game->keys.a_l && !(game->keys.a_r)) || (!(game->keys.a_l) && game->keys.a_r))
+	if ((game->keys.a_l && !(game->keys.a_r))
+		|| (!(game->keys.a_l) && game->keys.a_r))
 		cub_player_rotate_move(game);
-	if (game->keys.z ||game->keys.s || game->keys.q || game->keys.d)
-		cub_set_distance_sprite(&(game->level));
+	//if (game->keys.z || game->keys.s || game->keys.q || game->keys.d)
+	//	cub_set_distance_sprite(&(game->level));
 	return (TRUE);
 }
 
@@ -78,7 +80,7 @@ void	cub_set_mlx_screen(t_game *game)
 	resolution = game->screen.resolution;
 	if (!(game->save))
 		screen->mlx_screen = mlx_new_window(game->mlx,
-				resolution.width, resolution.height, "LOUIS XIV");
+				resolution.width, resolution.height, "cub3D");
 	pic_screen->img = mlx_new_image(game->mlx,
 			resolution.width, resolution.height);
 	pic_screen->addr = mlx_get_data_addr(

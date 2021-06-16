@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:46:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/15 17:20:02 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/16 18:51:29 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ void	cub_render_walls(t_game *game)
 	pix_x = -1;
 	while (++pix_x < game->screen.resolution.width)
 	{
-		txtrs.r_agl =  game->level.player.dir + txtrs.demi_fov ;
+		txtrs.r_agl = game->level.player.dir + txtrs.demi_fov ;
 		if (txtrs.r_agl < 0)
-			txtrs.r_agl =  game->deg.r360 + txtrs.r_agl;
+			txtrs.r_agl = game->deg.r360 + txtrs.r_agl;
 		else if (txtrs.r_agl >= game->deg.r360)
 			txtrs.r_agl = txtrs.r_agl - game->deg.r360 ;
 		txtrs.c_agl = cos(txtrs.r_agl);

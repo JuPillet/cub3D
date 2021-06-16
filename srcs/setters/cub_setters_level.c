@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/15 18:14:37 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/16 18:51:00 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 t_bool	cub_set_sprite(t_game *game)
 {
-	int center;
+	int	center;
 	int	map_y;
-	int map_x;
+	int	map_x;
 	int	sprite;
-	
+
 	center = (SIDE / 2) - 1;
 	sprite = 0;
 	map_y = -1;
@@ -134,7 +134,7 @@ t_bool	cub_set_resolution(t_degree *degree, char *line,
 	resolution->r_demi_fov = resolution->r_fov / 2;
 	resolution->r_o_s_pix = resolution->r_fov / (resolution->width - 1);
 	resolution->dist_plan = resolution->width_mdl / fabs(
-		tan(resolution->r_demi_fov));
+			tan(resolution->r_demi_fov));
 	resolution->is = TRUE;
 	return (TRUE);
 }

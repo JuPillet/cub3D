@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/15 18:16:04 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/16 15:11:49 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -253,7 +253,6 @@ t_bool			cub_dda_check_vrtcl_wall(t_game *game, t_textures *txtrs, int *map_y, i
 t_bool			cub_dda_check_hrztl_wall(t_game *game, t_textures *txtrs, int *map_y, int *map_x);
 t_bool			cub_dda_hrztl(t_game *game, t_level *lvl, t_textures *txtrs);
 t_bool			cub_dda_vrtcl(t_game *game, t_level *lvl, t_textures *txtrs);
-//void			cub_invisibilize_sprite(t_area *area);
 
 void			cub_map_render(t_game *game);
 void			cub_render_sprites(t_game *game);

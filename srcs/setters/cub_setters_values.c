@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 16:50:08 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/14 17:35:44 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/16 19:07:55 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	cub_sort_sprite(t_level *level)
 	int			crnt_sprite;
 	int			next_sprites;
 	t_sprite	sprite;
-	
+
 	crnt_sprite = -1;
 	while (++(crnt_sprite) < (level->area.nb_sprite - 1))
 	{
@@ -47,10 +47,10 @@ void	cub_set_distance_sprite(t_level *level)
 	while (++(sprite) < level->area.nb_sprite)
 	{
 		dif_y = level->area.sprite[sprite].pos_y - level->player.pos_y;
-		dif_y *= dif_y;
 		dif_x = level->area.sprite[sprite].pos_x - level->player.pos_x;
-		dif_x *= dif_x;
-		level->area.sprite[sprite].distance = sqrt(dif_y + dif_x);
+		level->area.sprite[sprite].distance = sqrt((dif_y * dif_y)
+				+ (dif_x * dif_x));
+		level->area.sprite[sprite].visible = FALSE;
 	}
 	cub_sort_sprite(level);
 }
