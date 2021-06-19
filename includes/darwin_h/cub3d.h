@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/19 02:40:23 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/19 02:45:43 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -262,6 +262,9 @@ void			cub_render_walls(t_game *game);
 int				cub_set_image_to_window(t_game *game);
 t_bool			cub_set_parser(const char *file, t_parser *parser);
 void			cub_set_mlx_screen(t_game *game);
+
+t_bool			cub_set_sprite(t_game *game);
+t_bool			cub_malloc_sprite(t_game *game);
 
 t_bool			cub_set_player(int map_x, int map_y, char **map, t_game *game);
 t_bool			cub_search_player(char **map, t_game *game);
