@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 21:49:17 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/19 04:45:28 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/19 11:04:54 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ void	cub_init_print_sprite(t_game *game, t_sprite *sprt, int *start)
 		* game->screen.resolution.dist_plan;
 	sprt->demi_height = (sprt->height / 2);
 	sprt->top = game->screen.resolution.height_mdl - (sprt->demi_height);
-	sprt->end = game->screen.resolution.height - sprt->top;
 	sprt->r_x_sprite = atan2((game->level.player.pos_y - sprt->pos_y),
 		(sprt->pos_x - game->level.player.pos_x));
 	sprt->r_x_sprite = game->level.player.dir - sprt->r_x_sprite
@@ -69,7 +68,7 @@ void	cub_init_print_sprite(t_game *game, t_sprite *sprt, int *start)
 		sprt->r_x_sprite += game->deg.r360;
 	(*start) = (int)(sprt->r_x_sprite / game->screen.resolution.r_o_s_pix);
 	(*start) -= sprt->demi_height;
-	sprt->pix_o_s = (SIDE / sprt->height);
+	sprt->pix_o_s = ((SIDE - 1) / sprt->height);
 	sprt->sprite_x = 0;
 	if (*start < 0)
 		sprt->sprite_x = -((*start) * sprt->pix_o_s);

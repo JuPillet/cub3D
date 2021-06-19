@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_setters_level.c                                :+:      :+:    :+:   */
+/*   cub_setters_level_d.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 20:03:07 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/19 01:52:38 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/19 11:03:47 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,17 +116,14 @@ t_bool	cub_set_horizon(t_parser *parser, t_game *game)
 t_bool	cub_set_resolution(t_degree *degree, char *line,
 	void *mlx, t_resolution *resolution)
 {
-	int	width;
-	int	height;
-
+	(void)mlx;
 	if (resolution->width < 1 || resolution->height < 1)
 		return (ft_error("resolution format to small, minimum format :\n\
 - width : 1\n- height 1", line));
-	mlx_get_screen_size(mlx, &width, &height);
-	if (resolution->width > width)
-		resolution->width = width;
-	if (resolution->height > height)
-		resolution->height = height;
+	if (resolution->width > 1920)
+		resolution->width = 1920;
+	if (resolution->height > 1080)
+		resolution->height = 1080;
 	resolution->width_mdl = resolution->width / 2;
 	resolution->height_mdl = resolution->height / 2;
 	resolution->r_fov = FOV * degree->r1;
