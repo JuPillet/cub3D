@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:41:19 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/14 21:39:21 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/19 13:06:42 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,26 @@
 int	cub_player_front_move(t_game *game)
 {
 	char	**map;
-	double	*p_x;
-	double	*p_y;
 	double	o_s_x;
 	double	o_s_y;
+	int		iter;
 
 	map = game->level.area.map;
-	p_x = &(game->level.player.pos_x);
-	p_y = &(game->level.player.pos_y);
-	o_s_x = 5 * cos(game->level.player.dir);
-	o_s_y = 5 * sin(game->level.player.dir);
-	if (game->keys.z && map[((int)(*p_y - o_s_y) / SIDE)]
-		[((int)(*p_x + o_s_x) / SIDE)] != '1')
+	o_s_x = cos(game->level.player.dir);
+	o_s_y = sin(game->level.player.dir);
+	if (game->keys.s)
+		o_s_x *= -1;
+	if (game->keys.s)
+		o_s_y *= -1;
+	iter = 5;
+	while (iter--)
 	{
-		*p_x += o_s_x;
-		*p_y -= o_s_y;
-	}
-	else if (game->keys.s && map[((int)(*p_y + o_s_y) / SIDE)]
-		[((int)(*p_x - o_s_x) / SIDE)] != '1')
-	{
-		*p_x -= o_s_x;
-		*p_y += o_s_y;
+		if (map[((int)(game->level.player.pos_y - (2 * o_s_y)) / SIDE)]
+			[((int)(game->level.player.pos_x) / SIDE)] != '1')
+			game->level.player.pos_y -= o_s_y;
+		if (map[((int)(game->level.player.pos_y) / SIDE)]
+			[((int)(game->level.player.pos_x + (2 * o_s_x)) / SIDE)] != '1')
+			game->level.player.pos_x += o_s_x;
 	}
 	return (0);
 }
@@ -44,27 +43,26 @@ int	cub_player_front_move(t_game *game)
 int	cub_player_lateral_move(t_game *game)
 {
 	char	**map;
-	double	*p_x;
-	double	*p_y;
 	double	o_s_x;
 	double	o_s_y;
+	int		iter;
 
 	map = game->level.area.map;
-	p_x = &(game->level.player.pos_x);
-	p_y = &(game->level.player.pos_y);
-	o_s_x = 5 * sin(game->level.player.dir);
-	o_s_y = 5 * cos(game->level.player.dir);
-	if (game->keys.q && map[((int)(*p_y - o_s_y) / SIDE)]
-		[((int)(*p_x - o_s_x) / SIDE)] != '1')
+	o_s_x = sin(game->level.player.dir);
+	o_s_y = cos(game->level.player.dir);
+	if (game->keys.q)
+		o_s_x *= -1;
+	if (game->keys.q)
+		o_s_y *= -1;
+	iter = 5;
+	while (iter--)
 	{
-			*p_x -= o_s_x;
-			*p_y -= o_s_y;
-	}
-	else if (game->keys.d && map[((int)(*p_y + o_s_y) / SIDE)]
-		[((int)(*p_x + o_s_x) / SIDE)] != '1')
-	{
-		*p_x += o_s_x;
-		*p_y += o_s_y;
+		if (map[((int)(game->level.player.pos_y + (2 * o_s_y)) / SIDE)]
+			[((int)(game->level.player.pos_x) / SIDE)] != '1')
+			game->level.player.pos_y += o_s_y;
+		if (map[((int)(game->level.player.pos_y) / SIDE)]
+			[((int)(game->level.player.pos_x + (2 * o_s_x)) / SIDE)] != '1')
+			game->level.player.pos_x += o_s_x;
 	}
 	return (0);
 }

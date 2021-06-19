@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/06/19 11:54:46 by jpillet          ###   ########.fr        #
+#    Updated: 2021/06/19 12:18:07 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -120,12 +120,12 @@ ${NAME}			:	${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGT
 
 clean			:
 					make clean -C ${DIRLIBFT}
-					rm -rf	${OBJSCMMN} ${OBJSTEST} ${OBJSMLLC} ${OBJSCHKR} ${OBJSPRSR} \
-							${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR} ${INCLUDES}${CUB3DH}
+					rm -rf	${OBJSCMMN} ${OBJSTEST} ${OBJSMLLC} ${OBJSCHKR} ${OBJSPRSR} ${OBJSSTTR} \
+					${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR} ${INCLUDES}${CUB3DH} ${INCLUDES}${HDLFT}
 
 fclean			:	clean
 					make fclean -C ${DIRLIBFT}
-					rm -rf	${NAME} ${NAMELIN} ${NAMEMPRSR} ${NAMELPRSR} ${INCLUDES}${HDLFT} \
+					rm -rf	${NAME} ${NAMELIN} ${NAMEMPRSR} ${NAMELPRSR} \
 					${LIBFT} ${DIRMLX}${MLX} ${MLX}
 
 re				:	fclean all

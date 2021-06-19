@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/16 18:08:13 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/19 01:53:57 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/19 12:23:41 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	cub_fiat_lux(t_game *game, t_textures *txtrs, int pix_x)
 	texture_top = game->screen.resolution.height_mdl - ((int)(txtrs->wall) / 2);
 	texture_end = game->screen.resolution.height - texture_top;
 	pix_y = 0;
-	while (pix_y < texture_top)
+	while (pix_y < texture_top && pix_y < game->screen.resolution.height_mdl)
 		cub_set_my_mlx_pixel(game->screen.pic_scrn, pix_x, pix_y++,
 			game->level.ceiling.color.argb);
 	txtrs->texture_y = (pix_y - game->screen.resolution.height_mdl
