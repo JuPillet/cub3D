@@ -32,8 +32,7 @@ t_bool	cub_parse_map(t_parser *parser, t_game *game,
 {
 	char			*line;
 
-	if (parser->line[0] >= 0 && parser->line[0] <= 127
-		&& !cub_check_end_map(&(parser->line)))
+	if (!cub_check_end_map(&(parser->line)))
 	{
 		line = ft_strdup(parser->line);
 		if (!cub_get_setting_line(parser, file))

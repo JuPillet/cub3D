@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/06/14 20:01:43 by jpillet          ###   ########.fr        #
+#    Updated: 2021/06/19 01:26:48 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -99,10 +99,9 @@ FLAGMLX			=	-lX11 -lXext -lm -lpthread
 
 .c.o			:
 					cp ${DIRLIBFT}${HDLFT} ${INCLUDES}
-					${CC} -I${INCLUDES} -c -g $< -o ${<:.c=.o}
-##					${CC} ${CFLAGS} -I${INCLUDES} -c $< -o ${<:.c=.o}
+					${CC} ${CFLAGS} -I${INCLUDES} -c $< -o ${<:.c=.o}
 
-all				:	${CUB3DH} ${NAME}
+all				:	${CUB3DH} ${LIBFT} ${MLX} ${NAME}
 
 ${CUB3DH}		:
 					cp ${INCLUDES}linux_h/${CUB3DH} ${INCLUDES}
@@ -117,7 +116,7 @@ ${LIBFT}		:
 					mv ${DIRLIBFT}${LIBFT} ./
 					cp ${DIRLIBFT}${HDLFT} ${INCLUDES}
 
-$(NAME)			:	${GET_H} ${LIBFT} ${MLX} ${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR}
+${NAME}			:	${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR}
 					${CC} ${CFLAGS} ${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR} ${LIBFT} ${MLX} $(FLAGMLX) -o ${NAME}
 
 clean			:

@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 16:46:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/08 20:31:46 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/19 01:54:07 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ void	cub_render_dda(t_game *game, t_textures *txtrs)
 void	cub_render_walls(t_game *game)
 {
 	int		pix_x;
-	int		columns;
 	t_textures	txtrs;
 
 	txtrs.demi_fov = game->screen.resolution.r_demi_fov;

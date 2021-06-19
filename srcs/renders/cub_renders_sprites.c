@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 21:49:17 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/14 20:54:01 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/19 01:54:22 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	cub_invisibilize_sprite(t_area *area)
 void	cub_print_sprite(t_game *game, t_sprite *sprt, int start)
 {
 	int		pix_y;
-	int		stop;
 	int		argb;
 	double	sprt_y;
 

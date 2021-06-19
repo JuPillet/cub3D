@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:29:22 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/14 20:29:56 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/19 01:50:48 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,6 @@ void	cub_init_hash_array(t_hash_array *hash_array)
 
 t_bool	cub_malloc_hash_array(t_game *game)
 {
-	int	indha;
-	int	keylen;
-
 	game->hash_array = (t_hash_array *)malloc(8 * sizeof(t_hash_array));
 	if (!(game->hash_array))
 		return (FALSE);

@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/06/08 15:46:59 by jpillet          ###   ########.fr        #
+#    Updated: 2021/06/19 01:26:08 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -118,7 +118,7 @@ ${LIBFT}		:
 					cp ${DIRLIBFT}${HDLFT} ${INCLUDES}
 
 
-$(NAME)			:	${CUB3DH} ${LIBFT} ${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR}
+${NAME}			:	${CUB3DH} ${LIBFT} ${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR}
 					${CC} ${CFLAGS} ${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR} ${LIBFT} ${MLX} $(FLAGMLX) -o ${NAME}
 
 clean			:
