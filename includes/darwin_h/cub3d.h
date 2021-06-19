@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/19 01:53:42 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/19 02:40:23 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,11 @@ typedef struct	s_color
 
 typedef struct	s_sprite
 {
-	int		pos_y;
-	int		pos_x;
+	double	pos_y;
+	double	pos_x;
 	double	distance;
 	double	height;
+	double	demi_height;
 	int		top;
 	int		end;
 	double	r_x_sprite;
@@ -122,11 +123,11 @@ typedef struct	s_area
 
 typedef struct	s_level
 {
-	void		*no;
-	void		*so;
-	void		*we;
-	void		*ea;
-	void		*sp;
+	t_img_data	no;
+	t_img_data	so;
+	t_img_data	we;
+	t_img_data	ea;
+	t_img_data	sp;
 	t_horizon	floor;
 	t_horizon	ceiling;
 	t_player	player;
