@@ -32,6 +32,7 @@ t_bool	cub_parse_map(t_parser *parser, t_game *game,
 {
 	char			*line;
 
+	line = 0;
 	if (!cub_check_end_map(&(parser->line)))
 	{
 		line = ft_strdup(parser->line);

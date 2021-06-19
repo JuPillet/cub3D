@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 17:26:04 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/19 02:02:21 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/19 04:34:30 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ t_bool	cub_malloc_map_columns(char **line, char **line_map, int *columns)
 {
 	int	indln;
 
-	indln = 0;
-	while ((*line)[indln])
+	indln = -1;
+	while ((*line)[++indln])
 	{
 		if ((*line)[indln] != ' '
 				&& (*line)[indln] != '0' && (*line)[indln] != '1'
@@ -76,7 +76,7 @@ t_bool	cub_malloc_map_columns(char **line, char **line_map, int *columns)
 t_bool	cub_malloc_map_lines(t_game *game, int lines)
 {
 	game->level.area.map = (char **)malloc((lines + 1) * sizeof(char *));
-	game->level.area.lines_length = (int *)malloc((lines + 1) * sizeof(int));
+	ft_malloc_int(lines + 1, &(game->level.area.lines_length));
 	game->level.area.map_height = lines;
 	if (!(game->level.area.map) || !(game->level.area.lines_length))
 		return (ft_error("cub3D didn't find memory to load", 0));

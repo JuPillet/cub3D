@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:43:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/02 22:44:05 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/19 04:06:05 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_bool	cub_check_end_map(char **line)
 
 t_bool	cub_check_before_map(t_game *game)
 {
-	if (game->screen.resolution.is
+	if (game->screen.resolution.is && game->level.sp.img
 		&& game->level.no.img && game->level.ea.img
 		&& game->level.so.img && game->level.we.img
 		&& game->level.ceiling.is && game->level.floor.is)
