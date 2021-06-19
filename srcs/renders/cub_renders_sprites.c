@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 21:49:17 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/19 01:54:22 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/19 02:53:33 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	cub_print_sprite(t_game *game, t_sprite *sprt, int start)
 	if (start < 0)
 		start = 0;
 	start -= 1;
-	while (++start < game->screen.resolution.width && (int)(sprt->sprite_x) <= SIDE)
+	while (++start < game->screen.resolution.width && sprt->sprite_x <= (SIDE - 1))
 	{
 		if (sprt->distance < game->level.area.dist_walls[start])
 		{
@@ -40,7 +40,7 @@ void	cub_print_sprite(t_game *game, t_sprite *sprt, int start)
 			if (pix_y < 0)
 				pix_y = 0;
 			pix_y -= 1;
-			while ((++pix_y) < sprt->end && pix_y < game->screen.resolution.height)
+			while (++pix_y < game->screen.resolution.height && sprt_y <= (SIDE - 1))
 			{
 				argb = cub_get_texture_sprite(game->level.sp.addr, sprt, sprt_y);
 				if (argb)
