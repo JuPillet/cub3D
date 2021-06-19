@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/06/19 11:24:48 by jpillet          ###   ########.fr        #
+#    Updated: 2021/06/19 11:54:46 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,6 @@ LIBFT			=	libft.a
 HDLFT			=	libft.h
 
 CUB3DH			=	cub3d.h
-
-##HDMLX			=	mlx.h
 
 DIRLIBFT		=	./libft/
 
@@ -117,15 +115,13 @@ ${LIBFT}		:
 					mv ${DIRLIBFT}${LIBFT} ./
 					cp ${DIRLIBFT}${HDLFT} ${INCLUDES}
 
-
 ${NAME}			:	${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR}
-##					${CC} ${CFLAGS} ${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR} ${LIBFT} ${MLX} $(FLAGMLX) -o ${NAME}
 					${CC} ${CFLAGS} ${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR} ${LIBFT} $(FLAGMLX) -o ${NAME}
 
 clean			:
 					make clean -C ${DIRLIBFT}
 					rm -rf	${OBJSCMMN} ${OBJSTEST} ${OBJSMLLC} ${OBJSCHKR} ${OBJSPRSR} \
-							${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR}
+							${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR} ${INCLUDES}${CUB3DH}
 
 fclean			:	clean
 					make fclean -C ${DIRLIBFT}
