@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:30:39 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/19 03:01:26 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/20 17:28:26 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,6 @@ int	cub_set_image_to_window(t_game *game)
 	mlx = game->mlx;
 	mlx_screen = game->screen.mlx_screen;
 	img = game->screen.pic_scrn.img;
-	if (game->level.area.nb_sprite)
-		cub_invisibilize_sprite(&(game->level.area));
 	cub_render_walls(game);
 	if (game->level.area.nb_sprite)
 		cub_render_sprites(game);
