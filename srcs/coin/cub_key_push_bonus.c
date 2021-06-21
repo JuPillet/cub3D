@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub_key_push.c                                     :+:      :+:    :+:   */
+/*   cub_key_push_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:41:19 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/21 20:02:46 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/21 20:00:45 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,11 @@ int	cub_player_front_move(t_game *game, double o_s_x, double o_s_y)
 	iter = 5;
 	while (iter--)
 	{
-		if (game->level.player.pos_y - (2 * o_s_y) >= 0
-			&& (game->level.player.pos_y - (2 * o_s_y))
-			< game->level.area.map_height * SIDE)
+		if (map[((int)(game->level.player.pos_y - (2 * o_s_y)) / SIDE)]
+			[((int)(game->level.player.pos_x) / SIDE)] != '0')
 			game->level.player.pos_y -= o_s_y;
-		if (game->level.player.pos_x + (2 * o_s_x) >= 0
-			&& (game->level.player.pos_x + (2 * o_s_x))
-			< game->level.area.lines_length[
-				((int)(game->level.player.pos_y) / SIDE)] * SIDE)
+		if (map[((int)(game->level.player.pos_y) / SIDE)]
+			[((int)(game->level.player.pos_x + (2 * o_s_x)) / SIDE)] != '0')
 			game->level.player.pos_x += o_s_x;
 	}
 	return (0);
@@ -52,14 +49,11 @@ int	cub_player_lateral_move(t_game *game, double o_s_x, double o_s_y)
 	iter = 5;
 	while (iter--)
 	{
-		if (game->level.player.pos_y + (2 * o_s_y) >= 0
-			&& (game->level.player.pos_y + (2 * o_s_y))
-			< game->level.area.map_height * SIDE)
+		if (map[((int)(game->level.player.pos_y + (2 * o_s_y)) / SIDE)]
+			[((int)(game->level.player.pos_x) / SIDE)] != '0')
 			game->level.player.pos_y += o_s_y;
-		if (game->level.player.pos_x + (2 * o_s_x) >= 0
-			&& (game->level.player.pos_x + (2 * o_s_x))
-			< game->level.area.lines_length[
-				((int)(game->level.player.pos_y) / SIDE)] * SIDE)
+		if (map[((int)(game->level.player.pos_y) / SIDE)]
+			[((int)(game->level.player.pos_x + (2 * o_s_x)) / SIDE)] != '0')
 			game->level.player.pos_x += o_s_x;
 	}
 	return (0);
@@ -77,8 +71,7 @@ int	cub_player_rotate_move(t_game *game)
 	{
 		game->level.player.dir -= 0.025;
 		if (game->level.player.dir < 0)
-			game->level.player.dir = game->deg.r360 - fmod(
-					game->level.player.dir, game->deg.r1);
+			game->level.player.dir = game->deg.r360 - fmod(game->level.player.dir, game->deg.r1);
 	}
 	return (0);
 }

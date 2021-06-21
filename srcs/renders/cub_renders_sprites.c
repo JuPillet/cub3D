@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 21:49:17 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/21 18:09:50 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/21 19:11:47 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,24 +42,14 @@ void	cub_print_sprite(t_game *game, t_sprite *sprt, int start)
 
 void	cub_init_print_sprite(t_game *game, t_sprite *sprt, int *start)
 {
-	system("clear");
-	printf("r360 : %f\n", game->deg.r360);
 	sprt->r_a_sprite = atan2((game->level.player.pos_y - sprt->pos_y),
 		(sprt->pos_x - game->level.player.pos_x));
-	printf("r_a_sprt : %f\n", sprt->r_a_sprite);
-	printf("player_dir : %f\n", game->level.player.dir);
-	printf("demi_fov : %f\n", game->screen.resolution.r_demi_fov);
 	sprt->r_x_sprite = (game->level.player.dir - sprt->r_a_sprite
 			+ game->screen.resolution.r_demi_fov);
-	printf("r_x_sprt : %f\n", sprt->r_x_sprite);
 	if (sprt->r_x_sprite >= M_PI)
 		sprt->r_x_sprite = sprt->r_x_sprite - game->deg.r360;
-	printf("r_x_sprt : %f\n", sprt->r_x_sprite);
 	(*start) = (int)(sprt->r_x_sprite / game->screen.resolution.r_o_s_pix);
-	printf("start : %i\n", *start);
-	printf("demi_height : %f\n", sprt->demi_height);
 	(*start) -= (int)(sprt->demi_height);
-	printf("start : %i\n", *start);
 	sprt->pix_o_s = SIDE / sprt->height;
 	sprt->sprite_x = 0;
 	if (*start < 0)
@@ -67,7 +57,6 @@ void	cub_init_print_sprite(t_game *game, t_sprite *sprt, int *start)
 		sprt->sprite_x = -((*start) * sprt->pix_o_s);
 		*start = 0;
 	}
-	printf("sprt_x : %f\n", sprt->sprite_x);
 	*start -= 1;
 	sprt->sprite_y = 0;
 	if (sprt->top < 0)

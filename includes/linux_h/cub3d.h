@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/21 16:29:54 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/21 20:02:12 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -230,8 +230,8 @@ int				cub_set_argb(int a, int r, int g, int b);
 void			cub_sort_sprite(t_level *level);
 void			cub_set_distance_sprite(t_level *level);
 
-int				cub_player_front_move(t_game *game);
-int				cub_player_lateral_move(t_game *game);
+int				cub_player_front_move(t_game *game, double o_s_x, double o_s_y);
+int				cub_player_lateral_move(t_game *game, double o_s_x, double o_s_y);
 int				cub_player_rotate_move(t_game *game);
 int				cub_key_push(int key_code, t_game *game);
 int				cub_key_release(int key_code, t_game *game);
