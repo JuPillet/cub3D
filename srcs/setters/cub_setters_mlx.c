@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/13 19:30:39 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/20 17:28:26 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/21 17:09:02 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	cub_set_mlx_screen(t_game *game)
 	resolution = game->screen.resolution;
 	if (!(game->save))
 		screen->mlx_screen = mlx_new_window(game->mlx,
-				resolution.width, resolution.height, "LOUIS XIV");
+				resolution.width, resolution.height, "cub3D");
 	pic_screen->img = mlx_new_image(game->mlx,
 			resolution.width, resolution.height);
 	pic_screen->addr = mlx_get_data_addr(

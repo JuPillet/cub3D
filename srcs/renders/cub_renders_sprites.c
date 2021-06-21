@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 21:49:17 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/20 21:09:30 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/21 17:06:33 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,31 @@ void	cub_print_sprite(t_game *game, t_sprite *sprt, int start)
 
 void	cub_init_print_sprite(t_game *game, t_sprite *sprt, int *start)
 {
-	sprt->height = (SIDE / sprt->distance)
-		* game->screen.resolution.dist_plan;
-	sprt->demi_height = (sprt->height / 2);
-	sprt->top = game->screen.resolution.height_mdl - sprt->demi_height;
-	sprt->r_x_sprite = atan2((game->level.player.pos_y - sprt->pos_y),
+	system("clear");
+	printf("r360 : %f\n", game->deg.r360);
+	printf("height : %f\n", sprt->height);
+	printf("demi_height : %f\n", sprt->demi_height);
+	printf("top : %i\n", sprt->top);
+	sprt->r_a_sprite = atan2((game->level.player.pos_y - sprt->pos_y),
 		(sprt->pos_x - game->level.player.pos_x));
-	sprt->r_x_sprite = (game->level.player.dir - sprt->r_x_sprite
+	printf("r_a_sprt : %f\n", sprt->r_a_sprite);
+	printf("player_dir : %f\n", game->level.player.dir);
+	printf("demi_fov : %f\n", game->screen.resolution.r_demi_fov);
+	sprt->r_x_sprite = (game->level.player.dir - sprt->r_a_sprite
 			+ game->screen.resolution.r_demi_fov);
+	printf("r_x_sprt : %f\n", sprt->r_x_sprite);
+	if (sprt->r_x_sprite > game->deg.r360)
+	{
+		sprt->r_x_sprite -= game->deg.r360;
+		//sprt->r_x_sprite = sprt->r_x_sprite - game->deg.r360;
+	}
+	//else if (sprt->r_x_sprite < 0)
+	//	sprt->r_x_sprite += game->deg.r360;
+	printf("r_x_sprt : %f\n", sprt->r_x_sprite);
 	(*start) = (int)(sprt->r_x_sprite / game->screen.resolution.r_o_s_pix);
+	printf("start : %i\n", *start);
 	(*start) -= (int)(sprt->demi_height);
+	printf("start : %i\n", *start);
 	sprt->pix_o_s = SIDE / sprt->height;
 	sprt->sprite_x = 0;
 	if (*start < 0)
@@ -59,10 +74,18 @@ void	cub_init_print_sprite(t_game *game, t_sprite *sprt, int *start)
 		sprt->sprite_x = -((*start) * sprt->pix_o_s);
 		*start = 0;
 	}
+	printf("sprt_x : %f\n", sprt->sprite_x);
 	*start -= 1;
 	sprt->sprite_y = 0;
 	if (sprt->top < 0)
 		sprt->sprite_y = -(sprt->top * sprt->pix_o_s);
+}
+
+void	cub_pre_init_print_sprite(t_game *game, t_sprite *sprt)
+{
+	sprt->height = (SIDE / sprt->distance) * game->screen.resolution.dist_plan;
+	sprt->demi_height = (sprt->height / 2);
+	sprt->top = game->screen.resolution.height_mdl - sprt->demi_height;
 }
 
 void	cub_render_sprites(t_game *game)
@@ -77,6 +100,7 @@ void	cub_render_sprites(t_game *game)
 	{
 		if (sprt[crnt_sprite].visible)
 		{
+			cub_pre_init_print_sprite(game, &(sprt[crnt_sprite]));
 			cub_init_print_sprite(game, &(sprt[crnt_sprite]), &start);
 			cub_print_sprite(game, &(sprt[crnt_sprite]), start);
 		}

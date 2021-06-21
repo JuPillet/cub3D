@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/26 17:31:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/20 17:27:57 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/21 16:30:00 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct	s_sprite
 	double	demi_height;
 	int		top;
 	int		end;
+	double	r_a_sprite;
 	double	r_x_sprite;
 	double	sprite_x;
 	double	sprite_y;
