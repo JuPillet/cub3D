@@ -6,7 +6,7 @@
 #    By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/11 13:15:25 by jpillet           #+#    #+#              #
-#    Updated: 2021/06/19 12:18:07 by jpillet          ###   ########.fr        #
+#    Updated: 2021/06/22 15:28:52 by jpillet          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,6 +63,10 @@ SRCSCOIN		=	$(addprefix ./srcs/coin/, \
 						cub_key_push.c \
 						cub_coin.c)
 
+SRCSCBNS		=	$(addprefix ./srcs/coin/, \
+					cub_key_push_bonus.c \
+					cub_coin.c)
+
 CC				=	gcc
 
 rm				=	rm -rf
@@ -89,6 +93,12 @@ OBJSFLLR		=	${SRCSFLLR:.c=.o}
 
 OBJSCOIN		=	${SRCSCOIN:.c=.o}
 
+OBJSCBNS		=	${SRCSCBNS:.c=.o}
+
+ifdef BONUS
+	OBJSCOIN		=	${SRCSCBNS:.c=.o}
+endif
+
 UNAME_S	 		=	$(shell uname -s)
 
 FLAGMLX			=	-I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL -framework AppKit
@@ -97,10 +107,7 @@ FLAGMLX			=	-I /usr/local/include -L /usr/local/lib/ -lmlx -framework OpenGL -fr
 					cp ${DIRLIBFT}${HDLFT} ${INCLUDES}
 					${CC} ${CFLAGS} -I${INCLUDES} -c $< -o ${<:.c=.o}
 
-##all				:	${CUB3DH} ${LIBFT} ${MLX} ${NAME}
-
 all				:	${CUB3DH} ${LIBFT} ${NAME}
-
 
 ${CUB3DH}		:
 					cp ${INCLUDES}darwin_h/${CUB3DH} ${INCLUDES}
@@ -118,10 +125,13 @@ ${LIBFT}		:
 ${NAME}			:	${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR}
 					${CC} ${CFLAGS} ${OBJSCMMN} ${OBJSCHKR} ${OBJSMLLC} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR} ${LIBFT} $(FLAGMLX) -o ${NAME}
 
+bonus			:	
+					make BONUS=1 all
+
 clean			:
 					make clean -C ${DIRLIBFT}
-					rm -rf	${OBJSCMMN} ${OBJSTEST} ${OBJSMLLC} ${OBJSCHKR} ${OBJSPRSR} ${OBJSSTTR} \
-					${OBJSGTTR} ${OBJSFLLR} ${OBJSCOIN} ${OBJSRNDR} ${INCLUDES}${CUB3DH} ${INCLUDES}${HDLFT}
+					rm -rf	${OBJSCMMN} ${OBJSTEST} ${OBJSMLLC} ${OBJSCHKR} ${OBJSPRSR} ${OBJSSTTR} ${OBJSGTTR} \
+					${OBJSFLLR} ${OBJSCOIN} ${OBJSCBNS} ${OBJSCBNS} ${OBJSRNDR} ${INCLUDES}${CUB3DH} ${INCLUDES}${HDLFT}
 
 fclean			:	clean
 					make fclean -C ${DIRLIBFT}
@@ -130,4 +140,4 @@ fclean			:	clean
 
 re				:	fclean all
 
-.PHONY			:	all clean fclean re
+.PHONY			:	all bonus clean fclean re

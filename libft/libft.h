@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 16:33:11 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/13 22:30:51 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/22 16:09:40 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-typedef enum	e_bool
+typedef enum e_bool
 {
 	FALSE,
 	TRUE,
@@ -32,22 +32,22 @@ typedef struct s_list
 	struct s_list	*next;
 }				t_list;
 
-typedef	struct	s_buffer
+typedef struct s_buffer
 {
 	char		buffer[BUFFER_SIZE];
 	ssize_t		readlen;
 	ssize_t		buffinc;
 }				t_buffer;
-t_bool 			ft_malloc_char(int size, char **ptr);
-t_bool 			ft_malloc_int(int size, int **ptr);
-t_bool 			ft_malloc_float(int size, float **ptr);
-t_bool 			ft_malloc_double(int size, double **ptr);
-t_bool 			ft_malloc_t_bool(int size, t_bool **ptr);
-t_bool 			ft_free_char(char **ptr);
-t_bool 			ft_free_int(int **ptr);
-t_bool 			ft_free_float(float **ptr);
-t_bool 			ft_free_double(double **ptr);
-t_bool 			ft_free_t_bool(t_bool **ptr);
+t_bool			ft_malloc_char(int size, char **ptr);
+t_bool			ft_malloc_int(int size, int **ptr);
+t_bool			ft_malloc_float(int size, float **ptr);
+t_bool			ft_malloc_double(int size, double **ptr);
+t_bool			ft_malloc_t_bool(int size, t_bool **ptr);
+t_bool			ft_free_char(char **ptr);
+t_bool			ft_free_int(int **ptr);
+t_bool			ft_free_float(float **ptr);
+t_bool			ft_free_double(double **ptr);
+t_bool			ft_free_t_bool(t_bool **ptr);
 double			ft_atof(const char *str);
 int				ft_atoi(const char *str);
 void			ft_bzero(void *s, size_t n);
@@ -105,8 +105,8 @@ t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), \
 				void (*del)(void *));
 t_bool			ft_gnl_status(int error, const char *file);
 int				ft_gnl_return_value(t_buffer *buff);
-int				ft_gnl_line_maker \
-				(t_buffer *buff, ssize_t *linelen, char **line);
+int				ft_gnl_line_maker(t_buffer *buff, ssize_t *linelen,
+					char **line);
 int				get_next_line(int fd, char **line);
 
 #endif 

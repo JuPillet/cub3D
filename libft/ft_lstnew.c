@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/23 11:49:25 by jpillet           #+#    #+#             */
-/*   Updated: 2021/04/14 18:12:29 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/22 16:17:37 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_list	*ft_lstnew(void *content)
 {
 	t_list	*newnode;
 
-	newnode = (t_list*)malloc(1 * sizeof(t_list));
+	newnode = (t_list *)malloc(1 * sizeof(t_list));
 	if (!newnode)
 		return (0);
 	newnode->content = content;

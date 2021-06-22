@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/26 14:43:49 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/19 04:06:05 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/22 14:43:13 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,12 @@ t_bool	cub_check_after_map(t_parser *parser, const char *file)
 		loop = cub_get_setting_line(parser, file);
 		while (parser->line[parser->indln])
 			if (!ft_isspace(parser->line[parser->indln++]))
-				return (FALSE);
+				return (ft_error("map isn't the last setting \
+in the settings file", file));
 	}
 	if (parser->eof == -1)
 		return (ft_error("cub3D failed to read the setting file after \
-		the map", parser->line));
+the map", parser->line));
 	return (TRUE);
 }
 

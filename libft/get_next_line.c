@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 11:20:17 by jpillet           #+#    #+#             */
-/*   Updated: 2021/05/13 22:30:06 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/22 16:16:28 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_bool	ft_gnl_status(int eof, const char *file)
 	return (TRUE);
 }
 
-int		ft_gnl_return_value(t_buffer *buff)
+int	ft_gnl_return_value(t_buffer *buff)
 {
 	if ((buff->buffinc) == (buff->readlen) && (buff->readlen) < BUFFER_SIZE)
 	{
@@ -37,7 +37,7 @@ int		ft_gnl_return_value(t_buffer *buff)
 	return (2);
 }
 
-int		ft_gnl_line_maker(t_buffer *buff, ssize_t *linelen, char **line)
+int	ft_gnl_line_maker(t_buffer *buff, ssize_t *linelen, char **line)
 {
 	char			*delline;
 	ssize_t			mallinc;
@@ -53,12 +53,9 @@ int		ft_gnl_line_maker(t_buffer *buff, ssize_t *linelen, char **line)
 		return (-1);
 	if (*linelen > 0)
 	{
-		*linelen = 0;
-		while (delline[(*linelen)])
-		{
+		*linelen = -1;
+		while (delline[++(*linelen)])
 			(*line)[(*linelen)] = delline[(*linelen)];
-			(*linelen)++;
-		}
 		free(delline);
 	}
 	while (buff->buffer[buff->buffinc] != '\n' && buff->buffinc < buff->readlen)
@@ -67,7 +64,7 @@ int		ft_gnl_line_maker(t_buffer *buff, ssize_t *linelen, char **line)
 	return ((ft_gnl_return_value(buff)));
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static t_buffer		buff[256];
 	ssize_t				linelen;

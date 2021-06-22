@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:41:19 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/21 20:00:45 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/22 15:34:57 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ int	cub_player_front_move(t_game *game, double o_s_x, double o_s_y)
 	while (iter--)
 	{
 		if (map[((int)(game->level.player.pos_y - (2 * o_s_y)) / SIDE)]
-			[((int)(game->level.player.pos_x) / SIDE)] != '0')
+			[((int)(game->level.player.pos_x) / SIDE)] == '0')
 			game->level.player.pos_y -= o_s_y;
 		if (map[((int)(game->level.player.pos_y) / SIDE)]
-			[((int)(game->level.player.pos_x + (2 * o_s_x)) / SIDE)] != '0')
+			[((int)(game->level.player.pos_x + (2 * o_s_x)) / SIDE)] == '0')
 			game->level.player.pos_x += o_s_x;
 	}
 	return (0);
@@ -50,10 +50,10 @@ int	cub_player_lateral_move(t_game *game, double o_s_x, double o_s_y)
 	while (iter--)
 	{
 		if (map[((int)(game->level.player.pos_y + (2 * o_s_y)) / SIDE)]
-			[((int)(game->level.player.pos_x) / SIDE)] != '0')
+			[((int)(game->level.player.pos_x) / SIDE)] == '0')
 			game->level.player.pos_y += o_s_y;
 		if (map[((int)(game->level.player.pos_y) / SIDE)]
-			[((int)(game->level.player.pos_x + (2 * o_s_x)) / SIDE)] != '0')
+			[((int)(game->level.player.pos_x + (2 * o_s_x)) / SIDE)] == '0')
 			game->level.player.pos_x += o_s_x;
 	}
 	return (0);
