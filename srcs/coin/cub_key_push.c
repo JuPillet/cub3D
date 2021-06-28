@@ -6,7 +6,7 @@
 /*   By: jpillet <jpillet@student.42nice.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 14:41:19 by jpillet           #+#    #+#             */
-/*   Updated: 2021/06/21 20:02:46 by jpillet          ###   ########.fr       */
+/*   Updated: 2021/06/28 16:06:56 by jpillet          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 
 int	cub_player_front_move(t_game *game, double o_s_x, double o_s_y)
 {
-	char	**map;
 	int		iter;
 
-	map = game->level.area.map;
 	if (game->keys.s)
 		o_s_x *= -1;
 	if (game->keys.s)
@@ -41,10 +39,8 @@ int	cub_player_front_move(t_game *game, double o_s_x, double o_s_y)
 
 int	cub_player_lateral_move(t_game *game, double o_s_x, double o_s_y)
 {
-	char	**map;
 	int		iter;
 
-	map = game->level.area.map;
 	if (game->keys.q)
 		o_s_x *= -1;
 	if (game->keys.q)
